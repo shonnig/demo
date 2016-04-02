@@ -11,6 +11,8 @@
 		0D62D2481CAE0767003B046A /* border.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2471CAE0767003B046A /* border.jpg */; settings = {ASSET_TAGS = (); }; };
 		0D62D24A1CAE0852003B046A /* Spearman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2491CAE0852003B046A /* Spearman.png */; settings = {ASSET_TAGS = (); }; };
 		0D62D24C1CAE38BE003B046A /* 230px-Miner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D24B1CAE38BE003B046A /* 230px-Miner.png */; settings = {ASSET_TAGS = (); }; };
+		0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDBFB321CAEEF7D0015AE00 /* Tile.swift */; settings = {ASSET_TAGS = (); }; };
+		0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0DFF7A9A1CAF485000E802CF /* tile.jpg */; settings = {ASSET_TAGS = (); }; };
 		5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */; };
 		5189A2E11BA8BB01004A19F3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5189A2E01BA8BB01004A19F3 /* GameScene.sks */; };
 		5189A2E31BA8BB01004A19F3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5189A2E21BA8BB01004A19F3 /* GameScene.swift */; };
@@ -54,6 +56,8 @@
 		0D62D2471CAE0767003B046A /* border.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = border.jpg; sourceTree = "<group>"; };
 		0D62D2491CAE0852003B046A /* Spearman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spearman.png; sourceTree = "<group>"; };
 		0D62D24B1CAE38BE003B046A /* 230px-Miner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "230px-Miner.png"; sourceTree = "<group>"; };
+		0DDBFB321CAEEF7D0015AE00 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		0DFF7A9A1CAF485000E802CF /* tile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tile.jpg; sourceTree = "<group>"; };
 		5189A2DB1BA8BB01004A19F3 /* Project11.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project11.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5189A2E01BA8BB01004A19F3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -124,10 +128,11 @@
 		5189A2DD1BA8BB01004A19F3 /* Project11 */ = {
 			isa = PBXGroup;
 			children = (
+				0DDBFB321CAEEF7D0015AE00 /* Tile.swift */,
 				0D62D2411CAE00A9003B046A /* Card.swift */,
+				5189A2E21BA8BB01004A19F3 /* GameScene.swift */,
 				5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */,
 				5189A2E01BA8BB01004A19F3 /* GameScene.sks */,
-				5189A2E21BA8BB01004A19F3 /* GameScene.swift */,
 				5189A2E41BA8BB01004A19F3 /* GameViewController.swift */,
 				5189A2E61BA8BB01004A19F3 /* Main.storyboard */,
 				5189A2E91BA8BB01004A19F3 /* Assets.xcassets */,
@@ -142,6 +147,7 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				0DFF7A9A1CAF485000E802CF /* tile.jpg */,
 				0D62D24B1CAE38BE003B046A /* 230px-Miner.png */,
 				0D62D2491CAE0852003B046A /* Spearman.png */,
 				0D62D2471CAE0767003B046A /* border.jpg */,
@@ -247,6 +253,7 @@
 				5189A3251BA8C1B9004A19F3 /* slotBaseBad@2x.png in Resources */,
 				5189A3201BA8C1B9004A19F3 /* ballYellow@2x.png in Resources */,
 				5189A3241BA8C1B9004A19F3 /* slotBaseBad.png in Resources */,
+				0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */,
 				5189A3111BA8C1B9004A19F3 /* background.jpg in Resources */,
 				5189A3271BA8C1B9004A19F3 /* slotBaseGood@2x.png in Resources */,
 				5189A3221BA8C1B9004A19F3 /* bouncer@2x.png in Resources */,
@@ -282,6 +289,7 @@
 				5189A2E31BA8BB01004A19F3 /* GameScene.swift in Sources */,
 				5189A2E51BA8BB01004A19F3 /* GameViewController.swift in Sources */,
 				0D62D2421CAE00A9003B046A /* Card.swift in Sources */,
+				0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */,
 				5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */,
 				5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */,
 			);

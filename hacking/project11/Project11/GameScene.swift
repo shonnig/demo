@@ -10,6 +10,8 @@ import GameplayKit
 import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    /*
 	var scoreLabel: SKLabelNode!
 
 	var score: Int = 0 {
@@ -29,12 +31,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 			}
 		}
 	}
+    */
 
     override func didMoveToView(view: SKView) {
 		let background = SKSpriteNode(imageNamed: "background.jpg")
 		background.position = CGPoint(x: 512, y: 384)
 		background.blendMode = .Replace
-		background.zPosition = -1
+		background.zPosition = -10
 		addChild(background)
         
         let wolf = Card(imageNamed: "Spearman.png", imageScale: 0.25)
@@ -45,6 +48,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bear.position = CGPointMake(500, 200)
         addChild(bear)
 
+        for row in 0...3 {
+            for col in 0...4 {
+                let tile = Tile(row: row, col: col)
+                addChild(tile)
+            }
+        }
+        
+        
         /*
 		physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
 		physicsWorld.contactDelegate = self
@@ -59,7 +70,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		makeBouncerAt(CGPoint(x: 512, y: 0))
 		makeBouncerAt(CGPoint(x: 768, y: 0))
 		makeBouncerAt(CGPoint(x: 1024, y: 0))
-        */
 
 		scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
 		scoreLabel.text = "Score: 0"
@@ -71,9 +81,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		editLabel.text = "Edit"
 		editLabel.position = CGPoint(x: 80, y: 700)
 		addChild(editLabel)
+        */
     }
     
+
+    
+    /*
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
 		if let touch = touches.first {
 			let location = touch.locationInNode(self)
 
@@ -103,14 +118,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 				}
 			}
 		}
+
     }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+        
     }
 
     
-    /*
 	func makeBouncerAt(position: CGPoint) {
 		let bouncer = SKSpriteNode(imageNamed: "bouncer")
 		bouncer.position = position
