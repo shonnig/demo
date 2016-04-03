@@ -37,7 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		let background = SKSpriteNode(imageNamed: "background.jpg")
 		background.position = CGPoint(x: 512, y: 384)
 		background.blendMode = .Replace
-		background.zPosition = -10
+		background.zPosition = -100
 		addChild(background)
         
         let wolf = Card(imageNamed: "Spearman.png", imageScale: 0.25)
@@ -50,7 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         for row in 0...3 {
             for col in 0...4 {
-                let tile = Tile(row: row, col: col)
+                let tile = Tile(_row: row, _col: col)
                 addChild(tile)
             }
         }

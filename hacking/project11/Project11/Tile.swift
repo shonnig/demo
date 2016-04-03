@@ -13,14 +13,22 @@ import SpriteKit
 
 class Tile : SKSpriteNode {
     
+    static var currentHightlight: Tile?
+    
+    var row = 0
+    var col = 0
+    let side = 135
+    
+    var glowNode: SKSpriteNode?
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    
-    init(row: Int, col: Int) {
+    init(_row: Int, _col: Int) {
         
-        let side = 135
+        row = _row
+        col = _col
         
         let background = SKTexture(imageNamed: "tile.jpg")
         super.init(texture: background, color: UIColor(white: 0.5, alpha: 1.0), size: CGSize(width: side, height: side))
@@ -33,11 +41,42 @@ class Tile : SKSpriteNode {
         }
         blendMode = SKBlendMode.Replace
         
-        // allow the Card to intercept touches instead of passing them through the scene
         //userInteractionEnabled = true
-        
-        //setScale(0.20)
+
         position = CGPointMake(CGFloat(200 + (col * side)), CGFloat(100 + (row * side)))
+        zPosition = -10
+        
+        // Create the highlight node
+        initHighlight()
+    }
+    
+    func initHighlight() {
+        // create a copy of our original node create the glow effect
+        glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.5), size: CGSize(width: side, height: side))
+        glowNode!.setScale(1.1)
+        // Make the effect go just under this tile (but above others)
+        glowNode!.zPosition = -1
+        glowNode!.hidden = true
+        self.addChild(glowNode!)
+    }
+    
+    func addHighlight() {
+        
+        // There can be only one
+        // TODO: this is not sufficient as
+        if Tile.currentHightlight != self {
+            Tile.currentHightlight?.removeHighlight()
+            Tile.currentHightlight = self
+        }
+        
+        // Need to raise the highlighted tile above the others so the highlight is below this tile but above others
         zPosition = -5
+        glowNode?.hidden = false
+    }
+    
+    func removeHighlight() {
+        Tile.currentHightlight = nil
+        zPosition = -10
+        glowNode?.hidden = true
     }
 }

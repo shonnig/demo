@@ -34,6 +34,7 @@ class Card : SKSpriteNode {
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        // TODO: do we really need to loop through all these?
         for _ in touches {
             // note: removed references to touchedNode
             // 'self' in most cases is not required in Swift
@@ -55,6 +56,14 @@ class Card : SKSpriteNode {
             let location = touch.locationInNode(scene!) // make sure this is scene, not self
             let touchedNode = nodeAtPoint(location)
             touchedNode.position = location
+            
+            let nodes = scene?.nodesAtPoint(location)
+            for node in nodes! {
+                if node is Tile {
+                    let tile = node as! Tile
+                    tile.addHighlight()
+                }
+            }
         }
     }
     
@@ -66,6 +75,8 @@ class Card : SKSpriteNode {
             removeActionForKey("wiggle")
             runAction(SKAction.rotateToAngle(0, duration: 0.2), withKey:"rotate")
         }
+        
+        Tile.currentHightlight?.removeHighlight()
     }
 
 }
