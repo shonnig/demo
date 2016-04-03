@@ -9,13 +9,27 @@
 import Foundation
 import SpriteKit
 
+enum CardLocation {
+    case Hand
+    // row and col
+    case Tile(Int, Int)
+    case Deck
+    case Discard
+    case Choice
+}
+
 class Card : SKSpriteNode {
+    
+    var location: CardLocation
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
     init(imageNamed: String, imageScale: CGFloat) {
+        
+        // TODO: temp
+        location = .Hand
         
         // make the border/background
         let cardBackground = SKTexture(imageNamed: "border.jpg")
@@ -42,7 +56,6 @@ class Card : SKSpriteNode {
             let liftUp = SKAction.scaleTo(0.5, duration: 0.2)
             runAction(liftUp, withKey: "pickup")
             
-            
             let rotR = SKAction.rotateByAngle(0.07, duration: 0.25)
             let rotL = SKAction.rotateByAngle(-0.07, duration: 0.25)
             let cycle = SKAction.sequence([rotR, rotL, rotL, rotR])
@@ -57,6 +70,7 @@ class Card : SKSpriteNode {
             let touchedNode = nodeAtPoint(location)
             touchedNode.position = location
             
+            // TODO: remove highlight if we moved off of tile board?
             let nodes = scene?.nodesAtPoint(location)
             for node in nodes! {
                 if node is Tile {
@@ -68,6 +82,8 @@ class Card : SKSpriteNode {
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        // TODO: do we need loop?
         for _ in touches {
             zPosition = 0
             let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
@@ -76,7 +92,13 @@ class Card : SKSpriteNode {
             runAction(SKAction.rotateToAngle(0, duration: 0.2), withKey:"rotate")
         }
         
-        Tile.currentHightlight?.removeHighlight()
+        // Move card to selected tile
+        if (Tile.currentHightlight != nil) {
+            location = .Tile(Tile.currentHightlight!.row, Tile.currentHightlight!.col)
+            let snapToPosition = Tile.currentHightlight!.position
+            let snapTo = SKAction.moveTo(snapToPosition, duration: 0.2)
+            runAction(snapTo, withKey: "snap")
+            Tile.currentHightlight!.removeHighlight()
+        }
     }
-
 }

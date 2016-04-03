@@ -15,8 +15,8 @@ class Tile : SKSpriteNode {
     
     static var currentHightlight: Tile?
     
-    var row = 0
-    var col = 0
+    var row: Int = 0
+    var col: Int = 0
     let side = 135
     
     var glowNode: SKSpriteNode?
@@ -33,6 +33,7 @@ class Tile : SKSpriteNode {
         let background = SKTexture(imageNamed: "tile.jpg")
         super.init(texture: background, color: UIColor(white: 0.5, alpha: 1.0), size: CGSize(width: side, height: side))
         
+        // make checkerboard pattern to tell tiles apart
         if (row + col) % 2 == 0 {
             colorBlendFactor = 0.7
         }
@@ -41,6 +42,7 @@ class Tile : SKSpriteNode {
         }
         blendMode = SKBlendMode.Replace
         
+        // TODO: will we want this?
         //userInteractionEnabled = true
 
         position = CGPointMake(CGFloat(200 + (col * side)), CGFloat(100 + (row * side)))
@@ -63,7 +65,6 @@ class Tile : SKSpriteNode {
     func addHighlight() {
         
         // There can be only one
-        // TODO: this is not sufficient as
         if Tile.currentHightlight != self {
             Tile.currentHightlight?.removeHighlight()
             Tile.currentHightlight = self

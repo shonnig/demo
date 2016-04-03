@@ -39,14 +39,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		background.blendMode = .Replace
 		background.zPosition = -100
 		addChild(background)
-        
-        let wolf = Card(imageNamed: "Spearman.png", imageScale: 0.25)
-        wolf.position = CGPointMake(200,200)
-        addChild(wolf)
-        
-        let bear = Card(imageNamed: "230px-Miner.png", imageScale: 0.6)
-        bear.position = CGPointMake(500, 200)
-        addChild(bear)
 
         for row in 0...3 {
             for col in 0...4 {
@@ -55,6 +47,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        let wolf = Card(imageNamed: "Spearman.png", imageScale: 0.25)
+        wolf.position = CGPointMake(200,200)
+        addChild(wolf)
+        
+        let bear = Card(imageNamed: "230px-Miner.png", imageScale: 0.6)
+        bear.position = CGPointMake(500, 200)
+        addChild(bear)
         
         /*
 		physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
