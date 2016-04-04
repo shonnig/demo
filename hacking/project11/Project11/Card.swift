@@ -20,16 +20,13 @@ enum CardLocation {
 
 class Card : SKSpriteNode {
     
-    var location: CardLocation
+    var location: CardLocation?
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
     init(imageNamed: String, imageScale: CGFloat) {
-        
-        // TODO: temp
-        location = .Hand
         
         // make the border/background
         let cardBackground = SKTexture(imageNamed: "border.jpg")
@@ -47,7 +44,43 @@ class Card : SKSpriteNode {
         setScale(0.33)
     }
 
+    func isInHand() -> Bool {
+        var ret:Bool
+        switch location! {
+        case .Hand: ret = true
+        default: ret = false
+        }
+        return ret
+    }
+    
+    func moveFromHandToTile(toTile: Tile) {
+        
+        // take out of hand
+        let gameScene = scene as! GameScene
+        gameScene.hand!.removeCard(self)
+        
+        // set on board
+        // TODO: location must be changed after removing from Hand - fix this requirement?
+        location = .Tile(toTile.row, toTile.col)
+        // TODO: add check that this tile isn't already occupied?
+        toTile.occupiedBy = self
+        
+        // animate to this
+        let snapToPosition = toTile.position
+        let snapTo = SKAction.moveTo(snapToPosition, duration: 0.2)
+        runAction(snapTo, withKey: "snap")
+        
+        // align hand
+        gameScene.hand!.alignHand()
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        // Can only move cards from hand
+        if !isInHand() {
+            return
+        }
+        
         // TODO: do we really need to loop through all these?
         for _ in touches {
             // note: removed references to touchedNode
@@ -65,6 +98,12 @@ class Card : SKSpriteNode {
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        // Can only move cards from hand
+        if !isInHand() {
+            return
+        }
+        
         for touch in touches {
             let location = touch.locationInNode(scene!) // make sure this is scene, not self
             let touchedNode = nodeAtPoint(location)
@@ -83,7 +122,13 @@ class Card : SKSpriteNode {
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
+        // Can only move cards from hand
+        if !isInHand() {
+            return
+        }
+        
         // TODO: do we need loop?
+        // TODO: move this also to move card logic?
         for _ in touches {
             zPosition = 0
             let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
@@ -92,13 +137,17 @@ class Card : SKSpriteNode {
             runAction(SKAction.rotateToAngle(0, duration: 0.2), withKey:"rotate")
         }
         
-        // Move card to selected tile
-        if (Tile.currentHightlight != nil) {
-            location = .Tile(Tile.currentHightlight!.row, Tile.currentHightlight!.col)
-            let snapToPosition = Tile.currentHightlight!.position
-            let snapTo = SKAction.moveTo(snapToPosition, duration: 0.2)
-            runAction(snapTo, withKey: "snap")
-            Tile.currentHightlight!.removeHighlight()
+        // Move card to selected tile if it is a valid play
+        if (Tile.currentHighlight != nil && Tile.currentHighlight!.occupiedBy == nil) {
+            moveFromHandToTile(Tile.currentHighlight!)
         }
+        
+        if Tile.currentHighlight != nil {
+            Tile.currentHighlight?.removeHighlight()
+        }
+            
+        // Should be able to realign hand and have card return?
+        let gameScene = scene as! GameScene
+        gameScene.hand!.alignHand()
     }
 }

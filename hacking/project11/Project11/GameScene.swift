@@ -32,7 +32,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		}
 	}
     */
+    
+    var hand: Hand?
 
+    /*
+    override init() {
+        hand = Hand()
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    */
+    
     override func didMoveToView(view: SKView) {
 		let background = SKSpriteNode(imageNamed: "background.jpg")
 		background.position = CGPoint(x: 512, y: 384)
@@ -40,6 +53,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		background.zPosition = -100
 		addChild(background)
 
+        hand = Hand()
+        
         for row in 0...3 {
             for col in 0...4 {
                 let tile = Tile(_row: row, _col: col)
@@ -50,10 +65,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let wolf = Card(imageNamed: "Spearman.png", imageScale: 0.25)
         wolf.position = CGPointMake(200,200)
         addChild(wolf)
+        hand!.addCard(wolf)
         
         let bear = Card(imageNamed: "230px-Miner.png", imageScale: 0.6)
         bear.position = CGPointMake(500, 200)
         addChild(bear)
+        hand!.addCard(bear)
+        
+        hand!.alignHand()
         
         /*
 		physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
@@ -82,7 +101,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		addChild(editLabel)
         */
     }
-    
 
     
     /*

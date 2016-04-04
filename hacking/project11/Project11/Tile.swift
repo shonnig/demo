@@ -7,18 +7,20 @@
 //
 
 import Foundation
-
-import Foundation
 import SpriteKit
 
 class Tile : SKSpriteNode {
     
-    static var currentHightlight: Tile?
+    static var currentHighlight: Tile?
     
     var row: Int = 0
     var col: Int = 0
     let side = 135
     
+    // Card currently occupying the tile
+    var occupiedBy: Card?
+    
+    // sprite for highlight effect
     var glowNode: SKSpriteNode?
     
     required init(coder aDecoder: NSCoder) {
@@ -45,7 +47,7 @@ class Tile : SKSpriteNode {
         // TODO: will we want this?
         //userInteractionEnabled = true
 
-        position = CGPointMake(CGFloat(200 + (col * side)), CGFloat(100 + (row * side)))
+        position = CGPointMake(CGFloat(300 + (col * side)), CGFloat(200 + (row * side)))
         zPosition = -10
         
         // Create the highlight node
@@ -54,7 +56,7 @@ class Tile : SKSpriteNode {
     
     func initHighlight() {
         // create a copy of our original node create the glow effect
-        glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.5), size: CGSize(width: side, height: side))
+        glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5), size: CGSize(width: side, height: side))
         glowNode!.setScale(1.1)
         // Make the effect go just under this tile (but above others)
         glowNode!.zPosition = -1
@@ -65,18 +67,26 @@ class Tile : SKSpriteNode {
     func addHighlight() {
         
         // There can be only one
-        if Tile.currentHightlight != self {
-            Tile.currentHightlight?.removeHighlight()
-            Tile.currentHightlight = self
+        if Tile.currentHighlight != self {
+            Tile.currentHighlight?.removeHighlight()
+            Tile.currentHighlight = self
         }
         
         // Need to raise the highlighted tile above the others so the highlight is below this tile but above others
         zPosition = -5
         glowNode?.hidden = false
+        
+        // Green - empty and can be placed, red - occupied and can't
+        // TODO: these rules need to be more complex
+        if (occupiedBy != nil) {
+            glowNode?.color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
+        } else {
+            glowNode?.color = SKColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5)
+        }
     }
     
     func removeHighlight() {
-        Tile.currentHightlight = nil
+        Tile.currentHighlight = nil
         zPosition = -10
         glowNode?.hidden = true
     }
