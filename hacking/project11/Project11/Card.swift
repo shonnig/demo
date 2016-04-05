@@ -89,11 +89,7 @@ class Card : SKSpriteNode {
             let liftUp = SKAction.scaleTo(0.5, duration: 0.2)
             runAction(liftUp, withKey: "pickup")
             
-            let rotR = SKAction.rotateByAngle(0.07, duration: 0.25)
-            let rotL = SKAction.rotateByAngle(-0.07, duration: 0.25)
-            let cycle = SKAction.sequence([rotR, rotL, rotL, rotR])
-            let wiggle = SKAction.repeatActionForever(cycle)
-            runAction(wiggle, withKey: "wiggle")
+            startWiggle()
         }
     }
     
@@ -108,8 +104,13 @@ class Card : SKSpriteNode {
             let location = touch.locationInNode(scene!) // make sure this is scene, not self
             let touchedNode = nodeAtPoint(location)
             touchedNode.position = location
+            startWiggle()
             
-            // TODO: remove highlight if we moved off of tile board?
+            // Remove highlight, then add it back if it's still over a tile
+            if Tile.currentHighlight != nil {
+                Tile.currentHighlight?.removeHighlight()
+            }
+            
             let nodes = scene?.nodesAtPoint(location)
             for node in nodes! {
                 if node is Tile {
@@ -130,16 +131,18 @@ class Card : SKSpriteNode {
         // TODO: do we need loop?
         // TODO: move this also to move card logic?
         for _ in touches {
-            zPosition = 0
             let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
-            runAction(dropDown, withKey: "drop")
-            removeActionForKey("wiggle")
-            runAction(SKAction.rotateToAngle(0, duration: 0.2), withKey:"rotate")
+            runAction(dropDown, withKey: "drop", optionalCompletion: lowerPosition)
+            stopWiggle()
         }
         
         // Move card to selected tile if it is a valid play
         if (Tile.currentHighlight != nil && Tile.currentHighlight!.occupiedBy == nil) {
             moveFromHandToTile(Tile.currentHighlight!)
+            
+            // TODO: temp for testing
+            let gameScene = scene as! GameScene
+            gameScene.deck!.drawCard()
         }
         
         if Tile.currentHighlight != nil {
@@ -150,4 +153,40 @@ class Card : SKSpriteNode {
         let gameScene = scene as! GameScene
         gameScene.hand!.alignHand()
     }
+    
+    func startWiggle() {
+        // TODO - is it ok to check for any actions?
+        if hasActions() == false {
+            let startAngle = CGFloat(RandomFloat(min: 0.05, max: 0.1))
+            let secondAngle = CGFloat(startAngle * -1.0)
+            let time = NSTimeInterval(startAngle * 2.0)
+            
+            
+            let rotBack = SKAction.rotateToAngle(0, duration: 0.15)
+            let rotR = SKAction.rotateByAngle(startAngle, duration: time)
+            let rotL = SKAction.rotateByAngle(secondAngle, duration: time)
+            var cycle:SKAction
+            
+            // 50/50 left or right first
+            if (RandomInt(min: 0,max: 1) == 0) {
+                cycle = SKAction.sequence([rotBack, rotR, rotL])
+            } else {
+                cycle = SKAction.sequence([rotBack, rotL, rotR])
+            }
+
+            runAction(cycle, withKey: "wiggle")
+        }
+    }
+    
+    func stopWiggle() {
+        removeActionForKey("wiggle")
+        
+        // return card back to normal angle
+        runAction(SKAction.rotateToAngle(0, duration: 0.2), withKey:"rotate")
+    }
+    
+    func lowerPosition() {
+        zPosition = 0
+    }
+
 }

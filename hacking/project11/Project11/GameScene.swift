@@ -9,6 +9,23 @@
 import GameplayKit
 import SpriteKit
 
+extension SKNode
+{
+    func runAction( action: SKAction!, withKey: String!, optionalCompletion: dispatch_block_t? )
+    {
+        if let completion = optionalCompletion
+        {
+            let completionAction = SKAction.runBlock( completion )
+            let compositeAction = SKAction.sequence([ action, completionAction ])
+            runAction( compositeAction, withKey: withKey )
+        }
+        else
+        {
+            runAction( action, withKey: withKey )
+        }
+    }
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /*
@@ -34,6 +51,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     */
     
     var hand: Hand?
+    
+    var deck: Deck?
 
     /*
     override init() {
@@ -45,6 +64,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     */
+    
+    override func update(currentTime: CFTimeInterval) {
+        
+    }
     
     override func didMoveToView(view: SKView) {
 		let background = SKSpriteNode(imageNamed: "background.jpg")
@@ -62,17 +85,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        let wolf = Card(imageNamed: "Spearman.png", imageScale: 0.25)
-        wolf.position = CGPointMake(200,200)
-        addChild(wolf)
-        hand!.addCard(wolf)
+        deck = Deck()
+        deck!.position = CGPointMake(900,50)
+        addChild(deck!)
         
-        let bear = Card(imageNamed: "230px-Miner.png", imageScale: 0.6)
-        bear.position = CGPointMake(500, 200)
-        addChild(bear)
-        hand!.addCard(bear)
-        
-        hand!.alignHand()
+        deck!.drawCard()
+        deck!.drawCard()
+        deck!.drawCard()
+        deck!.drawCard()
+        deck!.drawCard()
         
         /*
 		physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
@@ -138,9 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     }
    
-    override func update(currentTime: CFTimeInterval) {
-        
-    }
+
 
     
 	func makeBouncerAt(position: CGPoint) {

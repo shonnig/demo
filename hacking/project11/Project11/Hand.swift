@@ -40,7 +40,7 @@ class Hand {
             card.removeActionForKey("snap")
             
             let snapToPosition = CGPoint(x: 300 + (i * 100), y: 50)
-            let snapTo = SKAction.moveTo(snapToPosition, duration: 0.2)
+            let snapTo = SKAction.moveTo(snapToPosition, duration: 0.3)
             card.runAction(snapTo, withKey: "snap")
             i++
         }

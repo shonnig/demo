@@ -11,6 +11,7 @@
 		0D62D2481CAE0767003B046A /* border.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2471CAE0767003B046A /* border.jpg */; settings = {ASSET_TAGS = (); }; };
 		0D62D24A1CAE0852003B046A /* Spearman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2491CAE0852003B046A /* Spearman.png */; settings = {ASSET_TAGS = (); }; };
 		0D62D24C1CAE38BE003B046A /* 230px-Miner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D24B1CAE38BE003B046A /* 230px-Miner.png */; settings = {ASSET_TAGS = (); }; };
+		0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7E18A91CB379FB00FE94E2 /* Deck.swift */; settings = {ASSET_TAGS = (); }; };
 		0DB571561CB1E0A30000A898 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB571551CB1E0A30000A898 /* Hand.swift */; settings = {ASSET_TAGS = (); }; };
 		0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDBFB321CAEEF7D0015AE00 /* Tile.swift */; settings = {ASSET_TAGS = (); }; };
 		0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0DFF7A9A1CAF485000E802CF /* tile.jpg */; settings = {ASSET_TAGS = (); }; };
@@ -33,6 +34,7 @@
 		0D62D2471CAE0767003B046A /* border.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = border.jpg; sourceTree = "<group>"; };
 		0D62D2491CAE0852003B046A /* Spearman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spearman.png; sourceTree = "<group>"; };
 		0D62D24B1CAE38BE003B046A /* 230px-Miner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "230px-Miner.png"; sourceTree = "<group>"; };
+		0D7E18A91CB379FB00FE94E2 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		0DB571551CB1E0A30000A898 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		0DDBFB321CAEEF7D0015AE00 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		0DFF7A9A1CAF485000E802CF /* tile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tile.jpg; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 		5189A2DD1BA8BB01004A19F3 /* Project11 */ = {
 			isa = PBXGroup;
 			children = (
+				0D7E18A91CB379FB00FE94E2 /* Deck.swift */,
 				0DB571551CB1E0A30000A898 /* Hand.swift */,
 				0DDBFB321CAEEF7D0015AE00 /* Tile.swift */,
 				0D62D2411CAE00A9003B046A /* Card.swift */,
@@ -197,6 +200,7 @@
 				5189A2E51BA8BB01004A19F3 /* GameViewController.swift in Sources */,
 				0D62D2421CAE00A9003B046A /* Card.swift in Sources */,
 				0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */,
+				0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */,
 				0DB571561CB1E0A30000A898 /* Hand.swift in Sources */,
 				5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */,
 				5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */,
