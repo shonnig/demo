@@ -11,11 +11,17 @@ import SpriteKit
 
 class Deck : SKSpriteNode {
     
+    let drawInterval:CFTimeInterval = 10
+    
+    var nextDrawTime:CFTimeInterval
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
     init() {
+        
+        nextDrawTime = 0
         
         // make the border/background
         let cardBackground = SKTexture(imageNamed: "border.jpg")
@@ -27,13 +33,21 @@ class Deck : SKSpriteNode {
         setScale(0.33)
     }
     
+    // TODO: obviously need to populate cards in deck instead of magically creating them
     func drawCard() {
+        let gameScene = scene as! GameScene
+        let hand = gameScene.hand!
+
+        // Can never go beyond max hand size
+        if hand.isFull() {
+            return
+        }
+        
         let card = Card(imageNamed: "Spearman.png", imageScale: 0.25)
         card.position = position
         scene!.addChild(card)
-        let gameScene = scene as! GameScene
-        gameScene.hand!.addCard(card)
-        gameScene.hand!.alignHand()
+        hand.addCard(card)
+        hand.alignHand()
         
         /*
         let bear = Card(imageNamed: "230px-Miner.png", imageScale: 0.6)
@@ -41,6 +55,16 @@ class Deck : SKSpriteNode {
         addChild(bear)
         hand!.addCard(bear)
         */
+    }
+    
+    // TODO: should have a UI indicator for how long until next draw - should timer reset or hold if hand is full?
+    // periodically draw a card
+    func update(currentTime: CFTimeInterval) {
+        
+        if nextDrawTime < currentTime {
+            drawCard()
+            nextDrawTime = currentTime + drawInterval
+        }
     }
     
 }

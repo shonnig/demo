@@ -139,10 +139,6 @@ class Card : SKSpriteNode {
         // Move card to selected tile if it is a valid play
         if (Tile.currentHighlight != nil && Tile.currentHighlight!.occupiedBy == nil) {
             moveFromHandToTile(Tile.currentHighlight!)
-            
-            // TODO: temp for testing
-            let gameScene = scene as! GameScene
-            gameScene.deck!.drawCard()
         }
         
         if Tile.currentHighlight != nil {

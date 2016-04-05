@@ -12,6 +12,8 @@ import SpriteKit
 
 class Hand {
 
+    let maxSize = 5
+    
     var cards = [Card]()
     
     func addCard(card: Card) {
@@ -29,6 +31,10 @@ class Hand {
     
     func size() -> Int {
         return cards.count
+    }
+    
+    func isFull() -> Bool {
+        return cards.count >= maxSize
     }
     
     // animate all the cards in the hand into default place

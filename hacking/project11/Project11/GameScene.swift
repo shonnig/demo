@@ -67,6 +67,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         
+        deck!.update(currentTime)
     }
     
     override func didMoveToView(view: SKView) {
@@ -89,11 +90,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         deck!.position = CGPointMake(900,50)
         addChild(deck!)
         
+        // TODO: temp? have a starting hand of 3?
         deck!.drawCard()
-        deck!.drawCard()
-        deck!.drawCard()
-        deck!.drawCard()
-        deck!.drawCard()
+        //deck!.drawCard()
+        //deck!.drawCard()
         
         /*
 		physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
