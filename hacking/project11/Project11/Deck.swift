@@ -11,7 +11,12 @@ import SpriteKit
 
 class Deck : SKSpriteNode {
     
-    let drawInterval:CFTimeInterval = 10
+    let drawInterval:CFTimeInterval = 5
+    
+    // ?
+    var discard = [Card]()
+    
+    var cards = [Card]()
     
     var nextDrawTime:CFTimeInterval
     
@@ -32,6 +37,7 @@ class Deck : SKSpriteNode {
         
         setScale(0.33)
     }
+    
     
     // TODO: obviously need to populate cards in deck instead of magically creating them
     func drawCard() {

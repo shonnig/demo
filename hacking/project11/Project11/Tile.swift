@@ -77,7 +77,7 @@ class Tile : SKSpriteNode {
         glowNode?.hidden = false
         
         // Green - empty and can be placed, red - occupied and can't
-        // TODO: these rules need to be more complex
+        // TODO: these rules need to be more complex (side of the board, etc.)
         if (occupiedBy != nil) {
             glowNode?.color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
         } else {

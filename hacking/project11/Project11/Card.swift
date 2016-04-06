@@ -20,7 +20,14 @@ enum CardLocation {
 
 class Card : SKSpriteNode {
     
+    // TODO: temp, will eventually vary by card type
+    let moveInterval: CFTimeInterval = 2
+    
+    var nextMoveTime: CFTimeInterval?
+    
     var location: CardLocation?
+    
+    var isPickedUp = false
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
@@ -53,6 +60,62 @@ class Card : SKSpriteNode {
         return ret
     }
     
+    func update(currentTime: CFTimeInterval) {
+        
+        // TODO: after adding teams, don't assume direction
+        // See if next tile up is valid and free
+        var nextTileIndex: Int?
+        var currentTileIndex: Int?
+        switch location! {
+        case .Tile(let row, let col):
+            nextTileIndex = ((row + 1) * 5) + col
+            currentTileIndex = (row * 5) + col
+        default:
+            break
+        }
+            
+        // TODO: really need constants for row/col ranges
+        if nextTileIndex != nil && nextTileIndex >= 0 && nextTileIndex < 19 {
+            
+            // Timer expired and it's still free - we can move!
+            let gameScene = scene as! GameScene
+            let nextTile = gameScene.tiles[nextTileIndex!]
+            let currentTile = gameScene.tiles[currentTileIndex!]
+                    
+            if nextTile.occupiedBy == nil {
+                
+                if nextMoveTime == nil {
+                    // Next space is free, we can start the timer
+                    nextMoveTime = currentTime + moveInterval
+                } else {
+                    if nextMoveTime < currentTime {
+                        // Timer expired and space is still free, we can move!
+                        moveFromTileToTile(currentTile, toTile: nextTile)
+                        nextMoveTime = nil
+                    }
+                }
+            } else {
+                // Space is occupied - reset timer
+                nextMoveTime = nil
+            }
+        }
+    }
+
+    func moveFromTileToTile(fromTile: Tile, toTile: Tile) {
+     
+        fromTile.occupiedBy = nil
+        
+        location = .Tile(toTile.row, toTile.col)
+        // TODO: add check that this tile isn't already occupied?
+        toTile.occupiedBy = self
+        
+        // animate to this
+        let snapToPosition = toTile.position
+        let snapTo = SKAction.moveTo(snapToPosition, duration: 0.2)
+        runAction(snapTo, withKey: "snap")
+
+    }
+    
     func moveFromHandToTile(toTile: Tile) {
         
         // take out of hand
@@ -82,7 +145,7 @@ class Card : SKSpriteNode {
         }
         
         // TODO: do we really need to loop through all these?
-        for _ in touches {
+        //for _ in touches {
             // note: removed references to touchedNode
             // 'self' in most cases is not required in Swift
             zPosition = 30
@@ -90,7 +153,8 @@ class Card : SKSpriteNode {
             runAction(liftUp, withKey: "pickup")
             
             startWiggle()
-        }
+            isPickedUp = true
+        //}
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -130,11 +194,12 @@ class Card : SKSpriteNode {
         
         // TODO: do we need loop?
         // TODO: move this also to move card logic?
-        for _ in touches {
+        //for _ in touches {
             let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
             runAction(dropDown, withKey: "drop", optionalCompletion: lowerPosition)
             stopWiggle()
-        }
+            isPickedUp = false
+        //}
         
         // Move card to selected tile if it is a valid play
         if (Tile.currentHighlight != nil && Tile.currentHighlight!.occupiedBy == nil) {

@@ -50,9 +50,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 	}
     */
     
+    
     var hand: Hand?
     
     var deck: Deck?
+    
+    var tiles = [Tile]()
 
     /*
     override init() {
@@ -68,6 +71,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         
         deck!.update(currentTime)
+        
+        // TODO: currently, updating in this order will give a move advantage to player on the bottom!
+        for tile in tiles {
+            if tile.occupiedBy != nil {
+                tile.occupiedBy!.update(currentTime)
+            }
+        }
     }
     
     override func didMoveToView(view: SKView) {
@@ -83,6 +93,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for col in 0...4 {
                 let tile = Tile(_row: row, _col: col)
                 addChild(tile)
+                tiles.append(tile)
             }
         }
         
@@ -90,10 +101,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         deck!.position = CGPointMake(900,50)
         addChild(deck!)
         
-        // TODO: temp? have a starting hand of 3?
+        // TODO: temp? have a starting hand of 3? One card will be drawn right away because timer init right now
         deck!.drawCard()
-        //deck!.drawCard()
-        //deck!.drawCard()
+        deck!.drawCard()
         
         /*
 		physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
