@@ -201,6 +201,22 @@ class Card : SKSpriteNode {
         // do damage
         toTile.occupiedBy?.health -= damage
         
+        // damage image
+        let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
+        dmgImage.setScale(0.25)
+        dmgImage.position = toTile.position
+        dmgImage.zPosition = 500
+        dmgImage.hidden = true
+        scene!.addChild(dmgImage)
+
+        let wait1 = SKAction.waitForDuration(0.2)
+        let showDmg = SKAction.unhide()
+        let wait2 = SKAction.waitForDuration(0.3)
+        let fadeDmg = SKAction.fadeOutWithDuration(0.3)
+        let removeDmg = SKAction.removeFromParent()
+        let dmgCycle = SKAction.sequence([wait1, showDmg, wait2, fadeDmg, removeDmg])
+        dmgImage.runAction(dmgCycle, withKey: "damage")
+        
         // animate attack
         // TODO: make separate function? And probably can do math directly on points?
         // find partial position to opponent
@@ -284,7 +300,7 @@ class Card : SKSpriteNode {
             return
         }
         
-        zPosition = 500
+        zPosition = 1000
         let liftUp = SKAction.scaleTo(0.5, duration: 0.3)
         runAction(liftUp, withKey: "pickup")
             

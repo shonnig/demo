@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project11/Card.swift"
-            timestampString = "481777795.028647"
+            timestampString = "481846129.371963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "startWiggle()"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project11/Card.swift"
-            timestampString = "481777795.028647"
+            timestampString = "481846129.371963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "startWiggle()"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project11/Card.swift"
-            timestampString = "481777795.028647"
+            timestampString = "481846129.371963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
             landmarkName = "startWiggle()"
             landmarkType = "5">
          </BreakpointContent>
