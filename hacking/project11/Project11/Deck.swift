@@ -11,9 +11,11 @@ import SpriteKit
 
 class Deck : SKSpriteNode {
     
+    var isPlayer: Bool
+    
     let drawInterval:CFTimeInterval = 5
     
-    // ?
+    // TODO - move to a new class
     var discard = [Card]()
     
     var cards = [Card]()
@@ -24,13 +26,15 @@ class Deck : SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
-    init() {
+    init(_isPlayer: Bool) {
+        
+        isPlayer = _isPlayer
         
         nextDrawTime = 0
         
         // make the border/background
         let cardBackground = SKTexture(imageNamed: "border.jpg")
-        super.init(texture: cardBackground, color: UIColor(white: 1.0, alpha: 0.0), size: cardBackground.size())
+        super.init(texture: cardBackground, color: UIColor(white: 1.0, alpha: 0.0), size: CGSize(width: 200, height: 300))
         
         // allow the Card to intercept touches instead of passing them through the scene
         userInteractionEnabled = true
@@ -49,7 +53,7 @@ class Deck : SKSpriteNode {
             return
         }
         
-        let card = Card(imageNamed: "Spearman.png", imageScale: 0.25)
+        let card = Card(_isPlayer: true, imageNamed: "Spearman.png", imageScale: 0.25)
         card.position = position
         scene!.addChild(card)
         hand.addCard(card)

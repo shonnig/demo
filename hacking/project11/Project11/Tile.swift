@@ -64,7 +64,7 @@ class Tile : SKSpriteNode {
         self.addChild(glowNode!)
     }
     
-    func addHighlight() {
+    func addHighlight(card: Card) {
         
         // There can be only one
         if Tile.currentHighlight != self {
@@ -77,11 +77,10 @@ class Tile : SKSpriteNode {
         glowNode?.hidden = false
         
         // Green - empty and can be placed, red - occupied and can't
-        // TODO: these rules need to be more complex (side of the board, etc.)
-        if (occupiedBy != nil) {
-            glowNode?.color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
-        } else {
+        if isValidPlay(card) {
             glowNode?.color = SKColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5)
+        } else {
+            glowNode?.color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
         }
     }
     
@@ -89,5 +88,21 @@ class Tile : SKSpriteNode {
         Tile.currentHighlight = nil
         zPosition = -10
         glowNode?.hidden = true
+    }
+    
+    func isValidPlay(card: Card) -> Bool {
+        var validRow = false
+        
+        if (card.isPlayer) {
+            if row == 0 || row == 1 {
+                validRow = true
+            }
+        } else {
+            if row == 2 || row == 3 {
+                validRow = true
+            }
+        }
+        
+        return occupiedBy == nil && validRow
     }
 }

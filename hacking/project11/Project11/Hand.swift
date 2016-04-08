@@ -12,9 +12,15 @@ import SpriteKit
 
 class Hand {
 
+    var isPlayer: Bool
+    
     let maxSize = 5
     
     var cards = [Card]()
+    
+    init(_isPlayer: Bool) {
+        isPlayer = _isPlayer
+    }
     
     func addCard(card: Card) {
         
