@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D223FF81CB9551700C41139 /* Discard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D223FF71CB9551700C41139 /* Discard.swift */; settings = {ASSET_TAGS = (); }; };
 		0D57BE431CB6FE76002F32DA /* enemy_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D57BE421CB6FE76002F32DA /* enemy_card.png */; settings = {ASSET_TAGS = (); }; };
 		0D57BE451CB6FF1E002F32DA /* enemy_card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */; settings = {ASSET_TAGS = (); }; };
 		0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D581ECC1CB8584900DC6CB2 /* Explosion.png */; settings = {ASSET_TAGS = (); }; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D223FF71CB9551700C41139 /* Discard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discard.swift; sourceTree = "<group>"; };
 		0D57BE421CB6FE76002F32DA /* enemy_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_card.png; sourceTree = "<group>"; };
 		0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = enemy_card.jpg; sourceTree = "<group>"; };
 		0D581ECC1CB8584900DC6CB2 /* Explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Explosion.png; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		5189A2DD1BA8BB01004A19F3 /* Project11 */ = {
 			isa = PBXGroup;
 			children = (
+				0D223FF71CB9551700C41139 /* Discard.swift */,
 				0D7E18A91CB379FB00FE94E2 /* Deck.swift */,
 				0DB571551CB1E0A30000A898 /* Hand.swift */,
 				0DDBFB321CAEEF7D0015AE00 /* Tile.swift */,
@@ -210,6 +213,7 @@
 			files = (
 				5189A2E31BA8BB01004A19F3 /* GameScene.swift in Sources */,
 				5189A2E51BA8BB01004A19F3 /* GameViewController.swift in Sources */,
+				0D223FF81CB9551700C41139 /* Discard.swift in Sources */,
 				0D62D2421CAE00A9003B046A /* Card.swift in Sources */,
 				0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */,
 				0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */,

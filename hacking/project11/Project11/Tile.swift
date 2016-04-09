@@ -47,7 +47,7 @@ class Tile : SKSpriteNode {
         // TODO: will we want this?
         //userInteractionEnabled = true
 
-        position = CGPointMake(CGFloat(300 + (col * side)), CGFloat(200 + (row * side)))
+        position = CGPointMake(CGFloat(350 + (col * side)), CGFloat(175 + (row * side)))
         zPosition = -10
         
         // Create the highlight node

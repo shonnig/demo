@@ -15,9 +15,6 @@ class Deck : SKSpriteNode {
     
     let drawInterval:CFTimeInterval = 5
     
-    // TODO - move to a new class
-    var discard = [Card]()
-    
     var cards = [Card]()
     
     var nextDrawTime:CFTimeInterval
@@ -33,11 +30,18 @@ class Deck : SKSpriteNode {
         nextDrawTime = 0
         
         // make the border/background
-        let cardBackground = SKTexture(imageNamed: "border.jpg")
+        var cardBackground: SKTexture
+        // TODO: use different colors or something eventually for different teams
+        if isPlayer {
+            cardBackground = SKTexture(imageNamed: "border.jpg")
+        } else {
+            cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
+        }
+        
         super.init(texture: cardBackground, color: UIColor(white: 1.0, alpha: 0.0), size: CGSize(width: 200, height: 300))
         
         // allow the Card to intercept touches instead of passing them through the scene
-        userInteractionEnabled = true
+        //userInteractionEnabled = true
         
         setScale(0.33)
     }

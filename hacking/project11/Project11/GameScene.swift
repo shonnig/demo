@@ -33,6 +33,10 @@ class GameScene: SKScene {
     
     var deck: Deck?
     
+    var discard: Discard?
+    
+    var oppDiscard: Discard?
+    
     var tiles = [Tile]()
     
     override func update(currentTime: CFTimeInterval) {
@@ -48,6 +52,7 @@ class GameScene: SKScene {
     }
     
     override func didMoveToView(view: SKView) {
+        
 		let background = SKSpriteNode(imageNamed: "background.jpg")
 		background.position = CGPoint(x: 512, y: 384)
 		background.blendMode = .Replace
@@ -74,6 +79,16 @@ class GameScene: SKScene {
         // TODO: temp? have a starting hand of 3? One card will be drawn right away because timer init right now
         deck!.drawCard()
         deck!.drawCard()
+        
+        // Player's discard
+        discard = Discard(_isPlayer: true)
+        discard!.position = CGPointMake(100,50)
+        addChild(discard!)
+        
+        // Opponent's discard
+        oppDiscard = Discard(_isPlayer: false)
+        oppDiscard!.position = CGPointMake(100,700)
+        addChild(oppDiscard!)
         
         // TODO: put enemies on the board to test against
         var card = Card(_isPlayer: false, imageNamed: "Spearman.png", imageScale: 0.25)

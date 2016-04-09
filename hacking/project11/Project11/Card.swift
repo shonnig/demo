@@ -37,9 +37,9 @@ class Card : SKSpriteNode {
     var isPlayer: Bool
     
     // TODO: temp, will eventually vary by card type
-    var moveInterval: CFTimeInterval = 3
+    var moveInterval: CFTimeInterval = 4
     
-    var attackInterval: CFTimeInterval = 1.5
+    var attackInterval: CFTimeInterval = 2
     
     var nextMoveTime: CFTimeInterval?
     
@@ -118,10 +118,11 @@ class Card : SKSpriteNode {
         // TODO: eventually move to discard pile
         location = .Discard
         
-        // fade away
+        // TODO: fade away and/or go to discard pile?
+        let wait1 = SKAction.waitForDuration(0.2)
         let fade = SKAction.fadeOutWithDuration(0.5)
-        runAction(fade, withKey: "fade")
-        
+        let dieCycle = SKAction.sequence([wait1, fade])
+        runAction(dieCycle, withKey: "damage")
     }
     
     // TODO: will we ever have units that move more than one space at a time?
