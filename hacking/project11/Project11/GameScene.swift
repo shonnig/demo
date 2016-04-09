@@ -27,47 +27,13 @@ extension SKNode
     }
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
-    
-    /*
-	var scoreLabel: SKLabelNode!
-
-	var score: Int = 0 {
-		didSet {
-			scoreLabel.text = "Score: \(score)"
-		}
-	}
-
-	var editLabel: SKLabelNode!
-
-	var editingMode: Bool = false {
-		didSet {
-			if editingMode {
-				editLabel.text = "Done"
-			} else {
-				editLabel.text = "Edit"
-			}
-		}
-	}
-    */
-    
+class GameScene: SKScene {
     
     var hand: Hand?
     
     var deck: Deck?
     
     var tiles = [Tile]()
-
-    /*
-    override init() {
-        hand = Hand()
-        super.init()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    */
     
     override func update(currentTime: CFTimeInterval) {
         
@@ -109,7 +75,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         deck!.drawCard()
         deck!.drawCard()
         
-        
         // TODO: put enemies on the board to test against
         var card = Card(_isPlayer: false, imageNamed: "Spearman.png", imageScale: 0.25)
         card.position = CGPointMake(900,1100)
@@ -121,8 +86,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         card.position = CGPointMake(900,1100)
         addChild(card)
         card.moveFromTileToTile(tiles[15], toTile: tiles[16])
-        card.attackInterval = 2
-
+        card.attackInterval = 2        
     }
 
 }

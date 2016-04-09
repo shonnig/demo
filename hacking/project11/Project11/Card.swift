@@ -20,6 +20,20 @@ enum CardLocation {
 
 class Card : SKSpriteNode {
     
+    var healthLabel: SKLabelNode!
+
+    var maxHealth: Int = 20 {
+        didSet {
+            healthLabel.text = "\(health)/\(maxHealth)"
+        }
+    }
+    
+    var health: Int = 20 {
+        didSet {
+            healthLabel.text = "\(health)/\(maxHealth)"
+        }
+    }
+    
     var isPlayer: Bool
     
     // TODO: temp, will eventually vary by card type
@@ -35,8 +49,6 @@ class Card : SKSpriteNode {
     
     var isPickedUp = false
     
-    var health: Int
-    
     var damage: Int
     
     required init(coder aDecoder: NSCoder) {
@@ -47,6 +59,7 @@ class Card : SKSpriteNode {
         
         isPlayer = _isPlayer
         
+        maxHealth = 20
         health = 20
         damage = 4
         
@@ -69,6 +82,14 @@ class Card : SKSpriteNode {
         cardImage.setScale(imageScale)
         cardImage.zPosition = 1;
         addChild(cardImage)
+        
+        // Add the health label
+        healthLabel = SKLabelNode(fontNamed: "Arial")
+        healthLabel.text = "\(health)/\(maxHealth)"
+        healthLabel.fontColor = UIColor.blackColor()
+        healthLabel.zPosition = 2
+        healthLabel.position = CGPointMake(0,-140)
+        addChild(healthLabel)
         
         setScale(0.33)
     }
@@ -192,14 +213,15 @@ class Card : SKSpriteNode {
             die()
         }
     }
+    
+    func applyDamage(to: Card, damage: Int) {
+        to.health -= damage
+    }
 
     func attackFromTileToTile(fromTile: Tile, toTile: Tile) {
         
         // There should be something to attack
         assert(toTile.occupiedBy != nil)
-        
-        // do damage
-        toTile.occupiedBy?.health -= damage
         
         // damage image
         let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
@@ -211,10 +233,11 @@ class Card : SKSpriteNode {
 
         let wait1 = SKAction.waitForDuration(0.2)
         let showDmg = SKAction.unhide()
+        let doDmg = SKAction.runBlock({self.applyDamage(toTile.occupiedBy!, damage: self.damage)})
         let wait2 = SKAction.waitForDuration(0.3)
         let fadeDmg = SKAction.fadeOutWithDuration(0.3)
         let removeDmg = SKAction.removeFromParent()
-        let dmgCycle = SKAction.sequence([wait1, showDmg, wait2, fadeDmg, removeDmg])
+        let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
         dmgImage.runAction(dmgCycle, withKey: "damage")
         
         // animate attack
