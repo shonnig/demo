@@ -37,5 +37,13 @@ class Discard : SKSpriteNode {
         //userInteractionEnabled = true
         
         setScale(0.33)
+        
+        // TODO: make a different "foundation" image for the discard and don't hide it
+        hidden = true
+    }
+    
+    func addCard(card: Card) {
+        card.location = .Discard
+        cards.append(card)
     }
 }

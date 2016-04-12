@@ -46,29 +46,57 @@ class Deck : SKSpriteNode {
         setScale(0.33)
     }
     
-    
-    // TODO: obviously need to populate cards in deck instead of magically creating them
-    func drawCard() {
-        let gameScene = scene as! GameScene
-        let hand = gameScene.hand!
-
-        // Can never go beyond max hand size
-        if hand.isFull() {
-            return
-        }
-        
+    func addCard() {
         let card = Card(_isPlayer: true, imageNamed: "Spearman.png", imageScale: 0.25)
         card.position = position
+        card.hidden = true
         scene!.addChild(card)
-        hand.addCard(card)
-        hand.alignHand()
-        
+        cards.append(card)
+
         /*
         let bear = Card(imageNamed: "230px-Miner.png", imageScale: 0.6)
         bear.position = CGPointMake(500, 200)
         addChild(bear)
         hand!.addCard(bear)
         */
+        
+    }
+    
+    func drawCard() {
+        // TODO: need to check which player
+        let gameScene = scene as! GameScene
+        let hand = gameScene.hand!
+        let discard = gameScene.discard!
+
+        // Can never go beyond max hand size
+        if hand.isFull() {
+            return
+        }
+        
+        // Is the draw pile empty?
+        if cards.count == 0 {
+            // If discards is empty too, then return
+            if discard.cards.count == 0 {
+                return
+            }
+            
+            // put discard into draw pile and shuffle
+            // TODO: animate this?
+            cards = discard.cards.shuffle().map( { card in
+                card.hidden = true
+                card.position = position
+                return card
+                } )
+            discard.cards = [Card]()
+            //cards.shuffle()
+        }
+        
+        // remove top card of deck
+        let card = cards.removeFirst()
+        
+        card.hidden = false
+        hand.addCard(card)
+        hand.alignHand()
     }
     
     // TODO: should have a UI indicator for how long until next draw - should timer reset or hold if hand is full?

@@ -115,14 +115,26 @@ class Card : SKSpriteNode {
             gameScene.hand!.removeCard(self)
         }
         
-        // TODO: eventually move to discard pile
-        location = .Discard
+        var discard: Discard?
+        let gameScene = scene as! GameScene
+        
+        if isPlayer {
+            discard = gameScene.discard
+        } else {
+            discard = gameScene.oppDiscard
+        }
+        
+        discard!.addCard(self)
         
         // TODO: fade away and/or go to discard pile?
-        let wait1 = SKAction.waitForDuration(0.2)
-        let fade = SKAction.fadeOutWithDuration(0.5)
-        let dieCycle = SKAction.sequence([wait1, fade])
-        runAction(dieCycle, withKey: "damage")
+        let wait = SKAction.waitForDuration(0.2)
+        //let fade = SKAction.fadeOutWithDuration(0.5)
+        //let dieFade = SKAction.sequence([wait, fade])
+        //runAction(dieFade, withKey: "fade")
+        
+        let snapTo = SKAction.moveTo((discard?.position)!, duration: 0.5)
+        let dieDiscard = SKAction.sequence([wait, snapTo])
+        runAction(dieDiscard, withKey: "discard")
     }
     
     // TODO: will we ever have units that move more than one space at a time?

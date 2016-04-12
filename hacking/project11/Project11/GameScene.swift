@@ -27,6 +27,29 @@ extension SKNode
     }
 }
 
+extension CollectionType {
+    /// Return a copy of `self` with its elements shuffled
+    func shuffle() -> [Generator.Element] {
+        var list = Array(self)
+        list.shuffleInPlace()
+        return list
+    }
+}
+
+extension MutableCollectionType where Index == Int {
+    /// Shuffle the elements of `self` in-place.
+    mutating func shuffleInPlace() {
+        // empty and single-element collections don't shuffle
+        if count < 2 { return }
+        
+        for i in 0..<count - 1 {
+            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            guard i != j else { continue }
+            swap(&self[i], &self[j])
+        }
+    }
+}
+
 class GameScene: SKScene {
     
     var hand: Hand?
@@ -76,10 +99,6 @@ class GameScene: SKScene {
         deck!.position = CGPointMake(900,50)
         addChild(deck!)
         
-        // TODO: temp? have a starting hand of 3? One card will be drawn right away because timer init right now
-        deck!.drawCard()
-        deck!.drawCard()
-        
         // Player's discard
         discard = Discard(_isPlayer: true)
         discard!.position = CGPointMake(100,50)
@@ -89,6 +108,20 @@ class GameScene: SKScene {
         oppDiscard = Discard(_isPlayer: false)
         oppDiscard!.position = CGPointMake(100,700)
         addChild(oppDiscard!)
+        
+        
+        // ***
+        
+        // TODO: temp 5 cards in deck
+        deck!.addCard()
+        deck!.addCard()
+        deck!.addCard()
+        deck!.addCard()
+        deck!.addCard()
+        
+        // TODO: temp draw 2 cards (one will get drawn right away because of timer
+        deck!.drawCard()
+        deck!.drawCard()
         
         // TODO: put enemies on the board to test against
         var card = Card(_isPlayer: false, imageNamed: "Spearman.png", imageScale: 0.25)
