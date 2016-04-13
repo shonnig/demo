@@ -51,12 +51,10 @@ extension MutableCollectionType where Index == Int {
 }
 
 class GameScene: SKScene {
+
+    var player: Player?
     
-    var hand: Hand?
-    
-    var deck: Deck?
-    
-    var discard: Discard?
+    var opponent: Player?
     
     var oppDiscard: Discard?
     
@@ -64,7 +62,8 @@ class GameScene: SKScene {
     
     override func update(currentTime: CFTimeInterval) {
         
-        deck!.update(currentTime)
+        player!.deck!.update(currentTime)
+        opponent!.deck!.update(currentTime)
         
         // TODO: currently, updating in this order will give a move advantage to player on the bottom!
         for tile in tiles {
@@ -81,10 +80,6 @@ class GameScene: SKScene {
 		background.blendMode = .Replace
 		background.zPosition = -100
 		addChild(background)
-
-        
-        // Player's hand
-        hand = Hand(_isPlayer: true)
         
         for row in 0...3 {
             for col in 0...4 {
@@ -94,47 +89,47 @@ class GameScene: SKScene {
             }
         }
         
-        // Player's deck
-        deck = Deck(_isPlayer: true)
-        deck!.position = CGPointMake(900,50)
-        addChild(deck!)
-        
-        // Player's discard
-        discard = Discard(_isPlayer: true)
-        discard!.position = CGPointMake(100,50)
-        addChild(discard!)
-        
-        // Opponent's discard
-        oppDiscard = Discard(_isPlayer: false)
-        oppDiscard!.position = CGPointMake(100,700)
-        addChild(oppDiscard!)
-        
+        player = Player(scene: self, _isPlayer: true)
+        opponent = Player(scene: self, _isPlayer: false)
         
         // ***
         
         // TODO: temp 5 cards in deck
-        deck!.addCard()
-        deck!.addCard()
-        deck!.addCard()
-        deck!.addCard()
-        deck!.addCard()
+        player!.deck!.addCard()
+        player!.deck!.addCard()
+        player!.deck!.addCard()
+        player!.deck!.addCard()
+        player!.deck!.addCard()
         
         // TODO: temp draw 2 cards (one will get drawn right away because of timer
-        deck!.drawCard()
-        deck!.drawCard()
+        player!.deck!.drawCard()
+        player!.deck!.drawCard()
         
+        // TODO: temp 5 cards in deck
+        opponent!.deck!.addCard()
+        opponent!.deck!.addCard()
+        opponent!.deck!.addCard()
+        opponent!.deck!.addCard()
+        opponent!.deck!.addCard()
+        
+        // TODO: temp draw 2 cards (one will get drawn right away because of timer
+        opponent!.deck!.drawCard()
+        opponent!.deck!.drawCard()
+        
+        /*
         // TODO: put enemies on the board to test against
-        var card = Card(_isPlayer: false, imageNamed: "Spearman.png", imageScale: 0.25)
+        var card = Card(_player: opponent!, imageNamed: "Spearman.png", imageScale: 0.25)
         card.position = CGPointMake(900,1100)
         addChild(card)
         card.moveFromTileToTile(tiles[15], toTile: tiles[18])
         card.attackInterval = 2.5
         
-        card = Card(_isPlayer: false, imageNamed: "Spearman.png", imageScale: 0.25)
+        card = Card(_player: opponent!, imageNamed: "Spearman.png", imageScale: 0.25)
         card.position = CGPointMake(900,1100)
         addChild(card)
         card.moveFromTileToTile(tiles[15], toTile: tiles[16])
-        card.attackInterval = 2        
+        card.attackInterval = 2 
+        */
     }
 
 }

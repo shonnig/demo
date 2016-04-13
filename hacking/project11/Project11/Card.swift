@@ -34,7 +34,7 @@ class Card : SKSpriteNode {
         }
     }
     
-    var isPlayer: Bool
+    var player: Player
     
     // TODO: temp, will eventually vary by card type
     var moveInterval: CFTimeInterval = 4
@@ -55,9 +55,9 @@ class Card : SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
-    init(_isPlayer: Bool, imageNamed: String, imageScale: CGFloat) {
+    init(_player: Player, imageNamed: String, imageScale: CGFloat) {
         
-        isPlayer = _isPlayer
+        player = _player
         
         maxHealth = 20
         health = 20
@@ -66,7 +66,7 @@ class Card : SKSpriteNode {
         // make the border/background
         var cardBackground: SKTexture
         // TODO: use different colors or something eventually for different teams
-        if isPlayer {
+        if player.isPlayer {
             cardBackground = SKTexture(imageNamed: "border.jpg")
         } else {
             cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
@@ -109,30 +109,26 @@ class Card : SKSpriteNode {
         let tile = currentTile()
         tile?.occupiedBy = nil
         
+        // reset card's stats
+        health = maxHealth
+        nextMoveTime = nil
+        nextAttackTime = nil
+        
         // remove from hand if there
         if isInHand() {
-            let gameScene = scene as! GameScene
-            gameScene.hand!.removeCard(self)
+            player.hand!.removeCard(self)
         }
         
-        var discard: Discard?
-        let gameScene = scene as! GameScene
-        
-        if isPlayer {
-            discard = gameScene.discard
-        } else {
-            discard = gameScene.oppDiscard
-        }
-        
-        discard!.addCard(self)
+        player.discard!.addCard(self)
         
         // TODO: fade away and/or go to discard pile?
         let wait = SKAction.waitForDuration(0.2)
+        
         //let fade = SKAction.fadeOutWithDuration(0.5)
         //let dieFade = SKAction.sequence([wait, fade])
         //runAction(dieFade, withKey: "fade")
         
-        let snapTo = SKAction.moveTo((discard?.position)!, duration: 0.5)
+        let snapTo = SKAction.moveTo(player.discard!.position, duration: 0.5)
         let dieDiscard = SKAction.sequence([wait, snapTo])
         runAction(dieDiscard, withKey: "discard")
     }
@@ -145,7 +141,7 @@ class Card : SKSpriteNode {
         case .Tile(let row, let col):
             let gameScene = scene as! GameScene
             var rowMove = 1
-            if !isPlayer {
+            if !player.isPlayer {
                 // opponent moves down
                 rowMove = -1
             }
@@ -205,7 +201,7 @@ class Card : SKSpriteNode {
                 nextMoveTime = nil
                 
                 // Is the next space an enemy?
-                if next!.occupiedBy?.isPlayer != isPlayer {
+                if next!.occupiedBy?.player.isPlayer != player.isPlayer {
                     
                     if nextAttackTime == nil {
                         // start the timer
@@ -309,8 +305,7 @@ class Card : SKSpriteNode {
     func moveFromHandToTile(toTile: Tile) {
         
         // take out of hand
-        let gameScene = scene as! GameScene
-        gameScene.hand!.removeCard(self)
+        player.hand!.removeCard(self)
         
         // set on board
         location = .Tile(toTile.row, toTile.col)
@@ -326,7 +321,7 @@ class Card : SKSpriteNode {
         runAction(snapTo, withKey: "snap")
         
         // align hand
-        gameScene.hand!.alignHand()
+        player.hand!.alignHand()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -396,8 +391,7 @@ class Card : SKSpriteNode {
         }
         
         // Always readjust cards in hand after letting go - misplay will be returned to hand
-        let gameScene = scene as! GameScene
-        gameScene.hand!.alignHand()
+        player.hand!.alignHand()
     }
     
     func startWiggle() {

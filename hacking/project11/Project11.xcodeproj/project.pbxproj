@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D223FF81CB9551700C41139 /* Discard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D223FF71CB9551700C41139 /* Discard.swift */; settings = {ASSET_TAGS = (); }; };
+		0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D31CC601CBD6E06005B6B72 /* Player.swift */; settings = {ASSET_TAGS = (); }; };
 		0D57BE431CB6FE76002F32DA /* enemy_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D57BE421CB6FE76002F32DA /* enemy_card.png */; settings = {ASSET_TAGS = (); }; };
 		0D57BE451CB6FF1E002F32DA /* enemy_card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */; settings = {ASSET_TAGS = (); }; };
 		0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D581ECC1CB8584900DC6CB2 /* Explosion.png */; settings = {ASSET_TAGS = (); }; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		0D223FF71CB9551700C41139 /* Discard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discard.swift; sourceTree = "<group>"; };
+		0D31CC601CBD6E06005B6B72 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		0D57BE421CB6FE76002F32DA /* enemy_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_card.png; sourceTree = "<group>"; };
 		0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = enemy_card.jpg; sourceTree = "<group>"; };
 		0D581ECC1CB8584900DC6CB2 /* Explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Explosion.png; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		5189A2DD1BA8BB01004A19F3 /* Project11 */ = {
 			isa = PBXGroup;
 			children = (
+				0D31CC601CBD6E06005B6B72 /* Player.swift */,
 				0D223FF71CB9551700C41139 /* Discard.swift */,
 				0D7E18A91CB379FB00FE94E2 /* Deck.swift */,
 				0DB571551CB1E0A30000A898 /* Hand.swift */,
@@ -219,6 +222,7 @@
 				0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */,
 				0DB571561CB1E0A30000A898 /* Hand.swift in Sources */,
 				5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */,
+				0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */,
 				5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

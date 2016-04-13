@@ -93,7 +93,7 @@ class Tile : SKSpriteNode {
     func isValidPlay(card: Card) -> Bool {
         var validRow = false
         
-        if (card.isPlayer) {
+        if (card.player.isPlayer) {
             if row == 0 || row == 1 {
                 validRow = true
             }

@@ -10,7 +10,7 @@ import SpriteKit
 
 class Discard : SKSpriteNode {
     
-    var isPlayer: Bool
+    var player: Player
     
     var cards = [Card]()
     
@@ -18,14 +18,14 @@ class Discard : SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
-    init(_isPlayer: Bool) {
+    init(_player: Player) {
         
-        isPlayer = _isPlayer
+        player = _player
         
         // make the border/background
         var cardBackground: SKTexture
         // TODO: use different colors or something eventually for different teams
-        if isPlayer {
+        if player.isPlayer {
             cardBackground = SKTexture(imageNamed: "border.jpg")
         } else {
             cardBackground = SKTexture(imageNamed: "enemy_card.jpg")

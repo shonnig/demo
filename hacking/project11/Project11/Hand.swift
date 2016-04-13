@@ -12,14 +12,14 @@ import SpriteKit
 
 class Hand {
 
-    var isPlayer: Bool
+    var player: Player
     
     let maxSize = 5
     
     var cards = [Card]()
     
-    init(_isPlayer: Bool) {
-        isPlayer = _isPlayer
+    init(_player: Player) {
+        player = _player
     }
     
     func addCard(card: Card) {
@@ -46,6 +46,14 @@ class Hand {
     // animate all the cards in the hand into default place
     func alignHand() {
         
+        var height: Int
+        
+        if player.isPlayer {
+            height = 50
+        } else {
+            height = 700
+        }
+        
         var i = 0
         for card in cards {
             
@@ -54,7 +62,7 @@ class Hand {
                 // kill current action in case alignHand gets called again before done
                 card.removeActionForKey("snap")
             
-                let snapToPosition = CGPoint(x: 300 + (i * 100), y: 50)
+                let snapToPosition = CGPoint(x: 300 + (i * 100), y: height)
                 let snapTo = SKAction.moveTo(snapToPosition, duration: 0.3)
                 card.runAction(snapTo, withKey: "snap")
             }

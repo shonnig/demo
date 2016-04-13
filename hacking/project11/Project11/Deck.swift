@@ -11,7 +11,7 @@ import SpriteKit
 
 class Deck : SKSpriteNode {
     
-    var isPlayer: Bool
+    var player: Player
     
     let drawInterval:CFTimeInterval = 5
     
@@ -23,16 +23,16 @@ class Deck : SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
-    init(_isPlayer: Bool) {
+    init(_player: Player) {
         
-        isPlayer = _isPlayer
+        player = _player
         
         nextDrawTime = 0
         
         // make the border/background
         var cardBackground: SKTexture
         // TODO: use different colors or something eventually for different teams
-        if isPlayer {
+        if player.isPlayer {
             cardBackground = SKTexture(imageNamed: "border.jpg")
         } else {
             cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
@@ -47,11 +47,12 @@ class Deck : SKSpriteNode {
     }
     
     func addCard() {
-        let card = Card(_isPlayer: true, imageNamed: "Spearman.png", imageScale: 0.25)
+        let card = Card(_player: player, imageNamed: "Spearman.png", imageScale: 0.25)
         card.position = position
         card.hidden = true
         scene!.addChild(card)
         cards.append(card)
+        card.location = .Deck
 
         /*
         let bear = Card(imageNamed: "230px-Miner.png", imageScale: 0.6)
@@ -63,31 +64,28 @@ class Deck : SKSpriteNode {
     }
     
     func drawCard() {
-        // TODO: need to check which player
-        let gameScene = scene as! GameScene
-        let hand = gameScene.hand!
-        let discard = gameScene.discard!
-
+        
         // Can never go beyond max hand size
-        if hand.isFull() {
+        if player.hand!.isFull() {
             return
         }
         
         // Is the draw pile empty?
         if cards.count == 0 {
             // If discards is empty too, then return
-            if discard.cards.count == 0 {
+            if player.discard!.cards.count == 0 {
                 return
             }
             
             // put discard into draw pile and shuffle
             // TODO: animate this?
-            cards = discard.cards.shuffle().map( { card in
+            cards = player.discard!.cards.shuffle().map( { card in
                 card.hidden = true
                 card.position = position
+                card.location = .Deck
                 return card
                 } )
-            discard.cards = [Card]()
+            player.discard!.cards = [Card]()
             //cards.shuffle()
         }
         
@@ -95,8 +93,8 @@ class Deck : SKSpriteNode {
         let card = cards.removeFirst()
         
         card.hidden = false
-        hand.addCard(card)
-        hand.alignHand()
+        player.hand!.addCard(card)
+        player.hand!.alignHand()
     }
     
     // TODO: should have a UI indicator for how long until next draw - should timer reset or hold if hand is full?
