@@ -23,6 +23,11 @@ class Tile : SKSpriteNode {
     // sprite for highlight effect
     var glowNode: SKSpriteNode?
     
+    
+    var attackInterval: CFTimeInterval = 2
+    
+    var nextAttackTime: CFTimeInterval?
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
@@ -105,4 +110,60 @@ class Tile : SKSpriteNode {
         
         return occupiedBy == nil && validRow
     }
+    
+    func shouldAttackOccupier() -> Bool {
+        
+        // is there any card to attack?
+        if occupiedBy == nil {
+            return false
+        }
+        
+        if occupiedBy!.player.isPlayer && row == 3 {
+            return true
+        }
+        
+        if !occupiedBy!.player.isPlayer && row == 0 {
+            return true
+        }
+        
+        return false
+    }
+    
+    func getAdjacentBasePosition() -> CGPoint? {
+        
+        var pos = position
+        
+        if row == 0 {
+            pos.y -= 100
+            return pos
+        }
+        
+        if row == 3 {
+            pos.y += 100
+            return pos
+        }
+        
+        return nil
+    }
+        
+    
+    func update(currentTime: CFTimeInterval) {
+        
+        // TODO: will need to attack base if next is nil
+        if shouldAttackOccupier() {
+            if nextAttackTime == nil {
+                nextAttackTime = currentTime + attackInterval
+            } else {
+                if nextAttackTime < currentTime {
+                    // attack!
+                    occupiedBy?.attackFromBaseToTile(self)
+                    nextAttackTime = nil
+                }
+            }
+        } else {
+            // reset timer
+            nextAttackTime = nil
+        }
+    }
+    
 }

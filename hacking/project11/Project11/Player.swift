@@ -20,6 +20,10 @@ class Player {
     
     var hand: Hand?
     
+    var life: Int
+    
+    var otherPlayer: Player?
+    
     init(scene: GameScene, _isPlayer: Bool) {
         isPlayer = _isPlayer
         
@@ -30,6 +34,8 @@ class Player {
         } else {
             drawDiscardY = 700
         }
+        
+        life = 20
         
         // Player's hand
         hand = Hand(_player: self)

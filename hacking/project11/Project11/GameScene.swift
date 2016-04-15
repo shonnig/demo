@@ -56,8 +56,6 @@ class GameScene: SKScene {
     
     var opponent: Player?
     
-    var oppDiscard: Discard?
-    
     var tiles = [Tile]()
     
     override func update(currentTime: CFTimeInterval) {
@@ -67,8 +65,11 @@ class GameScene: SKScene {
         
         // TODO: currently, updating in this order will give a move advantage to player on the bottom!
         for tile in tiles {
+            tile.update(currentTime)
+            
             if tile.occupiedBy != nil {
-                tile.occupiedBy!.update(currentTime)
+                let card = tile.occupiedBy!
+                card.update(currentTime)
             }
         }
     }
@@ -92,7 +93,10 @@ class GameScene: SKScene {
         player = Player(scene: self, _isPlayer: true)
         opponent = Player(scene: self, _isPlayer: false)
         
-        // ***
+        player!.otherPlayer = opponent
+        opponent!.otherPlayer = player
+        
+        // *** Temp init game state
         
         // TODO: temp 5 cards in deck
         player!.deck!.addCard()
@@ -115,21 +119,6 @@ class GameScene: SKScene {
         // TODO: temp draw 2 cards (one will get drawn right away because of timer
         opponent!.deck!.drawCard()
         opponent!.deck!.drawCard()
-        
-        /*
-        // TODO: put enemies on the board to test against
-        var card = Card(_player: opponent!, imageNamed: "Spearman.png", imageScale: 0.25)
-        card.position = CGPointMake(900,1100)
-        addChild(card)
-        card.moveFromTileToTile(tiles[15], toTile: tiles[18])
-        card.attackInterval = 2.5
-        
-        card = Card(_player: opponent!, imageNamed: "Spearman.png", imageScale: 0.25)
-        card.position = CGPointMake(900,1100)
-        addChild(card)
-        card.moveFromTileToTile(tiles[15], toTile: tiles[16])
-        card.attackInterval = 2 
-        */
     }
 
 }

@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 
+// TODO: can Tile just include a Tile reference? Can get row and col from there and would be simpler to find Tile.
 enum CardLocation {
     case Hand
     // row and col
@@ -179,8 +180,13 @@ class Card : SKSpriteNode {
         let next = nextMoveTile()
         let current = currentTile()
         
-        // TODO: will need to attack base if next is nil
-        if next != nil && current != nil {
+        // If we're not on a tile, don't do anything
+        if current == nil {
+            return
+        }
+        
+        if next != nil {
+            // Not at edge of board yet
             
             if next!.occupiedBy == nil {
                 // Space is empty - reset attack timer
@@ -215,6 +221,18 @@ class Card : SKSpriteNode {
                     }
                 }
             }
+        } else {
+            // We're at the edge of the board - get ready to attack base!
+            if nextAttackTime == nil {
+                nextAttackTime = currentTime + attackInterval
+            } else {
+                if nextAttackTime < currentTime {
+                    // attack!
+                    attackFromTileToBase(current!)
+                    nextAttackTime = nil
+                }
+            }
+            
         }
         
         // Did we die from damage this turn?
@@ -225,6 +243,10 @@ class Card : SKSpriteNode {
     
     func applyDamage(to: Card, damage: Int) {
         to.health -= damage
+    }
+    
+    func applyDamageToBase(to: Player, damage: Int) {
+        to.life -= damage
     }
 
     func attackFromTileToTile(fromTile: Tile, toTile: Tile) {
@@ -266,6 +288,80 @@ class Card : SKSpriteNode {
         // TODO: hacky way to try to give possibly overlapping cards different zPositions - not sufficient
         // more than one card attacking same tile
         zPosition = CGFloat(20 + ((toTile.row * 5) + toTile.col) * 3)
+        
+        let liftUp = SKAction.scaleTo(0.5, duration: 0.2)
+        let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
+        let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
+        runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
+    }
+    
+    func attackFromBaseToTile(toTile: Tile) {
+        
+        // There should be something to attack
+        assert(toTile.occupiedBy != nil)
+        
+        // damage image
+        let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
+        dmgImage.setScale(0.25)
+        dmgImage.position = toTile.position
+        dmgImage.zPosition = 500
+        dmgImage.hidden = true
+        scene!.addChild(dmgImage)
+        
+        let wait1 = SKAction.waitForDuration(0.2)
+        let showDmg = SKAction.unhide()
+        let doDmg = SKAction.runBlock({self.applyDamage(toTile.occupiedBy!, damage: self.damage)})
+        let wait2 = SKAction.waitForDuration(0.3)
+        let fadeDmg = SKAction.fadeOutWithDuration(0.3)
+        let removeDmg = SKAction.removeFromParent()
+        let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
+        dmgImage.runAction(dmgCycle, withKey: "damage")
+        
+        // TODO: animate attack
+    }
+    
+    func attackFromTileToBase(fromTile: Tile) {
+        
+        // There should be something to attack
+        assert(fromTile.occupiedBy != nil)
+        
+        let attackPos = fromTile.getAdjacentBasePosition()
+        
+        assert(attackPos != nil)
+        
+        // damage image
+        let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
+        dmgImage.setScale(0.25)
+        dmgImage.position = attackPos!
+        dmgImage.zPosition = 500
+        dmgImage.hidden = true
+        scene!.addChild(dmgImage)
+        
+        let wait1 = SKAction.waitForDuration(0.2)
+        let showDmg = SKAction.unhide()
+        let doDmg = SKAction.runBlock({self.applyDamageToBase(self.player.otherPlayer!, damage: self.damage)})
+        let wait2 = SKAction.waitForDuration(0.3)
+        let fadeDmg = SKAction.fadeOutWithDuration(0.3)
+        let removeDmg = SKAction.removeFromParent()
+        let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
+        dmgImage.runAction(dmgCycle, withKey: "damage")
+        
+        // animate attack
+        // TODO: make separate function? And probably can do math directly on points?
+        // find partial position to opponent
+        let xDiff = (attackPos!.x - position.x) * 0.35
+        let yDiff = (attackPos!.y - position.y) * 0.35
+        let attPos = CGPoint(x: position.x + xDiff, y: position.y + yDiff)
+        
+        let attackTo = SKAction.moveTo(attPos, duration: 0.2)
+        let wait = SKAction.waitForDuration(0.1)
+        let attackBack = SKAction.moveTo(position, duration: 0.2)
+        let cycle = SKAction.sequence([attackTo, wait, attackBack])
+        runAction(cycle, withKey: "attack")
+        
+        // TODO: hacky way to try to give possibly overlapping cards different zPositions - not sufficient
+        // more than one card attacking same tile
+        zPosition = CGFloat(20 + ((fromTile.row * 5) + fromTile.col) * 3)
         
         let liftUp = SKAction.scaleTo(0.5, duration: 0.2)
         let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
