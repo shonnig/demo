@@ -20,7 +20,15 @@ class Player {
     
     var hand: Hand?
     
-    var life: Int
+    var life: Int = 20 {
+        didSet {
+            lifeLabel.text = "\(life)"
+        }
+    }
+    
+    var lifeLabel: SKLabelNode!
+    
+    var lifeLabelShadow: SKLabelNode!
     
     var otherPlayer: Player?
     
@@ -36,6 +44,23 @@ class Player {
         }
         
         life = 20
+        // Add the life label
+        lifeLabel = SKLabelNode(fontNamed: "Arial")
+        lifeLabel.text = "\(life)"
+        lifeLabel.fontSize = 40
+        lifeLabel.fontColor = UIColor.whiteColor()
+        lifeLabel.zPosition = 2000
+        lifeLabel.position = CGPointMake(50,drawDiscardY)
+        
+        lifeLabelShadow = SKLabelNode(fontNamed: "Arial")
+        lifeLabelShadow.text = "\(life)"
+        lifeLabelShadow.fontSize = 40
+        lifeLabelShadow.fontColor = UIColor.blackColor()
+        lifeLabelShadow.zPosition = 1999
+        lifeLabelShadow.position = CGPointMake(53,drawDiscardY - 3)
+        
+        scene.addChild(lifeLabel)
+        scene.addChild(lifeLabelShadow)
         
         // Player's hand
         hand = Hand(_player: self)
@@ -47,7 +72,7 @@ class Player {
         
         // Player's discard
         discard = Discard(_player: self)
-        discard!.position = CGPointMake(100,drawDiscardY)
+        discard!.position = CGPointMake(150,drawDiscardY)
         scene.addChild(discard!)
     }
 

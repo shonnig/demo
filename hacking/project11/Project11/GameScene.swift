@@ -51,7 +51,7 @@ extension MutableCollectionType where Index == Int {
 }
 
 class GameScene: SKScene {
-
+    
     var player: Player?
     
     var opponent: Player?
