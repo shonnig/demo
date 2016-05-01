@@ -97,6 +97,8 @@ class Deck : SKSpriteNode {
         player.hand!.alignHand()
     }
     
+    
+    /*
     // TODO: should have a UI indicator for how long until next draw - should timer reset or hold if hand is full?
     // periodically draw a card
     func update(currentTime: CFTimeInterval) {
@@ -106,5 +108,6 @@ class Deck : SKSpriteNode {
             nextDrawTime = currentTime + drawInterval
         }
     }
+     */
     
 }

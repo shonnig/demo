@@ -164,7 +164,7 @@ class Card : SKSpriteNode {
         switch location! {
         case .Tile(let row, let col):
             let gameScene = scene as! GameScene
-            let index = (row * 5) + col
+            let index = (row * 4) + col
             if index >= 0 && index < gameScene.tiles.count {
                 tile = gameScene.tiles[index]
             }
@@ -174,6 +174,7 @@ class Card : SKSpriteNode {
         return tile
     }
     
+    /*
     func update(currentTime: CFTimeInterval) {
         
         // See if next tile up is valid and free
@@ -240,6 +241,7 @@ class Card : SKSpriteNode {
             die()
         }
     }
+    */
     
     func applyDamage(to: Card, damage: Int) {
         to.health -= damage
@@ -385,6 +387,7 @@ class Card : SKSpriteNode {
         let snapTo = SKAction.moveTo(snapToPosition, duration: 0.3)
         runAction(snapTo, withKey: "snap")
         
+        /*
         let liftUp = SKAction.scaleTo(0.5, duration: 0.15)
         let dropDown = SKAction.scaleTo(0.33, duration: 0.15)
         let upDownCycle = SKAction.sequence([liftUp, dropDown])
@@ -396,6 +399,7 @@ class Card : SKSpriteNode {
             hightlighted!.removeHighlight()
             hightlighted!.addHighlight(self)
         }
+        */
     }
     
     func moveFromHandToTile(toTile: Tile) {
@@ -407,7 +411,7 @@ class Card : SKSpriteNode {
         location = .Tile(toTile.row, toTile.col)
 
         // This better not be occupied already
-        assert(toTile.occupiedBy == nil)
+        assert(toTile.occupiedBy == nil || toTile.occupiedBy == self)
         
         toTile.occupiedBy = self
         
@@ -423,9 +427,11 @@ class Card : SKSpriteNode {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         // Can only move cards from hand
+        /*
         if !isInHand() {
             return
         }
+        */
         
         zPosition = 1000
         let liftUp = SKAction.scaleTo(0.5, duration: 0.3)
@@ -438,9 +444,11 @@ class Card : SKSpriteNode {
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         // Can only move cards from hand
+        /*
         if !isInHand() {
             return
         }
+        */
         
         for touch in touches {
             let location = touch.locationInNode(scene!) // make sure this is scene, not self
@@ -466,27 +474,37 @@ class Card : SKSpriteNode {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         // Can only move cards from hand
+        /*
         if !isInHand() {
             return
         }
+        */
         
         let dropDown = SKAction.scaleTo(0.33, duration: 0.3)
         runAction(dropDown, withKey: "drop", optionalCompletion: lowerPosition)
         stopWiggle()
         isPickedUp = false
-
-        if (Tile.currentHighlight != nil) {
-            let highlighted = Tile.currentHighlight!
-            
-            // Move card to selected tile if it is a valid play
-            if highlighted.isValidPlay(self) {
-                moveFromHandToTile(highlighted)
-            }
         
-            highlighted.removeHighlight()
+        let hl = Tile.currentHighlight
+        
+        if (hl != nil && hl!.isValidPlay(self)) {
+
+            if isInHand() {
+                moveFromHandToTile(hl!)
+            } else {
+                moveFromTileToTile(currentTile()!, toTile: hl!)
+            }
+            
+        } else {
+            if (!isInHand()) {
+                moveFromTileToTile(currentTile()!, toTile: currentTile()!)
+            }
         }
         
-        // Always readjust cards in hand after letting go - misplay will be returned to hand
+        if (hl != nil) {
+            hl!.removeHighlight()
+        }
+        
         player.hand!.alignHand()
     }
     

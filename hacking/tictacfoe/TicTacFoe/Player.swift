@@ -32,6 +32,8 @@ class Player {
     
     var otherPlayer: Player?
     
+    var turnButtonY: CGFloat
+    
     init(scene: GameScene, _isPlayer: Bool) {
         isPlayer = _isPlayer
         
@@ -39,8 +41,10 @@ class Player {
         
         if isPlayer {
             drawDiscardY = 50
+            turnButtonY = 200
         } else {
             drawDiscardY = 700
+            turnButtonY = 600
         }
         
         life = 20

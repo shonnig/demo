@@ -56,10 +56,34 @@ class GameScene: SKScene {
     
     var opponent: Player?
     
+    var turnButton: FTButtonNode?
+    
+    var actionsLeft = 1
+
+    var currentTurn: Player? {
+        didSet {
+            newTurn()
+        }
+    }
+    
     var tiles = [Tile]()
     
-    override func update(currentTime: CFTimeInterval) {
+    
+    func newTurn() {
         
+        // move end turn button TODO: this is just a quick and dirty thing for now
+        turnButton!.position.y = (currentTurn?.turnButtonY)!
+        
+        // reset actions remaining to 1
+        actionsLeft = 1
+        
+        // Draw a card for player's new turn
+        currentTurn!.deck!.drawCard()
+    }
+    
+    
+    override func update(currentTime: CFTimeInterval) {
+        /*
         player!.deck!.update(currentTime)
         opponent!.deck!.update(currentTime)
         
@@ -72,6 +96,7 @@ class GameScene: SKScene {
                 card.update(currentTime)
             }
         }
+        */
     }
     
     override func didMoveToView(view: SKView) {
@@ -82,8 +107,15 @@ class GameScene: SKScene {
 		background.zPosition = -100
 		addChild(background)
         
+        let buttonImg = SKTexture(imageNamed: "End_Turn_Button.png")
+        turnButton = FTButtonNode(normalTexture: buttonImg, selectedTexture: buttonImg, disabledTexture: buttonImg)
+        turnButton!.position = CGPoint(x: 125, y: 200)
+        turnButton!.zPosition = 0
+        turnButton!.userInteractionEnabled = true
+        addChild(turnButton!)
+        
         for row in 0...3 {
-            for col in 0...4 {
+            for col in 0...3 {
                 let tile = Tile(_row: row, _col: col)
                 addChild(tile)
                 tiles.append(tile)
@@ -119,6 +151,8 @@ class GameScene: SKScene {
         // TODO: temp draw 2 cards (one will get drawn right away because of timer
         opponent!.deck!.drawCard()
         opponent!.deck!.drawCard()
+        
+        currentTurn = player
     }
 
 }

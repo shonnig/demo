@@ -96,6 +96,8 @@ class Tile : SKSpriteNode {
     }
     
     func isValidPlay(card: Card) -> Bool {
+        // TODO: determine if all tiles are fair to play on or if there are restrictions
+        /*
         var validRow = false
         
         if (card.player.isPlayer) {
@@ -109,6 +111,8 @@ class Tile : SKSpriteNode {
         }
         
         return occupiedBy == nil && validRow
+        */
+        return occupiedBy == nil || occupiedBy == card
     }
     
     func shouldAttackOccupier() -> Bool {
@@ -146,7 +150,7 @@ class Tile : SKSpriteNode {
         return nil
     }
         
-    
+    /*
     func update(currentTime: CFTimeInterval) {
         
         // TODO: will need to attack base if next is nil
@@ -165,5 +169,6 @@ class Tile : SKSpriteNode {
             nextAttackTime = nil
         }
     }
+ */
     
 }

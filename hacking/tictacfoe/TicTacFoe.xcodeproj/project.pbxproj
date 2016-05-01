@@ -16,6 +16,8 @@
 		0D62D2481CAE0767003B046A /* border.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2471CAE0767003B046A /* border.jpg */; };
 		0D62D24A1CAE0852003B046A /* Spearman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2491CAE0852003B046A /* Spearman.png */; };
 		0D62D24C1CAE38BE003B046A /* 230px-Miner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D24B1CAE38BE003B046A /* 230px-Miner.png */; };
+		0D76DDDD1CD5C6FF003687B9 /* End_Turn_Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */; };
+		0D76DDDF1CD5CA50003687B9 /* FTButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */; };
 		0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7E18A91CB379FB00FE94E2 /* Deck.swift */; };
 		0DB571561CB1E0A30000A898 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB571551CB1E0A30000A898 /* Hand.swift */; };
 		0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDBFB321CAEEF7D0015AE00 /* Tile.swift */; };
@@ -44,6 +46,8 @@
 		0D62D2471CAE0767003B046A /* border.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = border.jpg; sourceTree = "<group>"; };
 		0D62D2491CAE0852003B046A /* Spearman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spearman.png; sourceTree = "<group>"; };
 		0D62D24B1CAE38BE003B046A /* 230px-Miner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "230px-Miner.png"; sourceTree = "<group>"; };
+		0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = End_Turn_Button.png; sourceTree = "<group>"; };
+		0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTButtonNode.swift; sourceTree = "<group>"; };
 		0D7E18A91CB379FB00FE94E2 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		0DB571551CB1E0A30000A898 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		0DDBFB321CAEEF7D0015AE00 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 		5189A2DD1BA8BB01004A19F3 /* TicTacFoe */ = {
 			isa = PBXGroup;
 			children = (
+				0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */,
 				0D31CC601CBD6E06005B6B72 /* Player.swift */,
 				0D223FF71CB9551700C41139 /* Discard.swift */,
 				0D7E18A91CB379FB00FE94E2 /* Deck.swift */,
@@ -117,6 +122,7 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */,
 				0D581ECC1CB8584900DC6CB2 /* Explosion.png */,
 				0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */,
 				0D57BE421CB6FE76002F32DA /* enemy_card.png */,
@@ -189,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D76DDDD1CD5C6FF003687B9 /* End_Turn_Button.png in Resources */,
 				0D62D24C1CAE38BE003B046A /* 230px-Miner.png in Resources */,
 				0D57BE431CB6FE76002F32DA /* enemy_card.png in Resources */,
 				0D62D2481CAE0767003B046A /* border.jpg in Resources */,
@@ -214,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D76DDDF1CD5CA50003687B9 /* FTButtonNode.swift in Sources */,
 				5189A2E31BA8BB01004A19F3 /* GameScene.swift in Sources */,
 				5189A2E51BA8BB01004A19F3 /* GameViewController.swift in Sources */,
 				0D223FF81CB9551700C41139 /* Discard.swift in Sources */,
