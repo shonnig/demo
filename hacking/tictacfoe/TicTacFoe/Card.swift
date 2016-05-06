@@ -21,6 +21,15 @@ enum CardLocation {
 
 class Card : SKSpriteNode {
     
+    
+    var attackLabel: SKLabelNode!
+    
+    var damage: Int = 4 {
+        didSet {
+            attackLabel.text = "\(damage)"
+        }
+    }
+    
     var healthLabel: SKLabelNode!
 
     var maxHealth: Int = 20 {
@@ -49,8 +58,6 @@ class Card : SKSpriteNode {
     var location: CardLocation?
     
     var isPickedUp = false
-    
-    var damage: Int
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
@@ -91,6 +98,14 @@ class Card : SKSpriteNode {
         healthLabel.zPosition = 2
         healthLabel.position = CGPointMake(0,-140)
         addChild(healthLabel)
+
+        // Add the attack label
+        attackLabel = SKLabelNode(fontNamed: "Arial")
+        attackLabel.text = "\(damage)"
+        attackLabel.fontColor = UIColor.redColor()
+        attackLabel.zPosition = 2
+        attackLabel.position = CGPointMake(0,110)
+        addChild(attackLabel)
         
         setScale(0.33)
     }
@@ -174,9 +189,9 @@ class Card : SKSpriteNode {
         return tile
     }
     
-    /*
     func update(currentTime: CFTimeInterval) {
         
+        /*
         // See if next tile up is valid and free
         let next = nextMoveTile()
         let current = currentTile()
@@ -235,21 +250,23 @@ class Card : SKSpriteNode {
             }
             
         }
+        */
         
         // Did we die from damage this turn?
         if health <= 0 {
             die()
         }
     }
-    */
     
     func applyDamage(to: Card, damage: Int) {
         to.health -= damage
     }
     
+    /*
     func applyDamageToBase(to: Player, damage: Int) {
-        to.life -= damage
+      to.life -= damage
     }
+    */
 
     func attackFromTileToTile(fromTile: Tile, toTile: Tile) {
         
@@ -264,7 +281,7 @@ class Card : SKSpriteNode {
         dmgImage.hidden = true
         scene!.addChild(dmgImage)
 
-        let wait1 = SKAction.waitForDuration(0.2)
+        let wait1 = SKAction.waitForDuration(0.4)
         let showDmg = SKAction.unhide()
         let doDmg = SKAction.runBlock({self.applyDamage(toTile.occupiedBy!, damage: self.damage)})
         let wait2 = SKAction.waitForDuration(0.3)
@@ -282,8 +299,8 @@ class Card : SKSpriteNode {
         let attPos = CGPoint(x: position.x + xDiff, y: position.y + yDiff)
         
         let attackTo = SKAction.moveTo(attPos, duration: 0.2)
-        let wait = SKAction.waitForDuration(0.1)
-        let attackBack = SKAction.moveTo(position, duration: 0.2)
+        let wait = SKAction.waitForDuration(0.3)
+        let attackBack = SKAction.moveTo(fromTile.position, duration: 0.2)
         let cycle = SKAction.sequence([attackTo, wait, attackBack])
         runAction(cycle, withKey: "attack")
         
@@ -291,12 +308,13 @@ class Card : SKSpriteNode {
         // more than one card attacking same tile
         zPosition = CGFloat(20 + ((toTile.row * 5) + toTile.col) * 3)
         
-        let liftUp = SKAction.scaleTo(0.5, duration: 0.2)
+        let liftUp = SKAction.scaleTo(0.75, duration: 0.2)
         let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
         let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
         runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
     }
     
+    /*
     func attackFromBaseToTile(toTile: Tile) {
         
         // There should be something to attack
@@ -370,6 +388,7 @@ class Card : SKSpriteNode {
         let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
         runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
     }
+    */
     
     func moveFromTileToTile(fromTile: Tile, toTile: Tile) {
      
@@ -492,7 +511,12 @@ class Card : SKSpriteNode {
             if isInHand() {
                 moveFromHandToTile(hl!)
             } else {
-                moveFromTileToTile(currentTile()!, toTile: hl!)
+                if hl?.occupiedBy != nil && hl!.occupiedBy?.player.isPlayer != self.player.isPlayer {
+                    // attacking!
+                    attackFromTileToTile(currentTile()!, toTile: hl!)
+                } else {
+                    moveFromTileToTile(currentTile()!, toTile: hl!)
+                }
             }
             
         } else {

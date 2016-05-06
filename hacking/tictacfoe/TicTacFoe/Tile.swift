@@ -112,7 +112,13 @@ class Tile : SKSpriteNode {
         
         return occupiedBy == nil && validRow
         */
-        return occupiedBy == nil || occupiedBy == card
+        if card.isInHand() {
+            // Must be empty tile to play from hand.
+            return occupiedBy == nil
+        } else {
+            // Can be a move to empty or attack
+            return occupiedBy == nil || occupiedBy == card || occupiedBy!.player.isPlayer != card.player.isPlayer
+        }
     }
     
     func shouldAttackOccupier() -> Bool {

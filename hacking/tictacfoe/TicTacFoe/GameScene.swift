@@ -74,6 +74,7 @@ class GameScene: SKScene {
         // move end turn button TODO: this is just a quick and dirty thing for now
         turnButton!.position.y = (currentTurn?.turnButtonY)!
         
+        // TODO: are we going to limit actions?
         // reset actions remaining to 1
         actionsLeft = 1
         
@@ -86,17 +87,17 @@ class GameScene: SKScene {
         /*
         player!.deck!.update(currentTime)
         opponent!.deck!.update(currentTime)
+         */
         
-        // TODO: currently, updating in this order will give a move advantage to player on the bottom!
         for tile in tiles {
-            tile.update(currentTime)
+            //tile.update(currentTime)
             
             if tile.occupiedBy != nil {
                 let card = tile.occupiedBy!
                 card.update(currentTime)
             }
         }
-        */
+        
     }
     
     override func didMoveToView(view: SKView) {
