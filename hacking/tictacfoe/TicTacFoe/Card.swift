@@ -22,9 +22,17 @@ enum CardLocation {
 class Card : SKSpriteNode {
     
     
+    var costLabel: SKLabelNode!
+    
+    var cost: Int = 1 {
+        didSet {
+            costLabel.text = "\(cost)"
+        }
+    }
+    
     var attackLabel: SKLabelNode!
     
-    var damage: Int = 4 {
+    var damage: Int = 1 {
         didSet {
             attackLabel.text = "\(damage)"
         }
@@ -32,13 +40,13 @@ class Card : SKSpriteNode {
     
     var healthLabel: SKLabelNode!
 
-    var maxHealth: Int = 20 {
+    var maxHealth: Int = 1 {
         didSet {
             healthLabel.text = "\(health)/\(maxHealth)"
         }
     }
     
-    var health: Int = 20 {
+    var health: Int = 1 {
         didSet {
             healthLabel.text = "\(health)/\(maxHealth)"
         }
@@ -67,20 +75,22 @@ class Card : SKSpriteNode {
         
         player = _player
         
-        maxHealth = 20
-        health = 20
-        damage = 4
-        
         // make the border/background
         var cardBackground: SKTexture
         // TODO: use different colors or something eventually for different teams
+        var bgColor: UIColor
+        
         if player.isPlayer {
-            cardBackground = SKTexture(imageNamed: "border.jpg")
+            cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
+            bgColor = UIColor.blueColor()
+            
         } else {
             cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
+            bgColor = UIColor.greenColor()
         }
         
-        super.init(texture: cardBackground, color: UIColor(white: 1.0, alpha: 0.0), size: CGSize(width: 200, height: 300))
+        super.init(texture: cardBackground, color:bgColor, size: CGSize(width: 200, height: 300))
+        colorBlendFactor = 0.1
  
         // allow the Card to intercept touches instead of passing them through the scene
         userInteractionEnabled = true
@@ -104,8 +114,16 @@ class Card : SKSpriteNode {
         attackLabel.text = "\(damage)"
         attackLabel.fontColor = UIColor.redColor()
         attackLabel.zPosition = 2
-        attackLabel.position = CGPointMake(0,110)
+        attackLabel.position = CGPointMake(-60,110)
         addChild(attackLabel)
+        
+        // Add the cost label
+        costLabel = SKLabelNode(fontNamed: "Arial")
+        costLabel.text = "\(damage)"
+        costLabel.fontColor = UIColor.blueColor()
+        costLabel.zPosition = 2
+        costLabel.position = CGPointMake(60,110)
+        addChild(costLabel)
         
         setScale(0.33)
     }
@@ -260,6 +278,7 @@ class Card : SKSpriteNode {
     
     func applyDamage(to: Card, damage: Int) {
         to.health -= damage
+        health -= to.damage
     }
     
     /*
@@ -441,6 +460,9 @@ class Card : SKSpriteNode {
         
         // align hand
         player.hand!.alignHand()
+        
+        // pay gold cost
+        player.gold -= cost
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -451,6 +473,17 @@ class Card : SKSpriteNode {
             return
         }
         */
+        
+        // Can only move cards for the current turn
+        let gameScene = scene as! GameScene
+        if gameScene.currentTurn!.isPlayer != player.isPlayer {
+            return
+        }
+        
+        // Can only play from hand with enough gold
+        if isInHand() && cost > gameScene.currentTurn!.gold {
+            return
+        }
         
         zPosition = 1000
         let liftUp = SKAction.scaleTo(0.5, duration: 0.3)
@@ -468,6 +501,17 @@ class Card : SKSpriteNode {
             return
         }
         */
+        
+        // Can only move cards for the current turn
+        let gameScene = scene as! GameScene
+        if gameScene.currentTurn!.isPlayer != player.isPlayer {
+            return
+        }
+        
+        // Can only play from hand with enough gold
+        if isInHand() && cost > gameScene.currentTurn!.gold {
+            return
+        }
         
         for touch in touches {
             let location = touch.locationInNode(scene!) // make sure this is scene, not self
@@ -498,6 +542,17 @@ class Card : SKSpriteNode {
             return
         }
         */
+        
+        // Can only move cards for the current turn
+        let gameScene = scene as! GameScene
+        if gameScene.currentTurn!.isPlayer != player.isPlayer {
+            return
+        }
+        
+        // Can only play from hand with enough gold
+        if isInHand() && cost > gameScene.currentTurn!.gold {
+            return
+        }
         
         let dropDown = SKAction.scaleTo(0.33, duration: 0.3)
         runAction(dropDown, withKey: "drop", optionalCompletion: lowerPosition)

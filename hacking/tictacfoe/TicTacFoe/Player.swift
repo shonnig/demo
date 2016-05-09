@@ -20,15 +20,15 @@ class Player {
     
     var hand: Hand?
     
-    var life: Int = 20 {
+    var gold: Int = 0 {
         didSet {
-            lifeLabel.text = "\(life)"
+            goldLabel.text = "\(gold)"
         }
     }
     
-    var lifeLabel: SKLabelNode!
+    var goldLabel: SKLabelNode!
     
-    var lifeLabelShadow: SKLabelNode!
+    //var goldLabelShadow: SKLabelNode!
     
     var otherPlayer: Player?
     
@@ -47,24 +47,26 @@ class Player {
             turnButtonY = 600
         }
         
-        life = 20
-        // Add the life label
-        lifeLabel = SKLabelNode(fontNamed: "Arial")
-        lifeLabel.text = "\(life)"
-        lifeLabel.fontSize = 40
-        lifeLabel.fontColor = UIColor.whiteColor()
-        lifeLabel.zPosition = 2000
-        lifeLabel.position = CGPointMake(50,drawDiscardY)
+        // Add the gold label
+        goldLabel = SKLabelNode(fontNamed: "Arial")
+        goldLabel.text = "\(gold)"
+        goldLabel.fontSize = 40
+        goldLabel.fontColor = UIColor.whiteColor()
+        goldLabel.zPosition = 2000
+        goldLabel.position = CGPointMake(50,drawDiscardY)
+        scene.addChild(goldLabel)
+
         
-        lifeLabelShadow = SKLabelNode(fontNamed: "Arial")
-        lifeLabelShadow.text = "\(life)"
-        lifeLabelShadow.fontSize = 40
-        lifeLabelShadow.fontColor = UIColor.blackColor()
-        lifeLabelShadow.zPosition = 1999
-        lifeLabelShadow.position = CGPointMake(53,drawDiscardY - 3)
+        /*
+        goldLabelShadow = SKLabelNode(fontNamed: "Arial")
+        goldLabelShadow.text = "\(gold)"
+        goldLabelShadow.fontSize = 40
+        goldLabelShadow.fontColor = UIColor.blackColor()
+        goldLabelShadow.zPosition = 1999
+        goldLabelShadow.position = CGPointMake(53,drawDiscardY - 3)
+        scene.addChild(goldLabelShadow)
+        */
         
-        scene.addChild(lifeLabel)
-        scene.addChild(lifeLabelShadow)
         
         // Player's hand
         hand = Hand(_player: self)

@@ -80,6 +80,7 @@ class GameScene: SKScene {
         
         // Draw a card for player's new turn
         currentTurn!.deck!.drawCard()
+        currentTurn!.gold += 2
     }
     
     
