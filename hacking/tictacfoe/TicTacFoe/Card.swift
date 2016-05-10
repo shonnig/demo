@@ -71,7 +71,7 @@ class Card : SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
-    init(_player: Player, imageNamed: String, imageScale: CGFloat) {
+    init(_player: Player, type: CardType) {
         
         player = _player
         
@@ -95,11 +95,19 @@ class Card : SKSpriteNode {
         // allow the Card to intercept touches instead of passing them through the scene
         userInteractionEnabled = true
         
+        // Get card info
+        let data = CardInfo.data[type]
+        
         // make the character image and attach to card
-        let cardImage = SKSpriteNode(imageNamed: imageNamed)
-        cardImage.setScale(imageScale)
-        cardImage.zPosition = 1;
+        let cardImage = SKSpriteNode(imageNamed: data!.image)
+        cardImage.setScale((CGFloat)(data!.scale))
+        cardImage.zPosition = 1
         addChild(cardImage)
+        
+        // update stats
+        cost = data!.cost
+        damage = data!.attack
+        maxHealth = data!.health
         
         // Add the health label
         healthLabel = SKLabelNode(fontNamed: "Arial")

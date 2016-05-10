@@ -46,21 +46,13 @@ class Deck : SKSpriteNode {
         setScale(0.33)
     }
     
-    func addCard() {
-        let card = Card(_player: player, imageNamed: "Spearman.png", imageScale: 0.25)
+    func addCard(type: CardType) {
+        let card = Card(_player: player, type: type)
         card.position = position
         card.hidden = true
         scene!.addChild(card)
         cards.append(card)
         card.location = .Deck
-
-        /*
-        let bear = Card(imageNamed: "230px-Miner.png", imageScale: 0.6)
-        bear.position = CGPointMake(500, 200)
-        addChild(bear)
-        hand!.addCard(bear)
-        */
-        
     }
     
     func drawCard() {

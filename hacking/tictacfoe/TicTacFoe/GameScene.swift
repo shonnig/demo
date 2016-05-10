@@ -103,6 +103,9 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         
+        // Init card info
+        CardInfo.initInfo()
+        
 		let background = SKSpriteNode(imageNamed: "background.jpg")
 		background.position = CGPoint(x: 512, y: 384)
 		background.blendMode = .Replace
@@ -133,22 +136,22 @@ class GameScene: SKScene {
         // *** Temp init game state
         
         // TODO: temp 5 cards in deck
-        player!.deck!.addCard()
-        player!.deck!.addCard()
-        player!.deck!.addCard()
-        player!.deck!.addCard()
-        player!.deck!.addCard()
+        player!.deck!.addCard(.Spearman)
+        player!.deck!.addCard(.Miner)
+        player!.deck!.addCard(.Spearman)
+        player!.deck!.addCard(.Spearman)
+        player!.deck!.addCard(.Miner)
         
         // TODO: temp draw 2 cards (one will get drawn right away because of timer
         player!.deck!.drawCard()
         player!.deck!.drawCard()
         
         // TODO: temp 5 cards in deck
-        opponent!.deck!.addCard()
-        opponent!.deck!.addCard()
-        opponent!.deck!.addCard()
-        opponent!.deck!.addCard()
-        opponent!.deck!.addCard()
+        opponent!.deck!.addCard(.Spearman)
+        opponent!.deck!.addCard(.Spearman)
+        opponent!.deck!.addCard(.Miner)
+        opponent!.deck!.addCard(.Miner)
+        opponent!.deck!.addCard(.Spearman)
         
         // TODO: temp draw 2 cards (one will get drawn right away because of timer
         opponent!.deck!.drawCard()
