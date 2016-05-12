@@ -81,6 +81,17 @@ class GameScene: SKScene {
         // Draw a card for player's new turn
         currentTurn!.deck!.drawCard()
         currentTurn!.gold += 2
+        
+        for tile in tiles {
+            //tile.update(currentTime)
+            
+            if tile.occupiedBy != nil {
+                let card = tile.occupiedBy!
+                if card.player.isPlayer == currentTurn?.isPlayer {
+                    card.startTurn()
+                }
+            }
+        }
     }
     
     

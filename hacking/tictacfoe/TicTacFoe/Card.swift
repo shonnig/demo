@@ -21,6 +21,17 @@ enum CardLocation {
 
 class Card : SKSpriteNode {
     
+    var props: Set<CardProp>?
+    
+    /*
+    var cardBack: SKSpriteNode?
+    
+    var faceDown: Bool = false {
+        didSet {
+            cardBack!.hidden = !faceDown
+        }
+    }
+ */
     
     var costLabel: SKLabelNode!
     
@@ -75,21 +86,16 @@ class Card : SKSpriteNode {
         
         player = _player
         
-        // make the border/background
-        var cardBackground: SKTexture
-        // TODO: use different colors or something eventually for different teams
         var bgColor: UIColor
         
         if player.isPlayer {
-            cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
             bgColor = UIColor.blueColor()
             
         } else {
-            cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
             bgColor = UIColor.greenColor()
         }
         
-        super.init(texture: cardBackground, color:bgColor, size: CGSize(width: 200, height: 300))
+        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
         colorBlendFactor = 0.1
  
         // allow the Card to intercept touches instead of passing them through the scene
@@ -108,6 +114,8 @@ class Card : SKSpriteNode {
         cost = data!.cost
         damage = data!.attack
         maxHealth = data!.health
+        health = maxHealth
+        props = data!.props
         
         // Add the health label
         healthLabel = SKLabelNode(fontNamed: "Arial")
@@ -132,6 +140,17 @@ class Card : SKSpriteNode {
         costLabel.zPosition = 2
         costLabel.position = CGPointMake(60,110)
         addChild(costLabel)
+        
+        /*
+        // make the card back which is only visible when the card is face down
+        // make the character image and attach to card
+        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
+        cardBack!.colorBlendFactor = 0.1
+        cardBack!.zPosition = 3
+        addChild(cardBack!)
+        */
+        
+        //faceDown = false
         
         setScale(0.33)
     }
@@ -213,6 +232,14 @@ class Card : SKSpriteNode {
         }
         
         return tile
+    }
+    
+    func startTurn() {
+        if (props != nil) {
+            if (props!.contains(.startTurnGainGold1)) {
+                player.gold += 1
+            }
+        }
     }
     
     func update(currentTime: CFTimeInterval) {

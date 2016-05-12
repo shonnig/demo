@@ -43,7 +43,13 @@ class Discard : SKSpriteNode {
     }
     
     func addCard(card: Card) {
+        //let topZpos = cards.last?.zPosition
+        
         card.location = .Discard
+        
+        //if topZpos != nil {
+        //    card.zPosition = topZpos! + 100
+        //}
         cards.append(card)
     }
 }

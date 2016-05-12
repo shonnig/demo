@@ -17,8 +17,6 @@ class Deck : SKSpriteNode {
     
     var cards = [Card]()
     
-    var nextDrawTime:CFTimeInterval
-    
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
@@ -27,18 +25,17 @@ class Deck : SKSpriteNode {
         
         player = _player
         
-        nextDrawTime = 0
+        var bgColor: UIColor
         
-        // make the border/background
-        var cardBackground: SKTexture
-        // TODO: use different colors or something eventually for different teams
         if player.isPlayer {
-            cardBackground = SKTexture(imageNamed: "border.jpg")
+            bgColor = UIColor.blueColor()
+            
         } else {
-            cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
+            bgColor = UIColor.greenColor()
         }
         
-        super.init(texture: cardBackground, color: UIColor(white: 1.0, alpha: 0.0), size: CGSize(width: 200, height: 300))
+        super.init(texture: SKTexture(imageNamed: "border.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
+        colorBlendFactor = 0.1
         
         // allow the Card to intercept touches instead of passing them through the scene
         //userInteractionEnabled = true
@@ -85,6 +82,7 @@ class Deck : SKSpriteNode {
         let card = cards.removeFirst()
         
         card.hidden = false
+        card.zPosition = 1
         player.hand!.addCard(card)
         player.hand!.alignHand()
     }
