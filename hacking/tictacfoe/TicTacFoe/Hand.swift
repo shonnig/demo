@@ -27,6 +27,7 @@ class Hand {
         // TODO: need to enforce max hand size
         card.location = .Hand
         cards.append(card)
+        card.faceDown = false
     }
     
     func removeCard(card: Card) {
@@ -41,6 +42,12 @@ class Hand {
     
     func isFull() -> Bool {
         return cards.count >= maxSize
+    }
+    
+    func setFaceUp(doShow: Bool) {
+        for card in cards {
+            card.faceDown = !doShow
+        }
     }
     
     // animate all the cards in the hand into default place

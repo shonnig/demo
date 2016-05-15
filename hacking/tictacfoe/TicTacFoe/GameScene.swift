@@ -50,6 +50,12 @@ extension MutableCollectionType where Index == Int {
     }
 }
 
+enum ZPosition: CGFloat {
+    
+    case Background = -100
+    case CardOnBoard
+}
+
 class GameScene: SKScene {
     
     var player: Player?
@@ -92,6 +98,9 @@ class GameScene: SKScene {
                 }
             }
         }
+        
+        currentTurn?.hand?.setFaceUp(true)
+        currentTurn?.otherPlayer!.hand?.setFaceUp(false)
     }
     
     
@@ -120,7 +129,7 @@ class GameScene: SKScene {
 		let background = SKSpriteNode(imageNamed: "background.jpg")
 		background.position = CGPoint(x: 512, y: 384)
 		background.blendMode = .Replace
-		background.zPosition = -100
+		background.zPosition = ZPosition.Background.rawValue
 		addChild(background)
         
         let buttonImg = SKTexture(imageNamed: "End_Turn_Button.png")

@@ -50,6 +50,7 @@ class Deck : SKSpriteNode {
         scene!.addChild(card)
         cards.append(card)
         card.location = .Deck
+        card.faceDown = true
     }
     
     func drawCard() {

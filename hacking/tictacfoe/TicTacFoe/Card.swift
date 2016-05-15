@@ -23,15 +23,13 @@ class Card : SKSpriteNode {
     
     var props: Set<CardProp>?
     
-    /*
-    var cardBack: SKSpriteNode?
+    var cardBack: SKSpriteNode
     
-    var faceDown: Bool = false {
+    var faceDown = false {
         didSet {
-            cardBack!.hidden = !faceDown
+            cardBack.hidden = !faceDown
         }
     }
- */
     
     var costLabel: SKLabelNode!
     
@@ -95,6 +93,12 @@ class Card : SKSpriteNode {
             bgColor = UIColor.greenColor()
         }
         
+        // make the card back which is only visible when the card is face down
+        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
+        cardBack.colorBlendFactor = 0.1
+        cardBack.zPosition = 3
+        cardBack.hidden = true
+        
         super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
         colorBlendFactor = 0.1
  
@@ -135,22 +139,14 @@ class Card : SKSpriteNode {
         
         // Add the cost label
         costLabel = SKLabelNode(fontNamed: "Arial")
-        costLabel.text = "\(damage)"
+        costLabel.text = "\(cost)"
         costLabel.fontColor = UIColor.blueColor()
         costLabel.zPosition = 2
         costLabel.position = CGPointMake(60,110)
         addChild(costLabel)
         
-        /*
-        // make the card back which is only visible when the card is face down
-        // make the character image and attach to card
-        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
-        cardBack!.colorBlendFactor = 0.1
-        cardBack!.zPosition = 3
-        addChild(cardBack!)
-        */
-        
-        //faceDown = false
+        addChild(cardBack)
+        faceDown = false
         
         setScale(0.33)
     }
