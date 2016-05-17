@@ -33,9 +33,6 @@ class Discard : SKSpriteNode {
         
         super.init(texture: cardBackground, color: UIColor(white: 1.0, alpha: 0.0), size: CGSize(width: 200, height: 300))
         
-        // allow the Card to intercept touches instead of passing them through the scene
-        //userInteractionEnabled = true
-        
         setScale(0.33)
         
         // TODO: make a different "foundation" image for the discard and don't hide it
@@ -43,13 +40,13 @@ class Discard : SKSpriteNode {
     }
     
     func addCard(card: Card) {
-        //let topZpos = cards.last?.zPosition
+        let topZpos = cards.last?.zPosition
         
         card.location = .Discard
         
-        //if topZpos != nil {
-        //    card.zPosition = topZpos! + 100
-        //}
+        if topZpos != nil {
+            card.zPosition = topZpos! + 20
+        }
         cards.append(card)
     }
 }

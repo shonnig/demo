@@ -28,8 +28,6 @@ class Player {
     
     var goldLabel: SKLabelNode!
     
-    //var goldLabelShadow: SKLabelNode!
-    
     var otherPlayer: Player?
     
     var turnButtonY: CGFloat
@@ -52,21 +50,9 @@ class Player {
         goldLabel.text = "\(gold)"
         goldLabel.fontSize = 40
         goldLabel.fontColor = UIColor.whiteColor()
-        goldLabel.zPosition = 2000
+        goldLabel.zPosition = ZPosition.HudUI.rawValue
         goldLabel.position = CGPointMake(50,drawDiscardY)
         scene.addChild(goldLabel)
-
-        
-        /*
-        goldLabelShadow = SKLabelNode(fontNamed: "Arial")
-        goldLabelShadow.text = "\(gold)"
-        goldLabelShadow.fontSize = 40
-        goldLabelShadow.fontColor = UIColor.blackColor()
-        goldLabelShadow.zPosition = 1999
-        goldLabelShadow.position = CGPointMake(53,drawDiscardY - 3)
-        scene.addChild(goldLabelShadow)
-        */
-        
         
         // Player's hand
         hand = Hand(_player: self)

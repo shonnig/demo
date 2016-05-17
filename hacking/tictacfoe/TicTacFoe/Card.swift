@@ -96,7 +96,7 @@ class Card : SKSpriteNode {
         // make the card back which is only visible when the card is face down
         cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
         cardBack.colorBlendFactor = 0.1
-        cardBack.zPosition = 3
+        cardBack.zPosition = ZPosition.CardBack.rawValue - ZPosition.CardInHand.rawValue
         cardBack.hidden = true
         
         super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
@@ -111,7 +111,7 @@ class Card : SKSpriteNode {
         // make the character image and attach to card
         let cardImage = SKSpriteNode(imageNamed: data!.image)
         cardImage.setScale((CGFloat)(data!.scale))
-        cardImage.zPosition = 1
+        cardImage.zPosition = ZPosition.CardImage.rawValue - ZPosition.CardInHand.rawValue
         addChild(cardImage)
         
         // update stats
@@ -125,7 +125,7 @@ class Card : SKSpriteNode {
         healthLabel = SKLabelNode(fontNamed: "Arial")
         healthLabel.text = "\(health)/\(maxHealth)"
         healthLabel.fontColor = UIColor.blackColor()
-        healthLabel.zPosition = 2
+        healthLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
         healthLabel.position = CGPointMake(0,-140)
         addChild(healthLabel)
 
@@ -133,7 +133,7 @@ class Card : SKSpriteNode {
         attackLabel = SKLabelNode(fontNamed: "Arial")
         attackLabel.text = "\(damage)"
         attackLabel.fontColor = UIColor.redColor()
-        attackLabel.zPosition = 2
+        attackLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
         attackLabel.position = CGPointMake(-60,110)
         addChild(attackLabel)
         
@@ -141,7 +141,7 @@ class Card : SKSpriteNode {
         costLabel = SKLabelNode(fontNamed: "Arial")
         costLabel.text = "\(cost)"
         costLabel.fontColor = UIColor.blueColor()
-        costLabel.zPosition = 2
+        costLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
         costLabel.position = CGPointMake(60,110)
         addChild(costLabel)
         
@@ -327,7 +327,7 @@ class Card : SKSpriteNode {
         let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
         dmgImage.setScale(0.25)
         dmgImage.position = toTile.position
-        dmgImage.zPosition = 500
+        dmgImage.zPosition = ZPosition.DamageEffect.rawValue
         dmgImage.hidden = true
         scene!.addChild(dmgImage)
 
@@ -356,7 +356,7 @@ class Card : SKSpriteNode {
         
         // TODO: hacky way to try to give possibly overlapping cards different zPositions - not sufficient
         // more than one card attacking same tile
-        zPosition = CGFloat(20 + ((toTile.row * 5) + toTile.col) * 3)
+        //zPosition = CGFloat(20 + ((toTile.row * 5) + toTile.col) * 3)
         
         let liftUp = SKAction.scaleTo(0.75, duration: 0.2)
         let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
@@ -516,7 +516,7 @@ class Card : SKSpriteNode {
             return
         }
         
-        zPosition = 1000
+        zPosition = ZPosition.MovingCard.rawValue
         let liftUp = SKAction.scaleTo(0.5, duration: 0.3)
         runAction(liftUp, withKey: "pickup")
             
@@ -649,7 +649,7 @@ class Card : SKSpriteNode {
     }
     
     func lowerPosition() {
-        zPosition = 0
+        zPosition = ZPosition.CardInHand.rawValue
     }
 
 }

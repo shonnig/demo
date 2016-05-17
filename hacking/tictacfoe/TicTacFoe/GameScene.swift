@@ -52,8 +52,30 @@ extension MutableCollectionType where Index == Int {
 
 enum ZPosition: CGFloat {
     
-    case Background = -100
-    case CardOnBoard
+    case Background = -1000
+    
+    case Tile = -100
+    
+    case TileHighlight = -20
+    
+    case HighlightedTile = -10
+    
+    case ButtonUI = 0
+    
+    case CardInHand = 10
+    
+    case CardImage = 15
+    
+    case CardLabel = 20
+    
+    case CardBack = 30
+    
+    case DamageEffect = 100
+    
+    case MovingCard = 500
+    
+    case HudUI = 1000
+    
 }
 
 class GameScene: SKScene {
@@ -135,7 +157,7 @@ class GameScene: SKScene {
         let buttonImg = SKTexture(imageNamed: "End_Turn_Button.png")
         turnButton = FTButtonNode(normalTexture: buttonImg, selectedTexture: buttonImg, disabledTexture: buttonImg)
         turnButton!.position = CGPoint(x: 125, y: 200)
-        turnButton!.zPosition = 0
+        turnButton!.zPosition = ZPosition.ButtonUI.rawValue
         turnButton!.userInteractionEnabled = true
         addChild(turnButton!)
         

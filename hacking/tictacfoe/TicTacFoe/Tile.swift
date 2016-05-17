@@ -53,7 +53,7 @@ class Tile : SKSpriteNode {
         //userInteractionEnabled = true
 
         position = CGPointMake(CGFloat(350 + (col * side)), CGFloat(175 + (row * side)))
-        zPosition = -10
+        zPosition = ZPosition.Tile.rawValue
         
         // Create the highlight node
         initHighlight()
@@ -64,7 +64,7 @@ class Tile : SKSpriteNode {
         glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5), size: CGSize(width: side, height: side))
         glowNode!.setScale(1.1)
         // Make the effect go just under this tile (but above others)
-        glowNode!.zPosition = -1
+        glowNode!.zPosition = ZPosition.TileHighlight.rawValue - ZPosition.HighlightedTile.rawValue
         glowNode!.hidden = true
         self.addChild(glowNode!)
     }
@@ -78,7 +78,7 @@ class Tile : SKSpriteNode {
         }
         
         // Need to raise the highlighted tile above the others so the highlight is below this tile but above others
-        zPosition = -5
+        zPosition = ZPosition.HighlightedTile.rawValue
         glowNode?.hidden = false
         
         // Green - empty and can be placed, red - occupied and can't
@@ -91,7 +91,7 @@ class Tile : SKSpriteNode {
     
     func removeHighlight() {
         Tile.currentHighlight = nil
-        zPosition = -10
+        zPosition = ZPosition.Tile.rawValue
         glowNode?.hidden = true
     }
     

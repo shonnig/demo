@@ -37,9 +37,6 @@ class Deck : SKSpriteNode {
         super.init(texture: SKTexture(imageNamed: "border.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
         colorBlendFactor = 0.1
         
-        // allow the Card to intercept touches instead of passing them through the scene
-        //userInteractionEnabled = true
-        
         setScale(0.33)
     }
     
@@ -83,7 +80,7 @@ class Deck : SKSpriteNode {
         let card = cards.removeFirst()
         
         card.hidden = false
-        card.zPosition = 1
+        card.zPosition = ZPosition.CardInHand.rawValue
         player.hand!.addCard(card)
         player.hand!.alignHand()
     }
