@@ -160,6 +160,16 @@ class Card : SKSpriteNode {
         return ret
     }
     
+    func isOnBoard() -> Bool {
+        var ret:Bool
+        switch location! {
+        case .Tile: ret = true
+        default: ret = false
+        }
+        return ret
+    }
+    
+    
     func die() {
         
         // clear occupation if it has any
@@ -498,12 +508,10 @@ class Card : SKSpriteNode {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        // Can only move cards from hand
-        /*
-        if !isInHand() {
+        // Can only move cards from hand or on board
+        if !isInHand() && !isOnBoard() {
             return
         }
-        */
         
         // Can only move cards for the current turn
         let gameScene = scene as! GameScene
@@ -526,12 +534,10 @@ class Card : SKSpriteNode {
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        // Can only move cards from hand
-        /*
-        if !isInHand() {
+        // Can only move cards from hand or on board
+        if !isInHand() && !isOnBoard() {
             return
         }
-        */
         
         // Can only move cards for the current turn
         let gameScene = scene as! GameScene
@@ -567,12 +573,10 @@ class Card : SKSpriteNode {
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        // Can only move cards from hand
-        /*
-        if !isInHand() {
+        // Can only move cards from hand or on board
+        if !isInHand() && !isOnBoard() {
             return
         }
-        */
         
         // Can only move cards for the current turn
         let gameScene = scene as! GameScene
