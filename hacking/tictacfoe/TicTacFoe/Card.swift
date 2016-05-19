@@ -63,15 +63,6 @@ class Card : SKSpriteNode {
     
     var player: Player
     
-    // TODO: temp, will eventually vary by card type
-    var moveInterval: CFTimeInterval = 4
-    
-    var attackInterval: CFTimeInterval = 2
-    
-    var nextMoveTime: CFTimeInterval?
-    
-    var nextAttackTime: CFTimeInterval?
-    
     var location: CardLocation?
     
     var isPickedUp = false
@@ -177,9 +168,8 @@ class Card : SKSpriteNode {
         tile?.occupiedBy = nil
         
         // reset card's stats
+        // TODO: reset all stats
         health = maxHealth
-        nextMoveTime = nil
-        nextAttackTime = nil
         
         // remove from hand if there
         if isInHand() {
@@ -188,40 +178,10 @@ class Card : SKSpriteNode {
         
         player.discard!.addCard(self)
         
-        // TODO: fade away and/or go to discard pile?
         let wait = SKAction.waitForDuration(0.2)
-        
-        //let fade = SKAction.fadeOutWithDuration(0.5)
-        //let dieFade = SKAction.sequence([wait, fade])
-        //runAction(dieFade, withKey: "fade")
-        
         let snapTo = SKAction.moveTo(player.discard!.position, duration: 0.5)
         let dieDiscard = SKAction.sequence([wait, snapTo])
         runAction(dieDiscard, withKey: "discard")
-    }
-    
-    // TODO: will we ever have units that move more than one space at a time?
-    func nextMoveTile() -> Tile? {
-        var tile: Tile?
-        
-        switch location! {
-        case .Tile(let row, let col):
-            let gameScene = scene as! GameScene
-            var rowMove = 1
-            if !player.isPlayer {
-                // opponent moves down
-                rowMove = -1
-            }
-            
-            // TODO: really need constants for row/col ranges
-            let index = ((row + rowMove) * 5) + col
-            if index >= 0 && index < gameScene.tiles.count {
-                tile = gameScene.tiles[index]
-            }
-        default: break
-        }
-        
-        return tile
     }
     
     func currentTile() -> Tile? {
@@ -250,67 +210,6 @@ class Card : SKSpriteNode {
     
     func update(currentTime: CFTimeInterval) {
         
-        /*
-        // See if next tile up is valid and free
-        let next = nextMoveTile()
-        let current = currentTile()
-        
-        // If we're not on a tile, don't do anything
-        if current == nil {
-            return
-        }
-        
-        if next != nil {
-            // Not at edge of board yet
-            
-            if next!.occupiedBy == nil {
-                // Space is empty - reset attack timer
-                nextAttackTime = nil
-                
-                if nextMoveTime == nil {
-                    // Next space is free, we can start the timer
-                    nextMoveTime = currentTime + moveInterval
-                } else {
-                    if nextMoveTime < currentTime {
-                        // Timer expired and space is still free, we can move!
-                        moveFromTileToTile(current!, toTile: next!)
-                        nextMoveTime = nil
-                    }
-                }
-            } else {
-                // Space is occupied - reset move timer
-                nextMoveTime = nil
-                
-                // Is the next space an enemy?
-                if next!.occupiedBy?.player.isPlayer != player.isPlayer {
-                    
-                    if nextAttackTime == nil {
-                        // start the timer
-                        nextAttackTime = currentTime + attackInterval
-                    } else {
-                        if nextAttackTime < currentTime {
-                            // Timer expired and there's still an enemy - attack!
-                            attackFromTileToTile(current!, toTile: next!)
-                            nextAttackTime = nil
-                        }
-                    }
-                }
-            }
-        } else {
-            // We're at the edge of the board - get ready to attack base!
-            if nextAttackTime == nil {
-                nextAttackTime = currentTime + attackInterval
-            } else {
-                if nextAttackTime < currentTime {
-                    // attack!
-                    attackFromTileToBase(current!)
-                    nextAttackTime = nil
-                }
-            }
-            
-        }
-        */
-        
         // Did we die from damage this turn?
         if health <= 0 {
             die()
@@ -321,12 +220,6 @@ class Card : SKSpriteNode {
         to.health -= damage
         health -= to.damage
     }
-    
-    /*
-    func applyDamageToBase(to: Player, damage: Int) {
-      to.life -= damage
-    }
-    */
 
     func attackFromTileToTile(fromTile: Tile, toTile: Tile) {
         
@@ -364,91 +257,11 @@ class Card : SKSpriteNode {
         let cycle = SKAction.sequence([attackTo, wait, attackBack])
         runAction(cycle, withKey: "attack")
         
-        // TODO: hacky way to try to give possibly overlapping cards different zPositions - not sufficient
-        // more than one card attacking same tile
-        //zPosition = CGFloat(20 + ((toTile.row * 5) + toTile.col) * 3)
-        
         let liftUp = SKAction.scaleTo(0.75, duration: 0.2)
         let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
         let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
         runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
     }
-    
-    /*
-    func attackFromBaseToTile(toTile: Tile) {
-        
-        // There should be something to attack
-        assert(toTile.occupiedBy != nil)
-        
-        // damage image
-        let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
-        dmgImage.setScale(0.25)
-        dmgImage.position = toTile.position
-        dmgImage.zPosition = 500
-        dmgImage.hidden = true
-        scene!.addChild(dmgImage)
-        
-        let wait1 = SKAction.waitForDuration(0.2)
-        let showDmg = SKAction.unhide()
-        let doDmg = SKAction.runBlock({self.applyDamage(toTile.occupiedBy!, damage: self.damage)})
-        let wait2 = SKAction.waitForDuration(0.3)
-        let fadeDmg = SKAction.fadeOutWithDuration(0.3)
-        let removeDmg = SKAction.removeFromParent()
-        let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
-        dmgImage.runAction(dmgCycle, withKey: "damage")
-        
-        // TODO: animate attack
-    }
-    
-    func attackFromTileToBase(fromTile: Tile) {
-        
-        // There should be something to attack
-        assert(fromTile.occupiedBy != nil)
-        
-        let attackPos = fromTile.getAdjacentBasePosition()
-        
-        assert(attackPos != nil)
-        
-        // damage image
-        let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
-        dmgImage.setScale(0.25)
-        dmgImage.position = attackPos!
-        dmgImage.zPosition = 500
-        dmgImage.hidden = true
-        scene!.addChild(dmgImage)
-        
-        let wait1 = SKAction.waitForDuration(0.2)
-        let showDmg = SKAction.unhide()
-        let doDmg = SKAction.runBlock({self.applyDamageToBase(self.player.otherPlayer!, damage: self.damage)})
-        let wait2 = SKAction.waitForDuration(0.3)
-        let fadeDmg = SKAction.fadeOutWithDuration(0.3)
-        let removeDmg = SKAction.removeFromParent()
-        let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
-        dmgImage.runAction(dmgCycle, withKey: "damage")
-        
-        // animate attack
-        // TODO: make separate function? And probably can do math directly on points?
-        // find partial position to opponent
-        let xDiff = (attackPos!.x - position.x) * 0.35
-        let yDiff = (attackPos!.y - position.y) * 0.35
-        let attPos = CGPoint(x: position.x + xDiff, y: position.y + yDiff)
-        
-        let attackTo = SKAction.moveTo(attPos, duration: 0.2)
-        let wait = SKAction.waitForDuration(0.1)
-        let attackBack = SKAction.moveTo(position, duration: 0.2)
-        let cycle = SKAction.sequence([attackTo, wait, attackBack])
-        runAction(cycle, withKey: "attack")
-        
-        // TODO: hacky way to try to give possibly overlapping cards different zPositions - not sufficient
-        // more than one card attacking same tile
-        zPosition = CGFloat(20 + ((fromTile.row * 5) + fromTile.col) * 3)
-        
-        let liftUp = SKAction.scaleTo(0.5, duration: 0.2)
-        let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
-        let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
-        runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
-    }
-    */
     
     func moveFromTileToTile(fromTile: Tile, toTile: Tile) {
      
@@ -465,20 +278,6 @@ class Card : SKSpriteNode {
         let snapToPosition = toTile.position
         let snapTo = SKAction.moveTo(snapToPosition, duration: 0.3)
         runAction(snapTo, withKey: "snap")
-        
-        /*
-        let liftUp = SKAction.scaleTo(0.5, duration: 0.15)
-        let dropDown = SKAction.scaleTo(0.33, duration: 0.15)
-        let upDownCycle = SKAction.sequence([liftUp, dropDown])
-        runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
-
-        // Possibly need to update highlight color, so force re-add of highlight
-        let hightlighted = Tile.currentHighlight
-        if hightlighted != nil {
-            hightlighted!.removeHighlight()
-            hightlighted!.addHighlight(self)
-        }
-        */
     }
     
     func moveFromHandToTile(toTile: Tile) {

@@ -73,7 +73,6 @@ class Deck : SKSpriteNode {
                 return card
                 } )
             player.discard!.cards = [Card]()
-            //cards.shuffle()
         }
         
         // remove top card of deck
@@ -84,18 +83,5 @@ class Deck : SKSpriteNode {
         player.hand!.addCard(card)
         player.hand!.alignHand()
     }
-    
-    
-    /*
-    // TODO: should have a UI indicator for how long until next draw - should timer reset or hold if hand is full?
-    // periodically draw a card
-    func update(currentTime: CFTimeInterval) {
-        
-        if nextDrawTime < currentTime {
-            drawCard()
-            nextDrawTime = currentTime + drawInterval
-        }
-    }
-     */
     
 }

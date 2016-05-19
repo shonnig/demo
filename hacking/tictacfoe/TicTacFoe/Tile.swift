@@ -48,9 +48,6 @@ class Tile : SKSpriteNode {
             colorBlendFactor = 1.0
         }
         blendMode = SKBlendMode.Replace
-        
-        // TODO: will we want this?
-        //userInteractionEnabled = true
 
         position = CGPointMake(CGFloat(350 + (col * side)), CGFloat(175 + (row * side)))
         zPosition = ZPosition.Tile.rawValue
@@ -96,22 +93,7 @@ class Tile : SKSpriteNode {
     }
     
     func isValidPlay(card: Card) -> Bool {
-        // TODO: determine if all tiles are fair to play on or if there are restrictions
-        /*
-        var validRow = false
-        
-        if (card.player.isPlayer) {
-            if row == 0 || row == 1 {
-                validRow = true
-            }
-        } else {
-            if row == 2 || row == 3 {
-                validRow = true
-            }
-        }
-        
-        return occupiedBy == nil && validRow
-        */
+
         if card.isInHand() {
             // Must be empty tile to play from hand.
             return occupiedBy == nil
@@ -120,61 +102,5 @@ class Tile : SKSpriteNode {
             return occupiedBy == nil || occupiedBy == card || occupiedBy!.player.isPlayer != card.player.isPlayer
         }
     }
-    
-    func shouldAttackOccupier() -> Bool {
-        
-        // is there any card to attack?
-        if occupiedBy == nil {
-            return false
-        }
-        
-        if occupiedBy!.player.isPlayer && row == 3 {
-            return true
-        }
-        
-        if !occupiedBy!.player.isPlayer && row == 0 {
-            return true
-        }
-        
-        return false
-    }
-    
-    func getAdjacentBasePosition() -> CGPoint? {
-        
-        var pos = position
-        
-        if row == 0 {
-            pos.y -= 100
-            return pos
-        }
-        
-        if row == 3 {
-            pos.y += 100
-            return pos
-        }
-        
-        return nil
-    }
-        
-    /*
-    func update(currentTime: CFTimeInterval) {
-        
-        // TODO: will need to attack base if next is nil
-        if shouldAttackOccupier() {
-            if nextAttackTime == nil {
-                nextAttackTime = currentTime + attackInterval
-            } else {
-                if nextAttackTime < currentTime {
-                    // attack!
-                    occupiedBy?.attackFromBaseToTile(self)
-                    nextAttackTime = nil
-                }
-            }
-        } else {
-            // reset timer
-            nextAttackTime = nil
-        }
-    }
- */
     
 }
