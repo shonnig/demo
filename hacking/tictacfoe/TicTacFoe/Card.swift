@@ -184,6 +184,7 @@ class Card : SKSpriteNode {
         runAction(dieDiscard, withKey: "discard")
     }
     
+    // TODO: Should we just point to current tile?
     func currentTile() -> Tile? {
         var tile: Tile?
         
