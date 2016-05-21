@@ -193,6 +193,15 @@ class Card : SKSpriteNode {
         return ret
     }
     
+    func isInDiscard() -> Bool {
+        var ret:Bool
+        switch location! {
+        case .Discard: ret = true
+        default: ret = false
+        }
+        return ret
+    }
+    
     
     func die() {
         
@@ -486,7 +495,9 @@ class Card : SKSpriteNode {
     }
     
     func lowerPosition() {
-        zPosition = ZPosition.CardInHand.rawValue
+        if !isInDiscard() {
+            zPosition = ZPosition.CardInHand.rawValue
+        }
     }
 
 }
