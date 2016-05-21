@@ -58,6 +58,9 @@ class Card : SKSpriteNode {
     var health: Int = 1 {
         didSet {
             healthLabel.text = "\(health)/\(maxHealth)"
+            if health <= 0 {
+                die()
+            }
         }
     }
     
@@ -75,23 +78,14 @@ class Card : SKSpriteNode {
         
         player = _player
         
-        var bgColor: UIColor
-        
-        if player.isPlayer {
-            bgColor = UIColor.blueColor()
-            
-        } else {
-            bgColor = UIColor.greenColor()
-        }
-        
         // make the card back which is only visible when the card is face down
-        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
-        cardBack.colorBlendFactor = 0.1
+        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color: player.bgColor, size: CGSize(width: 200, height: 300))
+        cardBack.colorBlendFactor = 0.2
         cardBack.zPosition = ZPosition.CardBack.rawValue - ZPosition.CardInHand.rawValue
         cardBack.hidden = true
         
-        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
-        colorBlendFactor = 0.1
+        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: player.bgColor, size: CGSize(width: 200, height: 300))
+        colorBlendFactor = 0.2
  
         // allow the Card to intercept touches instead of passing them through the scene
         userInteractionEnabled = true
@@ -191,7 +185,7 @@ class Card : SKSpriteNode {
         switch location! {
         case .Tile(let row, let col):
             let gameScene = scene as! GameScene
-            let index = (row * 4) + col
+            let index = (row * Tile.maxColumns) + col
             if index >= 0 && index < gameScene.tiles.count {
                 tile = gameScene.tiles[index]
             }
@@ -206,14 +200,6 @@ class Card : SKSpriteNode {
             if (props!.contains(.startTurnGainGold1)) {
                 player.gold += 1
             }
-        }
-    }
-    
-    func update(currentTime: CFTimeInterval) {
-        
-        // Did we die from damage this turn?
-        if health <= 0 {
-            die()
         }
     }
     
@@ -274,6 +260,9 @@ class Card : SKSpriteNode {
         assert(toTile.occupiedBy == nil)
         
         toTile.occupiedBy = self
+        
+        // moving to a tile gives you ownership of it
+        toTile.owner = player
         
         // animate to this
         let snapToPosition = toTile.position

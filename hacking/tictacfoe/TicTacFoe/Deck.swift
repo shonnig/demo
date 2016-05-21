@@ -25,17 +25,8 @@ class Deck : SKSpriteNode {
         
         player = _player
         
-        var bgColor: UIColor
-        
-        if player.isPlayer {
-            bgColor = UIColor.blueColor()
-            
-        } else {
-            bgColor = UIColor.greenColor()
-        }
-        
-        super.init(texture: SKTexture(imageNamed: "border.jpg"), color:bgColor, size: CGSize(width: 200, height: 300))
-        colorBlendFactor = 0.1
+        super.init(texture: SKTexture(imageNamed: "border.jpg"), color: player.bgColor, size: CGSize(width: 200, height: 300))
+        colorBlendFactor = 0.2
         
         setScale(0.33)
     }

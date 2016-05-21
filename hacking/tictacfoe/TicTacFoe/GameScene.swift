@@ -127,20 +127,7 @@ class GameScene: SKScene {
     
     
     override func update(currentTime: CFTimeInterval) {
-        /*
-        player!.deck!.update(currentTime)
-        opponent!.deck!.update(currentTime)
-         */
-        
-        for tile in tiles {
-            //tile.update(currentTime)
-            
-            if tile.occupiedBy != nil {
-                let card = tile.occupiedBy!
-                card.update(currentTime)
-            }
-        }
-        
+        // TODO: will we need this?
     }
     
     override func didMoveToView(view: SKView) {
@@ -160,20 +147,27 @@ class GameScene: SKScene {
         turnButton!.zPosition = ZPosition.ButtonUI.rawValue
         turnButton!.userInteractionEnabled = true
         addChild(turnButton!)
-        
-        for row in 0...3 {
-            for col in 0...3 {
-                let tile = Tile(_row: row, _col: col)
-                addChild(tile)
-                tiles.append(tile)
-            }
-        }
-        
+
         player = Player(scene: self, _isPlayer: true)
         opponent = Player(scene: self, _isPlayer: false)
         
         player!.otherPlayer = opponent
         opponent!.otherPlayer = player
+        
+        for row in 0...Tile.maxRows - 1 {
+            var p: Player?
+            if row == 0 || row == 1 {
+                p = player!
+            } else if row == 2 || row == 3 {
+                p = opponent!
+            }
+            
+            for col in 0...Tile.maxColumns - 1 {
+                let tile = Tile(_row: row, _col: col, _owner: p)
+                addChild(tile)
+                tiles.append(tile)
+            }
+        }
         
         // *** Temp init game state
         

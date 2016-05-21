@@ -32,6 +32,8 @@ class Player {
     
     var turnButtonY: CGFloat
     
+    var bgColor: UIColor
+    
     init(scene: GameScene, _isPlayer: Bool) {
         isPlayer = _isPlayer
         
@@ -40,9 +42,11 @@ class Player {
         if isPlayer {
             drawDiscardY = 50
             turnButtonY = 200
+            bgColor = UIColor.blueColor()
         } else {
             drawDiscardY = 700
             turnButtonY = 600
+            bgColor = UIColor.greenColor()
         }
         
         // Add the gold label
