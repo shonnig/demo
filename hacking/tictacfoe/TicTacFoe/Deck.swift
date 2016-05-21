@@ -41,6 +41,10 @@ class Deck : SKSpriteNode {
         card.faceDown = true
     }
     
+    func shuffle() {
+        cards.shuffle()
+    }
+    
     func drawCard() {
         
         // Can never go beyond max hand size

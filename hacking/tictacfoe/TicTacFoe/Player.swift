@@ -23,6 +23,9 @@ class Player {
     var gold: Int = 0 {
         didSet {
             goldLabel.text = "\(gold)"
+            
+            // this will change cards highlighting based on if they are playable now
+            hand!.setFaceUp(true)
         }
     }
     

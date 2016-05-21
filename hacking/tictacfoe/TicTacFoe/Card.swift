@@ -21,6 +21,10 @@ enum CardLocation {
 
 class Card : SKSpriteNode {
     
+    // TODO: make static?
+    let width = 200
+    let height = 300
+    
     var props: Set<CardProp>?
     
     var cardBack: SKSpriteNode
@@ -64,11 +68,26 @@ class Card : SKSpriteNode {
         }
     }
     
+    var actions: Int = 1 {
+        didSet {
+            if isOnBoard() {
+                if actions >= 1 {
+                    addHighlight()
+                } else {
+                    removeHighlight()
+                }
+            }
+        }
+    }
+    
     var player: Player
     
     var location: CardLocation?
     
     var isPickedUp = false
+    
+    // sprite for highlight effect
+    var glowNode: SKSpriteNode?
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
@@ -79,12 +98,12 @@ class Card : SKSpriteNode {
         player = _player
         
         // make the card back which is only visible when the card is face down
-        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color: player.bgColor, size: CGSize(width: 200, height: 300))
+        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color: player.bgColor, size: CGSize(width: width, height: height))
         cardBack.colorBlendFactor = 0.2
         cardBack.zPosition = ZPosition.CardBack.rawValue - ZPosition.CardInHand.rawValue
         cardBack.hidden = true
         
-        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: player.bgColor, size: CGSize(width: 200, height: 300))
+        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: player.bgColor, size: CGSize(width: width, height: height))
         colorBlendFactor = 0.2
  
         // allow the Card to intercept touches instead of passing them through the scene
@@ -134,6 +153,26 @@ class Card : SKSpriteNode {
         faceDown = false
         
         setScale(0.33)
+        
+        initHighlight()
+    }
+    
+    func initHighlight() {
+        // create a copy of our original node to create the glow effect
+        glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5), size: CGSize(width: width, height: height))
+        glowNode!.setScale(1.1)
+        // Make the effect go just under this tile (but above others)
+        glowNode!.zPosition = ZPosition.CardInHandHighlight.rawValue - ZPosition.CardInHand.rawValue
+        glowNode!.hidden = true
+        self.addChild(glowNode!)
+    }
+    
+    func addHighlight() {
+        glowNode!.hidden = false
+    }
+    
+    func removeHighlight() {
+        glowNode!.hidden = true
     }
 
     func isInHand() -> Bool {
@@ -160,6 +199,8 @@ class Card : SKSpriteNode {
         // clear occupation if it has any
         let tile = currentTile()
         tile?.occupiedBy = nil
+        
+        removeHighlight()
         
         // reset card's stats
         // TODO: reset all stats
@@ -195,7 +236,13 @@ class Card : SKSpriteNode {
         return tile
     }
     
+    func endTurn() {
+        actions = 0
+    }
+    
     func startTurn() {
+        actions = 1
+        
         if (props != nil) {
             if (props!.contains(.startTurnGainGold1)) {
                 player.gold += 1
@@ -209,6 +256,8 @@ class Card : SKSpriteNode {
     }
 
     func attackFromTileToTile(fromTile: Tile, toTile: Tile) {
+        
+        actions = actions - 1
         
         // There should be something to attack
         assert(toTile.occupiedBy != nil)
@@ -252,6 +301,8 @@ class Card : SKSpriteNode {
     
     func moveFromTileToTile(fromTile: Tile, toTile: Tile) {
      
+        actions = actions - 1
+        
         fromTile.occupiedBy = nil
         
         location = .Tile(toTile.row, toTile.col)
@@ -277,6 +328,10 @@ class Card : SKSpriteNode {
         
         // set on board
         location = .Tile(toTile.row, toTile.col)
+        
+        // This _must_ get set after location for highlight to work correctly
+        // TODO: unless the card has haste?
+        actions = 0
 
         // This better not be occupied already
         assert(toTile.occupiedBy == nil || toTile.occupiedBy == self)
@@ -295,21 +350,34 @@ class Card : SKSpriteNode {
         player.gold -= cost
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
+    func canPlay() -> Bool {
         // Can only move cards from hand or on board
         if !isInHand() && !isOnBoard() {
-            return
+            return false
         }
         
         // Can only move cards for the current turn
         let gameScene = scene as! GameScene
         if gameScene.currentTurn!.isPlayer != player.isPlayer {
-            return
+            return false
         }
         
         // Can only play from hand with enough gold
         if isInHand() && cost > gameScene.currentTurn!.gold {
+            return false
+        }
+        
+        // Can only play from board if there are actions remaining
+        if isOnBoard() && actions <= 0 {
+            return false
+        }
+        
+        return true
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        if !canPlay() {
             return
         }
         
@@ -323,19 +391,7 @@ class Card : SKSpriteNode {
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        // Can only move cards from hand or on board
-        if !isInHand() && !isOnBoard() {
-            return
-        }
-        
-        // Can only move cards for the current turn
-        let gameScene = scene as! GameScene
-        if gameScene.currentTurn!.isPlayer != player.isPlayer {
-            return
-        }
-        
-        // Can only play from hand with enough gold
-        if isInHand() && cost > gameScene.currentTurn!.gold {
+        if !canPlay() {
             return
         }
         
@@ -362,19 +418,7 @@ class Card : SKSpriteNode {
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        // Can only move cards from hand or on board
-        if !isInHand() && !isOnBoard() {
-            return
-        }
-        
-        // Can only move cards for the current turn
-        let gameScene = scene as! GameScene
-        if gameScene.currentTurn!.isPlayer != player.isPlayer {
-            return
-        }
-        
-        // Can only play from hand with enough gold
-        if isInHand() && cost > gameScene.currentTurn!.gold {
+        if !canPlay() {
             return
         }
         

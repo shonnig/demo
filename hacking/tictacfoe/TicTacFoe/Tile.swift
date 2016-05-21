@@ -14,10 +14,12 @@ class Tile : SKSpriteNode {
     static var currentHighlight: Tile?
     
     static let maxRows = 4
-    static let maxColumns = 4
+    static let maxColumns = 5
     
     var row: Int = 0
     var col: Int = 0
+    
+    // TODO: make static?
     let side = 135
     
     // Player who "owns" the tile

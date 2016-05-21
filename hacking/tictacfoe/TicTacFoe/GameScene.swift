@@ -62,6 +62,8 @@ enum ZPosition: CGFloat {
     
     case ButtonUI = 0
     
+    case CardInHandHighlight = 5
+    
     case CardInHand = 10
     
     case CardImage = 15
@@ -71,6 +73,8 @@ enum ZPosition: CGFloat {
     case CardBack = 30
     
     case DamageEffect = 100
+    
+    case MovingCardHighlight = 495 // TODO: don't think I need this, but leaving in for now...
     
     case MovingCard = 500
     
@@ -85,8 +89,6 @@ class GameScene: SKScene {
     var opponent: Player?
     
     var turnButton: FTButtonNode?
-    
-    var actionsLeft = 1
 
     var currentTurn: Player? {
         didSet {
@@ -102,17 +104,22 @@ class GameScene: SKScene {
         // move end turn button TODO: this is just a quick and dirty thing for now
         turnButton!.position.y = (currentTurn?.turnButtonY)!
         
-        // TODO: are we going to limit actions?
-        // reset actions remaining to 1
-        actionsLeft = 1
+        // Do card turn ends
+        for tile in tiles {
+            if tile.occupiedBy != nil {
+                let card = tile.occupiedBy!
+                if card.player.isPlayer != currentTurn?.isPlayer {
+                    card.endTurn()
+                }
+            }
+        }
         
         // Draw a card for player's new turn
         currentTurn!.deck!.drawCard()
         currentTurn!.gold += 2
         
+        // Do card turn starts
         for tile in tiles {
-            //tile.update(currentTime)
-            
             if tile.occupiedBy != nil {
                 let card = tile.occupiedBy!
                 if card.player.isPlayer == currentTurn?.isPlayer {
@@ -173,10 +180,11 @@ class GameScene: SKScene {
         
         // TODO: temp 5 cards in deck
         player!.deck!.addCard(.Spearman)
-        player!.deck!.addCard(.Miner)
         player!.deck!.addCard(.Spearman)
         player!.deck!.addCard(.Spearman)
         player!.deck!.addCard(.Miner)
+        player!.deck!.addCard(.Miner)
+        player!.deck!.shuffle()
         
         // TODO: temp draw 2 cards (one will get drawn right away because of timer
         player!.deck!.drawCard()
@@ -185,10 +193,11 @@ class GameScene: SKScene {
         // TODO: temp 5 cards in deck
         opponent!.deck!.addCard(.Spearman)
         opponent!.deck!.addCard(.Spearman)
-        opponent!.deck!.addCard(.Miner)
-        opponent!.deck!.addCard(.Miner)
         opponent!.deck!.addCard(.Spearman)
-        
+        opponent!.deck!.addCard(.Miner)
+        opponent!.deck!.addCard(.Miner)
+        opponent!.deck!.shuffle()
+
         // TODO: temp draw 2 cards (one will get drawn right away because of timer
         opponent!.deck!.drawCard()
         opponent!.deck!.drawCard()
