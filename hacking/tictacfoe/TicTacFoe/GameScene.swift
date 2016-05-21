@@ -179,28 +179,18 @@ class GameScene: SKScene {
         // *** Temp init game state
         
         // TODO: temp 5 cards in deck
-        player!.deck!.addCard(.Spearman)
-        player!.deck!.addCard(.Spearman)
-        player!.deck!.addCard(.Spearman)
-        player!.deck!.addCard(.Miner)
-        player!.deck!.addCard(.Miner)
-        player!.deck!.shuffle()
+        for _ in 0...4 {
+            player!.deck!.addCard(CardType.random())
+            opponent!.deck!.addCard(CardType.random())
+        }
+        //player!.deck!.shuffle()
+        //opponent!.deck!.shuffle()
         
-        // TODO: temp draw 2 cards (one will get drawn right away because of timer
-        player!.deck!.drawCard()
-        player!.deck!.drawCard()
-        
-        // TODO: temp 5 cards in deck
-        opponent!.deck!.addCard(.Spearman)
-        opponent!.deck!.addCard(.Spearman)
-        opponent!.deck!.addCard(.Spearman)
-        opponent!.deck!.addCard(.Miner)
-        opponent!.deck!.addCard(.Miner)
-        opponent!.deck!.shuffle()
-
-        // TODO: temp draw 2 cards (one will get drawn right away because of timer
-        opponent!.deck!.drawCard()
-        opponent!.deck!.drawCard()
+        // TODO: start with hand of 2?
+        for _ in 0...1 {
+            player!.deck!.drawCard()
+            opponent!.deck!.drawCard()
+        }
         
         currentTurn = player
     }

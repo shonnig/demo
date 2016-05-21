@@ -8,9 +8,17 @@
 
 import Foundation
 
-enum CardType {
+enum CardType: UInt32 {
     case Spearman
     case Miner
+    
+    static func random() -> CardType {
+        // Update as new enumerations are added
+        let maxValue = Miner.rawValue
+        
+        let rand = arc4random_uniform(maxValue + 1)
+        return CardType(rawValue: rand)!
+    }
 }
 
 enum CardProp {
@@ -26,7 +34,7 @@ class CardData {
     var attack: Int
     var props: Set<CardProp>?
     
-    init(i: String, s: Float, h: Int, c: Int, a: Int, p: Set<CardProp>?) {
+    init(i: String, s: Float, a: Int, h: Int, c: Int, p: Set<CardProp>?) {
         image = i
         scale = s
         health = h
@@ -43,8 +51,8 @@ class CardInfo {
     
     static func initInfo() {
         
-        data[.Spearman] = CardData(i: "Spearman.png", s: 0.25, h: 1, c: 2, a: 2, p: nil)
-        data[.Miner] = CardData(i: "230px-Miner.png", s: 0.6, h: 2, c: 2, a: 1, p: [.startTurnGainGold1])
+        data[.Spearman] = CardData(i: "Spearman.png",    s: 0.25, a: 2, h: 2, c: 2, p: nil)
+        data[.Miner] =    CardData(i: "230px-Miner.png", s: 0.60, a: 1, h: 1, c: 2, p: [.startTurnGainGold1])
         
     }
     
