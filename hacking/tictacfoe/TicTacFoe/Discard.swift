@@ -49,4 +49,10 @@ class Discard : SKSpriteNode {
         }
         cards.append(card)
     }
+    
+    func updateCostLabels() {
+        for card in cards {
+            card.updateCostLabel()
+        }
+    }
 }

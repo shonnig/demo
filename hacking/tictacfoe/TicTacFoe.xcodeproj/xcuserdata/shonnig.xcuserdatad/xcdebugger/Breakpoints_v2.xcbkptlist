@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicTacFoe/Player.swift"
-            timestampString = "485627867.648523"
+            timestampString = "485628502.757268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "init(scene:_isPlayer:)"
             landmarkType = "5">
          </BreakpointContent>

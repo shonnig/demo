@@ -48,6 +48,16 @@ class Player {
     var goldDiscount = 0 {
         didSet {
             hand!.updateCostLabels()
+            discard!.updateCostLabels()
+            
+            let gameScene = deck!.scene as! GameScene
+            
+            // Update all cards on board too
+            for tile in gameScene.tiles {
+                if tile.occupiedBy != nil && tile.occupiedBy!.player.isPlayer == isPlayer {
+                    tile.occupiedBy?.updateCostLabel()
+                }
+            }
         }
     }
     
