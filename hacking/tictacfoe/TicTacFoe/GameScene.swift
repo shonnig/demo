@@ -98,6 +98,13 @@ class GameScene: SKScene {
     
     var tiles = [Tile]()
     
+    var round: Int = 0 {
+        didSet {
+            roundLabel.text = "Round \(round)"
+        }
+    }
+    
+    var roundLabel: SKLabelNode!
     
     func newTurn() {
         
@@ -143,6 +150,11 @@ class GameScene: SKScene {
         
         currentTurn?.hand?.setFaceUp(true)
         currentTurn?.otherPlayer!.hand?.setFaceUp(false)
+        
+        // increment round number
+        if currentTurn!.isPlayer {
+            round += 1
+        }
     }
     
     
@@ -189,18 +201,27 @@ class GameScene: SKScene {
             }
         }
         
+        // Add turn number display
+        roundLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        roundLabel.text = "Round \(round)"
+        roundLabel.fontSize = 40
+        roundLabel.fontColor = UIColor.greenColor()
+        roundLabel.zPosition = ZPosition.HudUI.rawValue
+        roundLabel.position = CGPointMake(125,400)
+        addChild(roundLabel)
+        
         // *** Temp init game state
         
-        // TODO: temp 5 cards in deck
-        for _ in 0...4 {
+        // TODO: temp 10 cards in deck
+        for _ in 0...9 {
             player!.deck!.addCard(CardType.random())
             opponent!.deck!.addCard(CardType.random())
         }
         //player!.deck!.shuffle()
         //opponent!.deck!.shuffle()
         
-        // TODO: start with hand of 2?
-        for _ in 0...1 {
+        // TODO: start with hand of 3?
+        for _ in 0...2 {
             player!.deck!.drawCard()
             opponent!.deck!.drawCard()
         }
