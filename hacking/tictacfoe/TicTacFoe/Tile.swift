@@ -109,14 +109,20 @@ class Tile : SKSpriteNode {
     }
     
     func isValidPlay(card: Card) -> Bool {
+        let isAttack = (occupiedBy != nil && occupiedBy!.player.isPlayer != card.player.isPlayer)
 
         if card.isInHand() {
+            
+            // Is it an attack spell?
+            if card.hasProp(.unitDamageSpell) {
+                return isAttack
+            }
+            
             // Must be empty tile and owned by player to play from hand.
             return occupiedBy == nil && owner?.isPlayer == card.player.isPlayer
         } else {
             // Can be a move to empty or attack, and by default only one space
             // TODO: don't allow diagonal moves/attacks?
-            let isAttack = (occupiedBy != nil && occupiedBy!.player.isPlayer != card.player.isPlayer)
             let validTarget = (occupiedBy == nil || occupiedBy == card || isAttack)
             let current = card.currentTile()
             

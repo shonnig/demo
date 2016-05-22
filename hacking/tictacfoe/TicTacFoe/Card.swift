@@ -29,6 +29,8 @@ class Card : SKSpriteNode {
     
     var cardBack: SKSpriteNode
     
+    var spell = false
+    
     var faceDown = false {
         didSet {
             cardBack.hidden = !faceDown
@@ -127,6 +129,10 @@ class Card : SKSpriteNode {
         health = maxHealth
         props = data!.props
         
+        if hasProp(.spell) {
+            spell = true
+        }
+        
         if hasProp(.range2) {
             range = 2
         }
@@ -140,6 +146,10 @@ class Card : SKSpriteNode {
         healthLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
         healthLabel.position = CGPointMake(0,-140)
         addChild(healthLabel)
+        
+        if spell {
+            healthLabel.hidden = true
+        }
 
         // Add the attack label
         attackLabel = SKLabelNode(fontNamed: font)
@@ -221,7 +231,9 @@ class Card : SKSpriteNode {
         
         // reset card's stats
         // TODO: reset all stats
-        health = maxHealth
+        if !spell {
+            health = maxHealth
+        }
         
         // remove from hand if there
         if isInHand() {
@@ -353,6 +365,52 @@ class Card : SKSpriteNode {
         runAction(snapTo, withKey: "snap")
     }
     
+    func playSpellOnEnemy(toTile: Tile) {
+        // take out of hand
+        player.hand!.removeCard(self)
+        
+        // There should be something to attack
+        assert(toTile.occupiedBy != nil)
+        
+        // damage image
+        let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
+        dmgImage.setScale(0.25)
+        dmgImage.position = toTile.position
+        dmgImage.zPosition = ZPosition.DamageEffect.rawValue
+        dmgImage.hidden = true
+        scene!.addChild(dmgImage)
+        
+        let wait1 = SKAction.waitForDuration(0.4)
+        let showDmg = SKAction.unhide()
+        let doDmg = SKAction.runBlock({self.applyDamage(toTile.occupiedBy!, damage: self.damage)})
+        let wait2 = SKAction.waitForDuration(0.3)
+        let fadeDmg = SKAction.fadeOutWithDuration(0.3)
+        let removeDmg = SKAction.removeFromParent()
+        let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
+        dmgImage.runAction(dmgCycle, withKey: "damage")
+        
+        // animate attack
+        // TODO: make separate function? And probably can do math directly on points?
+        // find partial position to opponent
+        let oppPos = toTile.occupiedBy!.position
+        let xDiff = (oppPos.x - position.x) * 0.35
+        let yDiff = (oppPos.y - position.y) * 0.35
+        let attPos = CGPoint(x: position.x + xDiff, y: position.y + yDiff)
+        
+        let attackTo = SKAction.moveTo(attPos, duration: 0.2)
+        let wait = SKAction.waitForDuration(0.3)
+        let cycle = SKAction.sequence([attackTo, wait])
+        runAction(cycle, withKey: "attack")
+        
+        // Spell should always "die" and go to discard
+        
+        let liftUp = SKAction.scaleTo(0.75, duration: 0.2)
+        let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
+        let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
+        runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
+
+    }
+    
     func moveFromHandToTile(toTile: Tile) {
         
         // take out of hand
@@ -464,7 +522,11 @@ class Card : SKSpriteNode {
         if (hl != nil && hl!.isValidPlay(self)) {
 
             if isInHand() {
-                moveFromHandToTile(hl!)
+                if hasProp(.unitDamageSpell) {
+                    playSpellOnEnemy(hl!)
+                } else {
+                    moveFromHandToTile(hl!)
+                }
             } else {
                 if hl?.occupiedBy != nil && hl!.occupiedBy?.player.isPlayer != self.player.isPlayer {
                     // attacking!
