@@ -248,17 +248,25 @@ class Card : SKSpriteNode {
         runAction(dieDiscard, withKey: "discard")
     }
     
+    func getTile(row: Int, col: Int) ->Tile? {
+        var tile: Tile?
+        
+        let gameScene = scene as! GameScene
+        let index = (row * Tile.maxColumns) + col
+        if index >= 0 && index < gameScene.tiles.count {
+            tile = gameScene.tiles[index]
+        }
+        
+        return tile
+    }
+    
     // TODO: Should we just point to current tile?
     func currentTile() -> Tile? {
         var tile: Tile?
         
         switch location! {
         case .Tile(let row, let col):
-            let gameScene = scene as! GameScene
-            let index = (row * Tile.maxColumns) + col
-            if index >= 0 && index < gameScene.tiles.count {
-                tile = gameScene.tiles[index]
-            }
+            tile = getTile(row, col: col)
         default: break
         }
         
@@ -358,6 +366,26 @@ class Card : SKSpriteNode {
         
         // moving to a tile gives you ownership of it
         toTile.owner = player
+        
+        // trailblazers can claim tile in between a 2 space move
+        if hasProp(.trailblazer2) {
+            let rowOffset = abs(toTile.row - fromTile.row)
+            let colOffset = abs(toTile.col - fromTile.col)
+            var middleTile: Tile?
+            
+            if rowOffset == 2 {
+                let middleRow = (toTile.row + fromTile.row) / 2
+                middleTile = getTile(middleRow, col: toTile.col)
+            }
+            if colOffset == 2 {
+                let middleCol = (toTile.col + fromTile.col) / 2
+                middleTile = getTile(toTile.row, col: middleCol)
+            }
+            
+            if middleTile != nil {
+                middleTile!.owner = player
+            }
+        }
         
         // animate to this
         let snapToPosition = toTile.position

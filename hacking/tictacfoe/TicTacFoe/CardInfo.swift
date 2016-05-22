@@ -14,6 +14,7 @@ enum CardType: UInt32 {
     case Archer
     case Fireball
     case Ogre
+    case Scout
     
     // special case for random function, not real choice
     case Last
@@ -29,6 +30,7 @@ enum CardProp {
     case startTurnGainGold1
     case range2
     case unitDamageSpell
+    case trailblazer2
 }
 
 class CardData {
@@ -62,6 +64,7 @@ class CardInfo {
         data[.Archer] =   CardData(i: "archer.png",      s: 0.55, a: 1, h: 1, c: 3, p: [.range2])
         data[.Fireball] = CardData(i: "Fireball_2.png",  s: 0.13, a: 3, h: 0, c: 2, p: [.spell, .unitDamageSpell])
         data[.Ogre] =     CardData(i: "ogre.png",        s: 0.25, a: 3, h: 5, c: 4, p: nil)
+        data[.Scout] =    CardData(i: "scout.jpg",       s: 0.60, a: 1, h: 2, c: 2, p: [.trailblazer2])
     }
     
 }

@@ -135,7 +135,14 @@ class Tile : SKSpriteNode {
                 maxRange = max(maxRange, card.range)
             }
             
-            let validDistance = ((rowOffset <= maxRange) && (colOffset <= maxRange))
+            var validDistance = ((rowOffset <= maxRange) && (colOffset <= maxRange))
+            
+            // Trailblazing 2 allows you to move spaces orthogonally
+            if card.hasProp(.trailblazer2) {
+                if (rowOffset == 0 && colOffset <= 2) || (rowOffset <= 2 && colOffset == 0) {
+                    validDistance = true
+                }
+            }
         
             return validTarget && validDistance
         }
