@@ -116,11 +116,22 @@ class Tile : SKSpriteNode {
         } else {
             // Can be a move to empty or attack, and by default only one space
             // TODO: don't allow diagonal moves/attacks?
-            let valid_target = (occupiedBy == nil || occupiedBy == card || occupiedBy!.player.isPlayer != card.player.isPlayer)
+            let isAttack = (occupiedBy != nil && occupiedBy!.player.isPlayer != card.player.isPlayer)
+            let validTarget = (occupiedBy == nil || occupiedBy == card || isAttack)
             let current = card.currentTile()
-            let valid_distance = ((abs(row - current!.row) <= 1) && (abs(col - current!.col) <= 1))
             
-            return valid_target && valid_distance
+            let rowOffset = abs(row - current!.row)
+            let colOffset = abs(col - current!.col)
+            var maxRange = 1
+            
+            // If attacking, range units may have more reach
+            if isAttack {
+                maxRange = max(maxRange, card.range)
+            }
+            
+            let validDistance = ((rowOffset <= maxRange) && (colOffset <= maxRange))
+        
+            return validTarget && validDistance
         }
     }
     

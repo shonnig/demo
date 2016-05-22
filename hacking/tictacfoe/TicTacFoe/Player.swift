@@ -49,33 +49,38 @@ class Player {
         isPlayer = _isPlayer
         
         var drawDiscardY: CGFloat
+        var scoreY: CGFloat
         
         if isPlayer {
             drawDiscardY = 50
-            turnButtonY = 200
+            scoreY = 150
+            turnButtonY = 225
             bgColor = UIColor.blueColor()
         } else {
             drawDiscardY = 700
-            turnButtonY = 600
+            scoreY = 600
+            turnButtonY = 550
             bgColor = UIColor.greenColor()
         }
         
+        let font = "ArialRoundedMTBold"
+        
         // Add the gold label
-        goldLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        goldLabel = SKLabelNode(fontNamed: font)
         goldLabel.text = "\(gold)"
         goldLabel.fontSize = 40
         goldLabel.fontColor = UIColor.yellowColor()
         goldLabel.zPosition = ZPosition.HudUI.rawValue
-        goldLabel.position = CGPointMake(50,drawDiscardY)
+        goldLabel.position = CGPointMake(75,scoreY)
         scene.addChild(goldLabel)
         
         // Add the score label
-        scoreLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        scoreLabel = SKLabelNode(fontNamed: font)
         scoreLabel.text = "\(score)"
         scoreLabel.fontSize = 40
         scoreLabel.fontColor = UIColor.whiteColor()
         scoreLabel.zPosition = ZPosition.HudUI.rawValue
-        scoreLabel.position = CGPointMake(125,drawDiscardY)
+        scoreLabel.position = CGPointMake(150,scoreY)
         scene.addChild(scoreLabel)
         
         // Player's hand

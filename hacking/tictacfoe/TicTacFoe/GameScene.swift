@@ -205,6 +205,9 @@ class GameScene: SKScene {
             opponent!.deck!.drawCard()
         }
         
+        // TODO: how to balance going second? Give an extra gold for now?
+        opponent!.gold += 1
+        
         currentTurn = player
     }
 

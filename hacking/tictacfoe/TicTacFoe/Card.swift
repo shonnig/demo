@@ -80,6 +80,8 @@ class Card : SKSpriteNode {
         }
     }
     
+    var range = 0
+    
     var player: Player
     
     var location: CardLocation?
@@ -125,8 +127,14 @@ class Card : SKSpriteNode {
         health = maxHealth
         props = data!.props
         
+        if hasProp(.range2) {
+            range = 2
+        }
+        
+        let font = "ArialRoundedMTBold"
+        
         // Add the health label
-        healthLabel = SKLabelNode(fontNamed: "Arial")
+        healthLabel = SKLabelNode(fontNamed: font)
         healthLabel.text = "\(health)/\(maxHealth)"
         healthLabel.fontColor = UIColor.blackColor()
         healthLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
@@ -134,7 +142,7 @@ class Card : SKSpriteNode {
         addChild(healthLabel)
 
         // Add the attack label
-        attackLabel = SKLabelNode(fontNamed: "Arial")
+        attackLabel = SKLabelNode(fontNamed: font)
         attackLabel.text = "\(damage)"
         attackLabel.fontColor = UIColor.redColor()
         attackLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
@@ -142,7 +150,7 @@ class Card : SKSpriteNode {
         addChild(attackLabel)
         
         // Add the cost label
-        costLabel = SKLabelNode(fontNamed: "Arial")
+        costLabel = SKLabelNode(fontNamed: font)
         costLabel.text = "\(cost)"
         costLabel.fontColor = UIColor.blueColor()
         costLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
@@ -245,23 +253,36 @@ class Card : SKSpriteNode {
         return tile
     }
     
+    func hasProp(prop: CardProp) -> Bool {
+        if (props != nil) {
+            if (props!.contains(prop)) {
+                return true
+            }
+        }
+        return false
+    }
+    
     func endTurn() {
         actions = 0
     }
     
     func startTurn() {
+        
+        // Reset number of actions
         actions = 1
         
-        if (props != nil) {
-            if (props!.contains(.startTurnGainGold1)) {
-                player.gold += 1
-            }
+        if hasProp(.startTurnGainGold1) {
+            player.gold += 1
         }
     }
     
     func applyDamage(to: Card, damage: Int) {
         to.health -= damage
-        health -= to.damage
+        
+        // Ranged attackers don't take damage
+        if range == 0 {
+            health -= to.damage
+        }
     }
 
     func attackFromTileToTile(fromTile: Tile, toTile: Tile) {
