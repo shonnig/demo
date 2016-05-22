@@ -45,27 +45,49 @@ class Card : SKSpriteNode {
         }
     }
     
-    var attackLabel: SKLabelNode!
+    var statsLabel: SKLabelNode!
     
     var damage: Int = 1 {
         didSet {
-            attackLabel.text = "\(damage)"
+            if spell {
+                statsLabel.text = "\(damage)"
+            } else {
+                statsLabel.text = "\(damage)/\(health)"
+            }
         }
     }
-    
-    var healthLabel: SKLabelNode!
 
     var maxHealth: Int = 1 {
         didSet {
-            healthLabel.text = "\(health)/\(maxHealth)"
+            if spell {
+                statsLabel.text = "\(damage)"
+            } else {
+                statsLabel.text = "\(damage)/\(health)"
+            }
+            
+            if health < maxHealth {
+                statsLabel.fontColor = UIColor.redColor()
+            } else {
+                statsLabel.fontColor = UIColor.blackColor()
+            }
         }
     }
     
     var health: Int = 1 {
         didSet {
-            healthLabel.text = "\(health)/\(maxHealth)"
+            if spell {
+                statsLabel.text = "\(damage)"
+            } else {
+                statsLabel.text = "\(damage)/\(health)"
+            }
+            
             if health <= 0 {
                 die()
+            }
+            if health < maxHealth {
+                statsLabel.fontColor = UIColor.redColor()
+            } else {
+                statsLabel.fontColor = UIColor.blackColor()
             }
         }
     }
@@ -133,6 +155,10 @@ class Card : SKSpriteNode {
             spell = true
         }
         
+        if hasProp(.range1) {
+            range = 1
+        }
+        
         if hasProp(.range2) {
             range = 2
         }
@@ -140,31 +166,24 @@ class Card : SKSpriteNode {
         let font = "ArialRoundedMTBold"
         
         // Add the health label
-        healthLabel = SKLabelNode(fontNamed: font)
-        healthLabel.text = "\(health)/\(maxHealth)"
-        healthLabel.fontColor = UIColor.blackColor()
-        healthLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
-        healthLabel.position = CGPointMake(0,-140)
-        addChild(healthLabel)
+        statsLabel = SKLabelNode(fontNamed: font)
         
         if spell {
-            healthLabel.hidden = true
+            statsLabel.text = "\(damage)"
+        } else {
+            statsLabel.text = "\(damage)/\(health)"
         }
-
-        // Add the attack label
-        attackLabel = SKLabelNode(fontNamed: font)
-        attackLabel.text = "\(damage)"
-        attackLabel.fontColor = UIColor.redColor()
-        attackLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
-        attackLabel.position = CGPointMake(-60,110)
-        addChild(attackLabel)
+        statsLabel.fontColor = UIColor.blackColor()
+        statsLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
+        statsLabel.position = CGPointMake(60,-140)
+        addChild(statsLabel)
         
         // Add the cost label
         costLabel = SKLabelNode(fontNamed: font)
         costLabel.text = "\(cost)"
-        costLabel.fontColor = UIColor.blueColor()
+        costLabel.fontColor = UIColor.yellowColor()
         costLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
-        costLabel.position = CGPointMake(60,110)
+        costLabel.position = CGPointMake(-60,-140)
         addChild(costLabel)
         
         addChild(cardBack)

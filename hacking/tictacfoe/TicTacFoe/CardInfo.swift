@@ -9,14 +9,21 @@
 import Foundation
 
 enum CardType: UInt32 {
+    
+    // melee units
     case Spearman
     case Miner
-    case Archer
-    case Fireball
     case Ogre
     case Scout
-    case LightningStorm
     
+    // ranged units
+    case Archer
+    case AxeThrower
+    
+    // spells
+    case Fireball
+    case LightningStorm
+
     // special case for random function, not real choice
     case Last
     
@@ -27,12 +34,21 @@ enum CardType: UInt32 {
 }
 
 enum CardProp {
+    
     case spell
+    
+    // gold manipulation
     case startTurnGainGold1
+    
+    // range
+    case range1
     case range2
+    
+    // attack spells
     case unitDamageSpell
-    case trailblazer2
     case areaDamageSpell
+    
+    case trailblazer2
 }
 
 class CardData {
@@ -67,7 +83,8 @@ class CardInfo {
         data[.Fireball] =       CardData(i: "Fireball_2.png",  s: 0.13, a: 3, h: 0, c: 2, p: [.spell, .unitDamageSpell])
         data[.Ogre] =           CardData(i: "ogre.png",        s: 0.25, a: 3, h: 6, c: 4, p: nil)
         data[.Scout] =          CardData(i: "scout.jpg",       s: 0.60, a: 1, h: 2, c: 3, p: [.trailblazer2])
-        data[.LightningStorm] = CardData(i: "lightning.png",   s: 0.35, a: 1, h: 0, c: 3, p: [.spell, .areaDamageSpell])
+        data[.LightningStorm] = CardData(i: "lightning.png",   s: 0.35, a: 1, h: 0, c: 2, p: [.spell, .areaDamageSpell])
+        data[.AxeThrower] =     CardData(i: "axe_thrower.jpg", s: 0.15, a: 2, h: 2, c: 3, p: [.range1])
     }
     
 }

@@ -60,7 +60,7 @@ class Player {
             drawDiscardY = 700
             scoreY = 600
             turnButtonY = 550
-            bgColor = UIColor.greenColor()
+            bgColor = UIColor.redColor()
         }
         
         let font = "ArialRoundedMTBold"
