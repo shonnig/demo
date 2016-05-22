@@ -65,9 +65,9 @@ class CardInfo {
         data[.Miner] =          CardData(i: "230px-Miner.png", s: 0.60, a: 1, h: 1, c: 2, p: [.startTurnGainGold1])
         data[.Archer] =         CardData(i: "archer.png",      s: 0.55, a: 1, h: 1, c: 3, p: [.range2])
         data[.Fireball] =       CardData(i: "Fireball_2.png",  s: 0.13, a: 3, h: 0, c: 2, p: [.spell, .unitDamageSpell])
-        data[.Ogre] =           CardData(i: "ogre.png",        s: 0.25, a: 3, h: 5, c: 4, p: nil)
-        data[.Scout] =          CardData(i: "scout.jpg",       s: 0.60, a: 1, h: 2, c: 2, p: [.trailblazer2])
-        data[.LightningStorm] = CardData(i: "lightning.png",   s: 0.35, a: 1, h: 0, c: 4, p: [.spell, .areaDamageSpell])
+        data[.Ogre] =           CardData(i: "ogre.png",        s: 0.25, a: 3, h: 6, c: 4, p: nil)
+        data[.Scout] =          CardData(i: "scout.jpg",       s: 0.60, a: 1, h: 2, c: 3, p: [.trailblazer2])
+        data[.LightningStorm] = CardData(i: "lightning.png",   s: 0.35, a: 1, h: 0, c: 3, p: [.spell, .areaDamageSpell])
     }
     
 }

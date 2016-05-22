@@ -299,8 +299,8 @@ class Card : SKSpriteNode {
     func applyDamage(to: Card, damage: Int) {
         to.health -= damage
         
-        // Ranged attackers don't take damage
-        if range == 0 {
+        // Ranged attackers and spells don't take damage
+        if range == 0 && !spell {
             health -= to.damage
         }
     }
