@@ -123,8 +123,8 @@ class Tile : SKSpriteNode {
                 return isAttack
             }
             
-            // If it's an area attack spell, it can be played on any tile
-            if card.hasProp(.areaDamageSpell) {
+            // If it's an area attack spell or global spell, it can be played on any tile
+            if card.hasProp(.areaDamageSpell) || card.hasProp(.massHeal2) {
                 return true
             }
             

@@ -459,6 +459,18 @@ class Card : SKSpriteNode {
         // take out of hand
         player.hand!.removeCard(self)
         
+        if hasProp(.massHeal2) {
+            let gameScene = scene as! GameScene
+            
+            // heal all player's units on board by 2
+            for tile in gameScene.tiles {
+                let unit = tile.occupiedBy
+                if unit != nil && unit!.player.isPlayer == player.isPlayer {
+                    unit!.health = min(unit!.maxHealth, unit!.health + 2)
+                }
+            }
+        }
+        
         if hasProp(.unitDamageSpell) {
             // There should be something to attack
             assert(toTile.occupiedBy != nil)
@@ -491,11 +503,10 @@ class Card : SKSpriteNode {
         
         let attackTo = SKAction.moveTo(attPos, duration: 0.2)
         let wait = SKAction.waitForDuration(0.3)
+        // Spell should always "die" and go to discard
         let doDiscard = SKAction.runBlock({self.die()})
         let cycle = SKAction.sequence([attackTo, wait, doDiscard])
         runAction(cycle, withKey: "attack")
-        
-        // Spell should always "die" and go to discard
         
         let liftUp = SKAction.scaleTo(0.75, duration: 0.2)
         let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
@@ -622,7 +633,7 @@ class Card : SKSpriteNode {
         if (hl != nil && hl!.isValidPlay(self)) {
 
             if isInHand() {
-                if hasProp(.unitDamageSpell) || hasProp(.areaDamageSpell) {
+                if spell {
                     playSpellOnTile(hl!)
                 } else {
                     moveFromHandToTile(hl!)

@@ -207,7 +207,7 @@ class GameScene: SKScene {
         
         // TODO: temp 10 cards in deck
         
-        player!.deck!.addCard(.Hoplite)
+        player!.deck!.addCard(.MassHeal)
         
         for _ in 0...9 {
             player!.deck!.addCard(CardType.random())

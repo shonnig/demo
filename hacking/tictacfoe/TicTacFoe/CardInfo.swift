@@ -25,6 +25,7 @@ enum CardType: UInt32 {
     // spells
     case Fireball
     case LightningStorm
+    case MassHeal
 
     // special case for random function, not real choice
     case Last
@@ -50,6 +51,9 @@ enum CardProp {
     // attack spells
     case unitDamageSpell
     case areaDamageSpell
+    
+    // other spells
+    case massHeal2
     
     case trailblazer2
     case reduceRangeDamage1
@@ -91,6 +95,7 @@ class CardInfo {
         data[.AxeThrower] =        CardData(i: "axe_thrower.jpg",         s: 0.15, a: 2, h: 2, c: 3, p: [.range1])
         data[.BlackMarketTrader] = CardData(i: "black_market_trader.png", s: 0.20, a: 1, h: 1, c: 2, p: [.thisTurnDiscount1])
         data[.Hoplite] =           CardData(i: "hop.png",                 s: 0.50, a: 2, h: 3, c: 3, p: [.reduceRangeDamage1])
+        data[.MassHeal] =          CardData(i: "heal_spell.png",          s: 0.50, a: 0, h: 0, c: 1, p: [.spell, .massHeal2])
     }
     
 }
