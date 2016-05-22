@@ -330,6 +330,7 @@ class Card : SKSpriteNode {
     }
     
     func applyDamage(to: Card, damage: Int) {
+        
         to.health -= damage
         
         // Ranged attackers and spells don't take damage
@@ -345,6 +346,13 @@ class Card : SKSpriteNode {
         // There should be something to attack
         assert(toTile.occupiedBy != nil)
         
+        // calculate damage
+        let attackedUnit = toTile.occupiedBy!
+        var dmg = self.damage
+        if attackedUnit.hasProp(.reduceRangeDamage1) && self.range > 0 {
+            dmg = max(0, dmg - 1)
+        }
+        
         // damage image
         let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
         dmgImage.setScale(0.25)
@@ -355,7 +363,8 @@ class Card : SKSpriteNode {
 
         let wait1 = SKAction.waitForDuration(0.4)
         let showDmg = SKAction.unhide()
-        let doDmg = SKAction.runBlock({self.applyDamage(toTile.occupiedBy!, damage: self.damage)})
+        
+        let doDmg = SKAction.runBlock({self.applyDamage(attackedUnit, damage: dmg)})
         let wait2 = SKAction.waitForDuration(0.3)
         let fadeDmg = SKAction.fadeOutWithDuration(0.3)
         let removeDmg = SKAction.removeFromParent()

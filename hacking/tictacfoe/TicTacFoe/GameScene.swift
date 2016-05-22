@@ -206,6 +206,9 @@ class GameScene: SKScene {
         // *** Temp init game state
         
         // TODO: temp 10 cards in deck
+        
+        player!.deck!.addCard(.Hoplite)
+        
         for _ in 0...9 {
             player!.deck!.addCard(CardType.random())
             opponent!.deck!.addCard(CardType.random())
