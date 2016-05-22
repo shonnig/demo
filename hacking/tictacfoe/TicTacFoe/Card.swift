@@ -311,7 +311,7 @@ class Card : SKSpriteNode {
     func moveFromTileToTile(fromTile: Tile, toTile: Tile) {
      
         if fromTile != toTile {
-            actions = actions - 1
+            actions -= 1
         }
         
         fromTile.occupiedBy = nil

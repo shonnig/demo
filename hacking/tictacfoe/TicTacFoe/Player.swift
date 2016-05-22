@@ -31,6 +31,14 @@ class Player {
     
     var goldLabel: SKLabelNode!
     
+    var score: Int = 0 {
+        didSet {
+            scoreLabel.text = "\(score)"
+        }
+    }
+    
+    var scoreLabel: SKLabelNode!
+    
     var otherPlayer: Player?
     
     var turnButtonY: CGFloat
@@ -53,13 +61,22 @@ class Player {
         }
         
         // Add the gold label
-        goldLabel = SKLabelNode(fontNamed: "Arial")
+        goldLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
         goldLabel.text = "\(gold)"
         goldLabel.fontSize = 40
-        goldLabel.fontColor = UIColor.whiteColor()
+        goldLabel.fontColor = UIColor.yellowColor()
         goldLabel.zPosition = ZPosition.HudUI.rawValue
         goldLabel.position = CGPointMake(50,drawDiscardY)
         scene.addChild(goldLabel)
+        
+        // Add the score label
+        scoreLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        scoreLabel.text = "\(score)"
+        scoreLabel.fontSize = 40
+        scoreLabel.fontColor = UIColor.whiteColor()
+        scoreLabel.zPosition = ZPosition.HudUI.rawValue
+        scoreLabel.position = CGPointMake(125,drawDiscardY)
+        scene.addChild(scoreLabel)
         
         // Player's hand
         hand = Hand(_player: self)
