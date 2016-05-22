@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D2102CF1CF159E800851CF1 /* archer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102CE1CF159E800851CF1 /* archer.png */; };
 		0D2102D11CF1683E00851CF1 /* Fireball_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D01CF1683E00851CF1 /* Fireball_2.png */; };
+		0D2102D31CF1710600851CF1 /* ogre.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D21CF1710600851CF1 /* ogre.png */; };
 		0D223FF81CB9551700C41139 /* Discard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D223FF71CB9551700C41139 /* Discard.swift */; };
 		0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D31CC601CBD6E06005B6B72 /* Player.swift */; };
 		0D51BED61CE273F800E4E02C /* CardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51BED51CE273F800E4E02C /* CardInfo.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		0D2102CE1CF159E800851CF1 /* archer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archer.png; sourceTree = "<group>"; };
 		0D2102D01CF1683E00851CF1 /* Fireball_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fireball_2.png; sourceTree = "<group>"; };
+		0D2102D21CF1710600851CF1 /* ogre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ogre.png; sourceTree = "<group>"; };
 		0D223FF71CB9551700C41139 /* Discard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discard.swift; sourceTree = "<group>"; };
 		0D31CC601CBD6E06005B6B72 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		0D51BED51CE273F800E4E02C /* CardInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardInfo.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				0D2102D21CF1710600851CF1 /* ogre.png */,
 				0D2102D01CF1683E00851CF1 /* Fireball_2.png */,
 				0D2102CE1CF159E800851CF1 /* archer.png */,
 				0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */,
@@ -216,6 +219,7 @@
 				0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */,
 				0D62D24A1CAE0852003B046A /* Spearman.png in Resources */,
 				5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */,
+				0D2102D31CF1710600851CF1 /* ogre.png in Resources */,
 				5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */,
 				0D2102CF1CF159E800851CF1 /* archer.png in Resources */,
 				5189A3121BA8C1B9004A19F3 /* background@2x.jpg in Resources */,

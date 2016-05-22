@@ -408,7 +408,9 @@ class Card : SKSpriteNode {
         let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
         let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
         runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
-
+        
+        // pay gold cost
+        player.gold -= cost
     }
     
     func moveFromHandToTile(toTile: Tile) {
