@@ -41,7 +41,7 @@ class Card : SKSpriteNode {
     
     var cost: Int = 1 {
         didSet {
-            costLabel.text = "\(cost)"
+            updateCostLabel()
         }
     }
     
@@ -204,6 +204,16 @@ class Card : SKSpriteNode {
         self.addChild(glowNode!)
     }
     
+    func updateCostLabel() {
+        costLabel.text = "\(currentCost())"
+        
+        if currentCost() < cost {
+            costLabel.fontColor = UIColor.greenColor()
+        } else {
+            costLabel.fontColor = UIColor.yellowColor()
+        }
+    }
+    
     func addHighlight() {
         glowNode!.hidden = false
     }
@@ -290,6 +300,10 @@ class Card : SKSpriteNode {
         }
         
         return tile
+    }
+    
+    func currentCost() -> Int {
+        return max(0, cost - player.goldDiscount)
     }
     
     func hasProp(prop: CardProp) -> Bool {
@@ -480,7 +494,7 @@ class Card : SKSpriteNode {
         runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
         
         // pay gold cost
-        player.gold -= cost
+        player.gold -= currentCost()
     }
     
     func moveFromHandToTile(toTile: Tile) {
@@ -509,7 +523,12 @@ class Card : SKSpriteNode {
         player.hand!.alignHand()
         
         // pay gold cost
-        player.gold -= cost
+        player.gold -= currentCost()
+        
+        // apply this turn properties
+        if hasProp(.thisTurnDiscount1) {
+            player.goldDiscount += 1
+        }
     }
     
     func canPlay() -> Bool {
@@ -525,7 +544,7 @@ class Card : SKSpriteNode {
         }
         
         // Can only play from hand with enough gold
-        if isInHand() && cost > gameScene.currentTurn!.gold {
+        if isInHand() && currentCost() > gameScene.currentTurn!.gold {
             return false
         }
         

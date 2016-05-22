@@ -108,6 +108,9 @@ class GameScene: SKScene {
     
     func newTurn() {
         
+        // clear any gold discounts
+        currentTurn?.otherPlayer!.goldDiscount = 0
+        
         // move end turn button TODO: this is just a quick and dirty thing for now
         turnButton!.position.y = (currentTurn?.turnButtonY)!
         

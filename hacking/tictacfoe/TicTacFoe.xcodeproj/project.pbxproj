@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D0F61041CF1E4EC00027525 /* axe_thrower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */; };
+		0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61051CF1EBDF00027525 /* black_market_trader.png */; };
 		0D2102CF1CF159E800851CF1 /* archer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102CE1CF159E800851CF1 /* archer.png */; };
 		0D2102D11CF1683E00851CF1 /* Fireball_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D01CF1683E00851CF1 /* Fireball_2.png */; };
 		0D2102D31CF1710600851CF1 /* ogre.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D21CF1710600851CF1 /* ogre.png */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = axe_thrower.jpg; sourceTree = "<group>"; };
+		0D0F61051CF1EBDF00027525 /* black_market_trader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_market_trader.png; sourceTree = "<group>"; };
 		0D2102CE1CF159E800851CF1 /* archer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archer.png; sourceTree = "<group>"; };
 		0D2102D01CF1683E00851CF1 /* Fireball_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fireball_2.png; sourceTree = "<group>"; };
 		0D2102D21CF1710600851CF1 /* ogre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ogre.png; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				0D0F61051CF1EBDF00027525 /* black_market_trader.png */,
 				0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */,
 				0D2102D81CF17FAD00851CF1 /* lightning.png */,
 				0D2102D41CF176F300851CF1 /* scout.jpg */,
@@ -230,6 +233,7 @@
 				5189A3231BA8C1B9004A19F3 /* FireParticles.sks in Resources */,
 				0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */,
 				0D62D24A1CAE0852003B046A /* Spearman.png in Resources */,
+				0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */,
 				5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */,
 				0D2102D31CF1710600851CF1 /* ogre.png in Resources */,
 				5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */,

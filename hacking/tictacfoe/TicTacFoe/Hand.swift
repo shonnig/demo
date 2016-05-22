@@ -49,7 +49,18 @@ class Hand {
             card.faceDown = !doShow
             
             // Change card highlight state based on if they are playable
-            if doShow && card.cost <= player.gold {
+            if doShow && card.currentCost() <= player.gold {
+                card.addHighlight()
+            } else {
+                card.removeHighlight()
+            }
+        }
+    }
+    
+    func updateCostLabels() {
+        for card in cards {
+            card.updateCostLabel()
+            if card.currentCost() <= player.gold {
                 card.addHighlight()
             } else {
                 card.removeHighlight()

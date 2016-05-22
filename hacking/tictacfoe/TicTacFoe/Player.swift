@@ -45,6 +45,12 @@ class Player {
     
     var bgColor: UIColor
     
+    var goldDiscount = 0 {
+        didSet {
+            hand!.updateCostLabels()
+        }
+    }
+    
     init(scene: GameScene, _isPlayer: Bool) {
         isPlayer = _isPlayer
         
