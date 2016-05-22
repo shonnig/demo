@@ -113,9 +113,14 @@ class Tile : SKSpriteNode {
 
         if card.isInHand() {
             
-            // Is it an attack spell?
+            // Is it a unit attack spell?
             if card.hasProp(.unitDamageSpell) {
                 return isAttack
+            }
+            
+            // If it's an area attack spell, it can be played on any tile
+            if card.hasProp(.areaDamageSpell) {
+                return true
             }
             
             // Must be empty tile and owned by player to play from hand.

@@ -393,13 +393,8 @@ class Card : SKSpriteNode {
         runAction(snapTo, withKey: "snap")
     }
     
-    func playSpellOnEnemy(toTile: Tile) {
-        // take out of hand
-        player.hand!.removeCard(self)
-        
-        // There should be something to attack
-        assert(toTile.occupiedBy != nil)
-        
+    // TODO: commonize this with unit attacks as well?
+    func damageTile(toTile: Tile) {
         // damage image
         let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
         dmgImage.setScale(0.25)
@@ -416,18 +411,46 @@ class Card : SKSpriteNode {
         let removeDmg = SKAction.removeFromParent()
         let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
         dmgImage.runAction(dmgCycle, withKey: "damage")
+    }
+    
+    func playSpellOnTile(toTile: Tile) {
+        // take out of hand
+        player.hand!.removeCard(self)
+        
+        if hasProp(.unitDamageSpell) {
+            // There should be something to attack
+            assert(toTile.occupiedBy != nil)
+            damageTile(toTile)
+        }
+        
+        if hasProp(.areaDamageSpell) {
+            // look for any of the tiles in the area that have units and damage them
+            let startRow = max(0, toTile.row - 1)
+            let startCol = max(0, toTile.col - 1)
+            let endRow = min(Tile.maxRows - 1, toTile.row + 1)
+            let endCol = min(Tile.maxColumns - 1, toTile.col + 1)
+            for row in startRow...endRow {
+                for col in startCol...endCol {
+                    let tile = getTile(row, col: col)
+                    if tile != nil && tile!.occupiedBy != nil {
+                        damageTile(tile!)
+                    }
+                }
+            }
+        }
         
         // animate attack
         // TODO: make separate function? And probably can do math directly on points?
         // find partial position to opponent
-        let oppPos = toTile.occupiedBy!.position
+        let oppPos = toTile.position //toTile.occupiedBy!.position
         let xDiff = (oppPos.x - position.x) * 0.35
         let yDiff = (oppPos.y - position.y) * 0.35
         let attPos = CGPoint(x: position.x + xDiff, y: position.y + yDiff)
         
         let attackTo = SKAction.moveTo(attPos, duration: 0.2)
         let wait = SKAction.waitForDuration(0.3)
-        let cycle = SKAction.sequence([attackTo, wait])
+        let doDiscard = SKAction.runBlock({self.die()})
+        let cycle = SKAction.sequence([attackTo, wait, doDiscard])
         runAction(cycle, withKey: "attack")
         
         // Spell should always "die" and go to discard
@@ -552,8 +575,8 @@ class Card : SKSpriteNode {
         if (hl != nil && hl!.isValidPlay(self)) {
 
             if isInHand() {
-                if hasProp(.unitDamageSpell) {
-                    playSpellOnEnemy(hl!)
+                if hasProp(.unitDamageSpell) || hasProp(.areaDamageSpell) {
+                    playSpellOnTile(hl!)
                 } else {
                     moveFromHandToTile(hl!)
                 }

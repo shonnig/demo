@@ -15,6 +15,7 @@ enum CardType: UInt32 {
     case Fireball
     case Ogre
     case Scout
+    case LightningStorm
     
     // special case for random function, not real choice
     case Last
@@ -31,6 +32,7 @@ enum CardProp {
     case range2
     case unitDamageSpell
     case trailblazer2
+    case areaDamageSpell
 }
 
 class CardData {
@@ -59,12 +61,13 @@ class CardInfo {
     
     static func initInfo() {
         
-        data[.Spearman] = CardData(i: "Spearman.png",    s: 0.25, a: 2, h: 2, c: 2, p: nil)
-        data[.Miner] =    CardData(i: "230px-Miner.png", s: 0.60, a: 1, h: 1, c: 2, p: [.startTurnGainGold1])
-        data[.Archer] =   CardData(i: "archer.png",      s: 0.55, a: 1, h: 1, c: 3, p: [.range2])
-        data[.Fireball] = CardData(i: "Fireball_2.png",  s: 0.13, a: 3, h: 0, c: 2, p: [.spell, .unitDamageSpell])
-        data[.Ogre] =     CardData(i: "ogre.png",        s: 0.25, a: 3, h: 5, c: 4, p: nil)
-        data[.Scout] =    CardData(i: "scout.jpg",       s: 0.60, a: 1, h: 2, c: 2, p: [.trailblazer2])
+        data[.Spearman] =       CardData(i: "Spearman.png",    s: 0.25, a: 2, h: 2, c: 2, p: nil)
+        data[.Miner] =          CardData(i: "230px-Miner.png", s: 0.60, a: 1, h: 1, c: 2, p: [.startTurnGainGold1])
+        data[.Archer] =         CardData(i: "archer.png",      s: 0.55, a: 1, h: 1, c: 3, p: [.range2])
+        data[.Fireball] =       CardData(i: "Fireball_2.png",  s: 0.13, a: 3, h: 0, c: 2, p: [.spell, .unitDamageSpell])
+        data[.Ogre] =           CardData(i: "ogre.png",        s: 0.25, a: 3, h: 5, c: 4, p: nil)
+        data[.Scout] =          CardData(i: "scout.jpg",       s: 0.60, a: 1, h: 2, c: 2, p: [.trailblazer2])
+        data[.LightningStorm] = CardData(i: "lightning.png",   s: 0.35, a: 1, h: 0, c: 4, p: [.spell, .areaDamageSpell])
     }
     
 }
