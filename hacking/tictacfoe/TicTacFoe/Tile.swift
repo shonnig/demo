@@ -30,6 +30,11 @@ class Tile : SKSpriteNode {
             } else {
                 color = owner!.bgColor
             }
+            
+            // Need to update score labels as pending score probably changed
+            let gameScene = scene as! GameScene
+            gameScene.player!.updateScoreLabel()
+            gameScene.opponent!.updateScoreLabel()
         }
     }
     

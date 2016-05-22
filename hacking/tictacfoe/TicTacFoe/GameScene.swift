@@ -114,8 +114,6 @@ class GameScene: SKScene {
         // move end turn button TODO: this is just a quick and dirty thing for now
         turnButton!.position.y = (currentTurn?.turnButtonY)!
         
-        var tilesOwned = 0
-        
         // Do card turn ends
         for tile in tiles {
             if tile.occupiedBy != nil {
@@ -124,18 +122,10 @@ class GameScene: SKScene {
                     card.endTurn()
                 }
             }
-            
-            // find tiles owned for scoring
-            if tile.owner?.isPlayer == currentTurn?.otherPlayer!.isPlayer {
-                tilesOwned += 1
-            }
         }
         
-        // Score points for every tile owned above ten at the end of the turn
-        let scoreThreshold = 10
-        if tilesOwned > scoreThreshold {
-            currentTurn?.otherPlayer!.score += (tilesOwned - scoreThreshold)
-        }
+        // Score points for every tile owned above a certain number at the end of the turn
+        currentTurn?.otherPlayer!.score += (currentTurn?.otherPlayer!.getScorePoints())!
         
         // Draw a card for player's new turn
         currentTurn!.deck!.drawCard()

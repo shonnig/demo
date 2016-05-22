@@ -33,7 +33,7 @@ class Player {
     
     var score: Int = 0 {
         didSet {
-            scoreLabel.text = "\(score)"
+            updateScoreLabel()
         }
     }
     
@@ -48,6 +48,16 @@ class Player {
     var goldDiscount = 0 {
         didSet {
             hand!.updateCostLabels()
+        }
+    }
+    
+    func updateScoreLabel() {
+        let pendingScore = getScorePoints()
+        
+        if pendingScore > 0 {
+            scoreLabel.text = "\(score) (+\(pendingScore))"
+        } else {
+            scoreLabel.text = "\(score)"
         }
     }
     
@@ -77,7 +87,7 @@ class Player {
         goldLabel.fontSize = 40
         goldLabel.fontColor = UIColor.yellowColor()
         goldLabel.zPosition = ZPosition.HudUI.rawValue
-        goldLabel.position = CGPointMake(75,scoreY)
+        goldLabel.position = CGPointMake(50,scoreY)
         scene.addChild(goldLabel)
         
         // Add the score label
@@ -86,7 +96,7 @@ class Player {
         scoreLabel.fontSize = 40
         scoreLabel.fontColor = UIColor.whiteColor()
         scoreLabel.zPosition = ZPosition.HudUI.rawValue
-        scoreLabel.position = CGPointMake(150,scoreY)
+        scoreLabel.position = CGPointMake(175,scoreY)
         scene.addChild(scoreLabel)
         
         // Player's hand
@@ -103,4 +113,25 @@ class Player {
         scene.addChild(discard!)
     }
 
+    func getScorePoints() -> Int {
+        
+        let gameScene = deck!.scene as! GameScene
+        var tilesOwned = 0
+        
+        for tile in gameScene.tiles {
+            
+            // find tiles owned for scoring
+            if tile.owner?.isPlayer == isPlayer {
+                tilesOwned += 1
+            }
+        }
+        
+        // Score points for every tile owned above ten at the end of the turn
+        let scoreThreshold = 10
+        if tilesOwned > scoreThreshold {
+            return (tilesOwned - scoreThreshold)
+        } else {
+            return 0
+        }
+    }
 }
