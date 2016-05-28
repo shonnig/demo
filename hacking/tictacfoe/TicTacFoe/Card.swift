@@ -92,7 +92,7 @@ class Card : SKSpriteNode {
         }
     }
     
-    var actions: Int = 1 {
+    var actions: Int = 0 {
         didSet {
             if isOnBoard() {
                 if actions >= 1 {
@@ -103,6 +103,8 @@ class Card : SKSpriteNode {
             }
         }
     }
+    
+    var maxActions: Int = 1
     
     var range = 0
     
@@ -161,6 +163,10 @@ class Card : SKSpriteNode {
         
         if hasProp(.range2) {
             range = 2
+        }
+        
+        if hasProp(.actions2) {
+            maxActions = 2
         }
         
         let font = "ArialRoundedMTBold"
@@ -322,7 +328,7 @@ class Card : SKSpriteNode {
     func startTurn() {
         
         // Reset number of actions
-        actions = 1
+        actions = maxActions
         
         if hasProp(.startTurnGainGold1) {
             player.gold += 1
@@ -586,7 +592,7 @@ class Card : SKSpriteNode {
         zPosition = ZPosition.MovingCard.rawValue
         let liftUp = SKAction.scaleTo(0.5, duration: 0.3)
         runAction(liftUp, withKey: "pickup")
-            
+
         startWiggle()
         isPickedUp = true
     }

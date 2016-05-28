@@ -17,6 +17,7 @@ enum CardType: UInt32 {
     case Scout
     case BlackMarketTrader
     case Hoplite
+    case GoblinRaiders
     
     // ranged units
     case Archer
@@ -65,6 +66,8 @@ enum CardProp {
     case cannotMove
     case cannotAttack
     
+    case actions2
+    
     // card/hand manipulation
     case drawCard
     
@@ -111,6 +114,7 @@ class CardInfo {
         data[.MassHeal] =          CardData(i: "heal_spell.png",          s: 0.50, a: 0, h: 0, c: 2, p: [.spell, .massHeal2, .drawCard])
         data[.Tower] =             CardData(i: "Bow_tower.png",           s: 1.20, a: 1, h: 5, c: 4, p: [.range2, .cannotMove])
         data[.Wall] =              CardData(i: "stone_wall.png",          s: 0.60, a: 0, h: 3, c: 1, p: [.cannotAttack, .cannotMove, .reduceRangeDamage1])
+        data[.GoblinRaiders] =     CardData(i: "goblin_raiders.png",      s: 0.45, a: 2, h: 3, c: 4, p: [.actions2])
     }
     
 }

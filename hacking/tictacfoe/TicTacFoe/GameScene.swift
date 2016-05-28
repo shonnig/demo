@@ -216,8 +216,8 @@ class GameScene: SKScene {
         
         // TODO: temp 10 cards in deck
         
-        player!.deck!.addCard(.Tower)
-        opponent!.deck!.addCard(.MassHeal)
+        player!.deck!.addCard(.GoblinRaiders)
+        opponent!.deck!.addCard(.Tower)
         
         for _ in 0...9 {
             player!.deck!.addCard(CardType.random())
