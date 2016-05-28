@@ -183,7 +183,7 @@ class GameScene: SKScene {
             var p: Player?
             if row == 0 || row == 1 {
                 p = player!
-            } else if row == 2 || row == 3 {
+            } else if row == 3 || row == 4 {
                 p = opponent!
             }
             
@@ -207,7 +207,8 @@ class GameScene: SKScene {
         
         // TODO: temp 10 cards in deck
         
-        player!.deck!.addCard(.MassHeal)
+        player!.deck!.addCard(.Tower)
+        opponent!.deck!.addCard(.MassHeal)
         
         for _ in 0...9 {
             player!.deck!.addCard(CardType.random())

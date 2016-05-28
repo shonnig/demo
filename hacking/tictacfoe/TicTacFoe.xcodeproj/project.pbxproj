@@ -30,6 +30,8 @@
 		0D76DDDF1CD5CA50003687B9 /* FTButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */; };
 		0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7E18A91CB379FB00FE94E2 /* Deck.swift */; };
 		0DB571561CB1E0A30000A898 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB571551CB1E0A30000A898 /* Hand.swift */; };
+		0DD8FE951CF5FFB700D813A9 /* Bow_tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */; };
+		0DD8FE971CF603AF00D813A9 /* stone_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8FE961CF603AF00D813A9 /* stone_wall.png */; };
 		0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDBFB321CAEEF7D0015AE00 /* Tile.swift */; };
 		0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0DFF7A9A1CAF485000E802CF /* tile.jpg */; };
 		5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */; };
@@ -70,6 +72,8 @@
 		0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTButtonNode.swift; sourceTree = "<group>"; };
 		0D7E18A91CB379FB00FE94E2 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		0DB571551CB1E0A30000A898 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
+		0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bow_tower.png; sourceTree = "<group>"; };
+		0DD8FE961CF603AF00D813A9 /* stone_wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone_wall.png; sourceTree = "<group>"; };
 		0DDBFB321CAEEF7D0015AE00 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		0DFF7A9A1CAF485000E802CF /* tile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tile.jpg; sourceTree = "<group>"; };
 		5189A2DB1BA8BB01004A19F3 /* TicTacFoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacFoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +147,8 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				0DD8FE961CF603AF00D813A9 /* stone_wall.png */,
+				0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */,
 				0D0F61091CF2218400027525 /* heal_spell.png */,
 				0D0F61071CF21BF600027525 /* hop.png */,
 				0D0F61051CF1EBDF00027525 /* black_market_trader.png */,
@@ -231,6 +237,7 @@
 				0D2102D51CF176F300851CF1 /* scout.jpg in Resources */,
 				0D57BE431CB6FE76002F32DA /* enemy_card.png in Resources */,
 				0D62D2481CAE0767003B046A /* border.jpg in Resources */,
+				0DD8FE951CF5FFB700D813A9 /* Bow_tower.png in Resources */,
 				5189A2E11BA8BB01004A19F3 /* GameScene.sks in Resources */,
 				0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */,
 				0D2102D91CF17FAD00851CF1 /* lightning.png in Resources */,
@@ -241,6 +248,7 @@
 				0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */,
 				0D62D24A1CAE0852003B046A /* Spearman.png in Resources */,
 				0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */,
+				0DD8FE971CF603AF00D813A9 /* stone_wall.png in Resources */,
 				5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */,
 				0D2102D31CF1710600851CF1 /* ogre.png in Resources */,
 				5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */,

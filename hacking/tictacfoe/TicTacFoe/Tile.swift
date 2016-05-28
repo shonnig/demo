@@ -13,14 +13,14 @@ class Tile : SKSpriteNode {
     
     static var currentHighlight: Tile?
     
-    static let maxRows = 4
+    static let maxRows = 5
     static let maxColumns = 5
     
     var row: Int = 0
     var col: Int = 0
     
     // TODO: make static?
-    let side = 135
+    let side = 100
     
     // Player who "owns" the tile
     var owner: Player? {
@@ -131,6 +131,15 @@ class Tile : SKSpriteNode {
             // Must be empty tile and owned by player to play from hand.
             return occupiedBy == nil && owner?.isPlayer == card.player.isPlayer
         } else {
+            
+            if card.hasProp(.cannotMove) && !isAttack {
+                return false
+            }
+            
+            if card.hasProp(.cannotAttack) && isAttack {
+                return false
+            }
+            
             // Can be a move to empty or attack, and by default only one space
             // TODO: don't allow diagonal moves/attacks?
             let validTarget = (occupiedBy == nil || occupiedBy == card || isAttack)

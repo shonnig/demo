@@ -108,6 +108,8 @@ class Player {
         scoreLabel.zPosition = ZPosition.HudUI.rawValue
         scoreLabel.position = CGPointMake(175,scoreY)
         scene.addChild(scoreLabel)
+        // TODO: not going to use a score now? Just hide for the time being.
+        scoreLabel.hidden = true
         
         // Player's hand
         hand = Hand(_player: self)

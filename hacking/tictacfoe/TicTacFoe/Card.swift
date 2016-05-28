@@ -493,6 +493,11 @@ class Card : SKSpriteNode {
             }
         }
         
+        if hasProp(.drawCard) {
+            player.deck!.drawCard()
+        }
+        
+        // TODO: don't do for spells like mass heal/buffs/etc (do something different)
         // animate attack
         // TODO: make separate function? And probably can do math directly on points?
         // find partial position to opponent
