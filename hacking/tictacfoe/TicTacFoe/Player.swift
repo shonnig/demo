@@ -20,9 +20,9 @@ class Player {
     
     var hand: Hand?
     
-    var gold: Int = 0 {
+    var gold: Int = 1 {
         didSet {
-            goldLabel.text = "\(gold)"
+            goldLabel.text = "\(gold) (+\(goldPerTurn)) [\(investments)/\(goldPerTurn)]"
             
             // this will change cards highlighting based on if they are playable now
             hand!.setFaceUp(true)
@@ -30,6 +30,18 @@ class Player {
     }
     
     var goldLabel: SKLabelNode!
+
+    var goldPerTurn: Int = 0 {
+        didSet {
+            goldLabel.text = "\(gold) (+\(goldPerTurn)) [\(investments)/\(goldPerTurn)]"
+        }
+    }
+    
+    var investments: Int = 0 {
+        didSet {
+            goldLabel.text = "\(gold) (+\(goldPerTurn)) [\(investments)/\(goldPerTurn)]"
+        }
+    }
     
     var score: Int = 0 {
         didSet {
@@ -97,7 +109,7 @@ class Player {
         goldLabel.fontSize = 40
         goldLabel.fontColor = UIColor.yellowColor()
         goldLabel.zPosition = ZPosition.HudUI.rawValue
-        goldLabel.position = CGPointMake(50,scoreY)
+        goldLabel.position = CGPointMake(150,scoreY)
         scene.addChild(goldLabel)
         
         // Add the score label

@@ -129,7 +129,16 @@ class GameScene: SKScene {
         
         // Draw a card for player's new turn
         currentTurn!.deck!.drawCard()
-        currentTurn!.gold += 2
+        
+        // Give them gold for turn
+        currentTurn!.gold += currentTurn!.goldPerTurn
+        
+        // Increment investments and possibly update gold per turn for player
+        currentTurn?.investments += 1
+        if currentTurn?.investments >= currentTurn?.goldPerTurn {
+            currentTurn?.goldPerTurn += 1
+            currentTurn?.investments = 0
+        }
         
         // Do card turn starts
         for tile in tiles {
