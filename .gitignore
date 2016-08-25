@@ -1,2 +1,6 @@
 *.xcuserstate
 *.xcbkptlist
+.DS_Store
+*.xcuserdatad
+
+
