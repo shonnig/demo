@@ -9,34 +9,36 @@
 import GameplayKit
 import SpriteKit
 
+
+#if falses
 // Extend SKNode with a function that should probably already exist...
 extension SKNode
 {
-    func runAction( action: SKAction!, withKey: String!, optionalCompletion: dispatch_block_t? )
+    func runAction( _ action: SKAction!, withKey: String!, optionalCompletion: ()->()? )
     {
         if let completion = optionalCompletion
         {
-            let completionAction = SKAction.runBlock( completion )
+            let completionAction = SKAction.run( completion )
             let compositeAction = SKAction.sequence([ action, completionAction ])
-            runAction( compositeAction, withKey: withKey )
+            run( compositeAction, withKey: withKey )
         }
         else
         {
-            runAction( action, withKey: withKey )
+            run( action, withKey: withKey )
         }
     }
 }
 
-extension CollectionType {
+extension Collection {
     /// Return a copy of `self` with its elements shuffled
-    func shuffle() -> [Generator.Element] {
+    func shuffle() -> [Iterator.Element] {
         var list = Array(self)
         list.shuffleInPlace()
         return list
     }
 }
 
-extension MutableCollectionType where Index == Int {
+extension MutableCollection where Index == Int {
     /// Shuffle the elements of `self` in-place.
     mutating func shuffleInPlace() {
         // empty and single-element collections don't shuffle
@@ -239,3 +241,51 @@ class GameScene: SKScene {
     }
 
 }
+#endif
+
+enum ZPosition: CGFloat {
+    
+    case background = -1000
+    case bot = 0
+    
+}
+
+class GameScene: SKScene {
+    
+    var firstBot: Bot?
+    
+    var secondBot: Bot?
+    
+    override func didMove(to view: SKView) {
+        
+        physicsWorld.gravity = CGVector(dx:0, dy:0)
+        
+        let background = SKSpriteNode(imageNamed: "background.jpg")
+        background.position = CGPoint(x: 512, y: 384)
+        background.blendMode = .replace
+        background.zPosition = ZPosition.background.rawValue
+        addChild(background)
+        
+        //self.physicsBody = SKPhysicsBody(bodyWithEdgeLoopFromRect: self.frame)
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        
+        
+        firstBot = Bot()
+        firstBot?.position = CGPoint(x: 512, y: 384)
+        firstBot?.zPosition = ZPosition.bot.rawValue
+        addChild(firstBot!)
+        
+        secondBot = Bot()
+        secondBot?.position = CGPoint(x: 512, y: 512)
+        secondBot?.zPosition = ZPosition.bot.rawValue
+        addChild(secondBot!)
+    }
+    
+    override func update(_ currentTime: CFTimeInterval) {
+        
+        firstBot?.physicsBody?.applyForce(CGVector(dx: 0.0, dy: 100.0))
+        
+    }
+
+}
+

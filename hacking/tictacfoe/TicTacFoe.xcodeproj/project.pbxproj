@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05FB83101DC2E50D0086FE09 /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FB830F1DC2E50D0086FE09 /* Bot.swift */; };
+		05FB83121DC2E67D0086FE09 /* triangle-xxl.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB83111DC2E67D0086FE09 /* triangle-xxl.png */; };
+		05FB83141DC2F74B0086FE09 /* Battletank.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB83131DC2F74B0086FE09 /* Battletank.png */; };
+		05FB83161DC2F8190086FE09 /* futuretank.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB83151DC2F8190086FE09 /* futuretank.png */; };
 		0D04BA9E1CF9CF0000A1687E /* goblin_raiders.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */; };
 		0D0F61041CF1E4EC00027525 /* axe_thrower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */; };
 		0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61051CF1EBDF00027525 /* black_market_trader.png */; };
@@ -17,23 +21,16 @@
 		0D2102D31CF1710600851CF1 /* ogre.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D21CF1710600851CF1 /* ogre.png */; };
 		0D2102D51CF176F300851CF1 /* scout.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D41CF176F300851CF1 /* scout.jpg */; };
 		0D2102D91CF17FAD00851CF1 /* lightning.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D81CF17FAD00851CF1 /* lightning.png */; };
-		0D223FF81CB9551700C41139 /* Discard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D223FF71CB9551700C41139 /* Discard.swift */; };
-		0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D31CC601CBD6E06005B6B72 /* Player.swift */; };
-		0D51BED61CE273F800E4E02C /* CardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51BED51CE273F800E4E02C /* CardInfo.swift */; };
 		0D57BE431CB6FE76002F32DA /* enemy_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D57BE421CB6FE76002F32DA /* enemy_card.png */; };
 		0D57BE451CB6FF1E002F32DA /* enemy_card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */; };
 		0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D581ECC1CB8584900DC6CB2 /* Explosion.png */; };
-		0D62D2421CAE00A9003B046A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62D2411CAE00A9003B046A /* Card.swift */; };
 		0D62D2481CAE0767003B046A /* border.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2471CAE0767003B046A /* border.jpg */; };
 		0D62D24A1CAE0852003B046A /* Spearman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2491CAE0852003B046A /* Spearman.png */; };
 		0D62D24C1CAE38BE003B046A /* 230px-Miner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D24B1CAE38BE003B046A /* 230px-Miner.png */; };
 		0D76DDDD1CD5C6FF003687B9 /* End_Turn_Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */; };
 		0D76DDDF1CD5CA50003687B9 /* FTButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */; };
-		0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7E18A91CB379FB00FE94E2 /* Deck.swift */; };
-		0DB571561CB1E0A30000A898 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB571551CB1E0A30000A898 /* Hand.swift */; };
 		0DD8FE951CF5FFB700D813A9 /* Bow_tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */; };
 		0DD8FE971CF603AF00D813A9 /* stone_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8FE961CF603AF00D813A9 /* stone_wall.png */; };
-		0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDBFB321CAEEF7D0015AE00 /* Tile.swift */; };
 		0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0DFF7A9A1CAF485000E802CF /* tile.jpg */; };
 		5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */; };
 		5189A2E11BA8BB01004A19F3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5189A2E01BA8BB01004A19F3 /* GameScene.sks */; };
@@ -50,6 +47,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05FB830F1DC2E50D0086FE09 /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
+		05FB83111DC2E67D0086FE09 /* triangle-xxl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle-xxl.png"; sourceTree = "<group>"; };
+		05FB83131DC2F74B0086FE09 /* Battletank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battletank.png; sourceTree = "<group>"; };
+		05FB83151DC2F8190086FE09 /* futuretank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = futuretank.png; sourceTree = "<group>"; };
 		0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goblin_raiders.png; sourceTree = "<group>"; };
 		0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = axe_thrower.jpg; sourceTree = "<group>"; };
 		0D0F61051CF1EBDF00027525 /* black_market_trader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_market_trader.png; sourceTree = "<group>"; };
@@ -60,23 +61,16 @@
 		0D2102D21CF1710600851CF1 /* ogre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ogre.png; sourceTree = "<group>"; };
 		0D2102D41CF176F300851CF1 /* scout.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scout.jpg; sourceTree = "<group>"; };
 		0D2102D81CF17FAD00851CF1 /* lightning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightning.png; sourceTree = "<group>"; };
-		0D223FF71CB9551700C41139 /* Discard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discard.swift; sourceTree = "<group>"; };
-		0D31CC601CBD6E06005B6B72 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		0D51BED51CE273F800E4E02C /* CardInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardInfo.swift; sourceTree = "<group>"; };
 		0D57BE421CB6FE76002F32DA /* enemy_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_card.png; sourceTree = "<group>"; };
 		0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = enemy_card.jpg; sourceTree = "<group>"; };
 		0D581ECC1CB8584900DC6CB2 /* Explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Explosion.png; sourceTree = "<group>"; };
-		0D62D2411CAE00A9003B046A /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		0D62D2471CAE0767003B046A /* border.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = border.jpg; sourceTree = "<group>"; };
 		0D62D2491CAE0852003B046A /* Spearman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spearman.png; sourceTree = "<group>"; };
 		0D62D24B1CAE38BE003B046A /* 230px-Miner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "230px-Miner.png"; sourceTree = "<group>"; };
 		0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = End_Turn_Button.png; sourceTree = "<group>"; };
 		0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTButtonNode.swift; sourceTree = "<group>"; };
-		0D7E18A91CB379FB00FE94E2 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
-		0DB571551CB1E0A30000A898 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bow_tower.png; sourceTree = "<group>"; };
 		0DD8FE961CF603AF00D813A9 /* stone_wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone_wall.png; sourceTree = "<group>"; };
-		0DDBFB321CAEEF7D0015AE00 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		0DFF7A9A1CAF485000E802CF /* tile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tile.jpg; sourceTree = "<group>"; };
 		5189A2DB1BA8BB01004A19F3 /* TicTacFoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacFoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +99,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		056FA0A31DB717BB000E1879 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */,
+				0DD8FE961CF603AF00D813A9 /* stone_wall.png */,
+				0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */,
+				0D0F61091CF2218400027525 /* heal_spell.png */,
+				0D0F61071CF21BF600027525 /* hop.png */,
+				0D0F61051CF1EBDF00027525 /* black_market_trader.png */,
+				0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */,
+				0D2102D81CF17FAD00851CF1 /* lightning.png */,
+				0D2102D41CF176F300851CF1 /* scout.jpg */,
+				0D2102D21CF1710600851CF1 /* ogre.png */,
+				0D2102D01CF1683E00851CF1 /* Fireball_2.png */,
+				0D2102CE1CF159E800851CF1 /* archer.png */,
+				0D581ECC1CB8584900DC6CB2 /* Explosion.png */,
+				0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */,
+				0D57BE421CB6FE76002F32DA /* enemy_card.png */,
+				0D62D24B1CAE38BE003B046A /* 230px-Miner.png */,
+				0D62D2491CAE0852003B046A /* Spearman.png */,
+				0D62D2471CAE0767003B046A /* border.jpg */,
+				5189A3071BA8C1B9004A19F3 /* FireParticles.sks */,
+				5189A3101BA8C1B9004A19F3 /* spark.png */,
+			);
+			name = Cards;
+			sourceTree = "<group>";
+		};
 		5189A2D21BA8BB01004A19F3 = {
 			isa = PBXGroup;
 			children = (
@@ -124,14 +145,8 @@
 		5189A2DD1BA8BB01004A19F3 /* TicTacFoe */ = {
 			isa = PBXGroup;
 			children = (
+				05FB830F1DC2E50D0086FE09 /* Bot.swift */,
 				0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */,
-				0D31CC601CBD6E06005B6B72 /* Player.swift */,
-				0D223FF71CB9551700C41139 /* Discard.swift */,
-				0D7E18A91CB379FB00FE94E2 /* Deck.swift */,
-				0DB571551CB1E0A30000A898 /* Hand.swift */,
-				0DDBFB321CAEEF7D0015AE00 /* Tile.swift */,
-				0D62D2411CAE00A9003B046A /* Card.swift */,
-				0D51BED51CE273F800E4E02C /* CardInfo.swift */,
 				5189A2E21BA8BB01004A19F3 /* GameScene.swift */,
 				5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */,
 				5189A2E01BA8BB01004A19F3 /* GameScene.sks */,
@@ -149,30 +164,14 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */,
-				0DD8FE961CF603AF00D813A9 /* stone_wall.png */,
-				0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */,
-				0D0F61091CF2218400027525 /* heal_spell.png */,
-				0D0F61071CF21BF600027525 /* hop.png */,
-				0D0F61051CF1EBDF00027525 /* black_market_trader.png */,
-				0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */,
-				0D2102D81CF17FAD00851CF1 /* lightning.png */,
-				0D2102D41CF176F300851CF1 /* scout.jpg */,
-				0D2102D21CF1710600851CF1 /* ogre.png */,
-				0D2102D01CF1683E00851CF1 /* Fireball_2.png */,
-				0D2102CE1CF159E800851CF1 /* archer.png */,
-				0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */,
-				0D581ECC1CB8584900DC6CB2 /* Explosion.png */,
-				0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */,
-				0D57BE421CB6FE76002F32DA /* enemy_card.png */,
-				0DFF7A9A1CAF485000E802CF /* tile.jpg */,
-				0D62D24B1CAE38BE003B046A /* 230px-Miner.png */,
-				0D62D2491CAE0852003B046A /* Spearman.png */,
-				0D62D2471CAE0767003B046A /* border.jpg */,
+				05FB83151DC2F8190086FE09 /* futuretank.png */,
+				05FB83131DC2F74B0086FE09 /* Battletank.png */,
+				05FB83111DC2E67D0086FE09 /* triangle-xxl.png */,
 				5189A2F51BA8C1B9004A19F3 /* background.jpg */,
 				5189A2F61BA8C1B9004A19F3 /* background@2x.jpg */,
-				5189A3071BA8C1B9004A19F3 /* FireParticles.sks */,
-				5189A3101BA8C1B9004A19F3 /* spark.png */,
+				0DFF7A9A1CAF485000E802CF /* tile.jpg */,
+				0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */,
+				056FA0A31DB717BB000E1879 /* Cards */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -203,12 +202,13 @@
 		5189A2D31BA8BB01004A19F3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Paul Hudson";
 				TargetAttributes = {
 					5189A2DA1BA8BB01004A19F3 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = FJ99TL6XWM;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -257,6 +257,9 @@
 				5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */,
 				0D2102D31CF1710600851CF1 /* ogre.png in Resources */,
 				5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */,
+				05FB83121DC2E67D0086FE09 /* triangle-xxl.png in Resources */,
+				05FB83141DC2F74B0086FE09 /* Battletank.png in Resources */,
+				05FB83161DC2F8190086FE09 /* futuretank.png in Resources */,
 				0D2102CF1CF159E800851CF1 /* archer.png in Resources */,
 				5189A3121BA8C1B9004A19F3 /* background@2x.jpg in Resources */,
 				5189A2E81BA8BB01004A19F3 /* Main.storyboard in Resources */,
@@ -276,14 +279,8 @@
 				0D76DDDF1CD5CA50003687B9 /* FTButtonNode.swift in Sources */,
 				5189A2E31BA8BB01004A19F3 /* GameScene.swift in Sources */,
 				5189A2E51BA8BB01004A19F3 /* GameViewController.swift in Sources */,
-				0D223FF81CB9551700C41139 /* Discard.swift in Sources */,
-				0D62D2421CAE00A9003B046A /* Card.swift in Sources */,
-				0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */,
-				0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */,
-				0D51BED61CE273F800E4E02C /* CardInfo.swift in Sources */,
-				0DB571561CB1E0A30000A898 /* Hand.swift in Sources */,
+				05FB83101DC2E50D0086FE09 /* Bot.swift in Sources */,
 				5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */,
-				0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */,
 				5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,8 +320,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -368,8 +367,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -388,6 +389,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -404,6 +406,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shonnigford.my-first-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -418,6 +421,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shonnigford.my-first-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
