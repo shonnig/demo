@@ -10,6 +10,17 @@ import Foundation
 import SpriteKit
 
 class Tile : SKSpriteNode {
+
+    enum Column {
+        
+        case heroAction
+        case hero
+        case allyAction
+        case ally
+        
+    }
+    
+    var character: Character?
     
     static var currentHighlight: Tile?
     
@@ -22,98 +33,80 @@ class Tile : SKSpriteNode {
     // TODO: make static?
     let side = 100
     
-    // Player who "owns" the tile
-    var owner: Player? {
-        didSet {
-            if owner == nil {
-                color = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
-            } else {
-                color = owner!.bgColor
-            }
-            
-            // Need to update score labels as pending score probably changed
-            let gameScene = scene as! GameScene
-            gameScene.player!.updateScoreLabel()
-            gameScene.opponent!.updateScoreLabel()
-        }
-    }
-    
+    var owner: Player?
+
     // Card currently occupying the tile
     var occupiedBy: Card?
     
     // sprite for highlight effect
-    var glowNode: SKSpriteNode?
+    var glowNode: SKSpriteNode!
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    init(_row: Int, _col: Int, _owner: Player?) {
+    init(_row: Int, _col: Column, _owner: Player) {
         
+        var x: Int
         row = _row
-        col = _col
+        
+        if (_owner.isPlayer) {
+            switch _col {
+            case .heroAction:
+                x = 128
+            case .hero:
+                x = 256
+            default:
+                x = 0
+            }
+        } else {
+            switch _col {
+            case .heroAction:
+                x = 896
+            case .hero:
+                x = 768
+            default:
+                x = 0
+            }
+        }
         
         let background = SKTexture(imageNamed: "tile.jpg")
         super.init(texture: background, color: UIColor(white: 0.5, alpha: 1.0), size: CGSize(width: side, height: side))
-        
-        // make checkerboard pattern to tell tiles apart
-        if (row + col) % 2 == 0 {
-            colorBlendFactor = 0.2
-        }
-        else {
-            colorBlendFactor = 0.4
-        }
-        blendMode = SKBlendMode.Replace
-
-        position = CGPointMake(CGFloat(350 + (col * side)), CGFloat(175 + (row * side)))
-        zPosition = ZPosition.Tile.rawValue
-        
+        position = CGPoint(x: CGFloat(x), y: CGFloat(600 - (row * 150)))
+        zPosition = ZPosition.tile.rawValue
         owner = _owner
-        if owner != nil {
-            color = owner!.bgColor
-        }
+        isHidden = false
         
-        // Create the highlight node
-        initHighlight()
+        glowNode = SKSpriteNode(texture: SKTexture(imageNamed: "multicolor_circle.png"), size: CGSize(width: Double(side) * 1.5, height: Double(side) * 1.5))
+        self.addChild(glowNode)
+        glowNode.position = CGPoint(x: 0, y: 0)
+        glowNode.zPosition = ZPosition.tileHighlight.rawValue - ZPosition.tile.rawValue
+        glowNode.isHidden = true
+        
+        addHighlight()
     }
     
-    func initHighlight() {
-        // create a copy of our original node to create the glow effect
-        glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5), size: CGSize(width: side, height: side))
-        glowNode!.setScale(1.1)
-        // Make the effect go just under this tile (but above others)
-        glowNode!.zPosition = ZPosition.TileHighlight.rawValue - ZPosition.HighlightedTile.rawValue
-        glowNode!.hidden = true
-        self.addChild(glowNode!)
-    }
-    
-    func addHighlight(card: Card) {
+    func addHighlight() {
         
-        // There can be only one - TODO: we may need to add a different type of highlight for available selections
-        if Tile.currentHighlight != self {
-            Tile.currentHighlight?.removeHighlight()
-            Tile.currentHighlight = self
-        }
+        glowNode.isHidden = false
         
-        // Need to raise the highlighted tile above the others so the highlight is below this tile but above others
-        zPosition = ZPosition.HighlightedTile.rawValue
-        glowNode?.hidden = false
+        let rotate = SKAction.rotate(byAngle: CGFloat(M_PI), duration: 5)
+        glowNode.run(SKAction.repeatForever(rotate), withKey: "rotate")
         
-        // Green - empty and can be placed, red - occupied and can't
-        if isValidPlay(card) {
-            glowNode?.color = SKColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5)
-        } else {
-            glowNode?.color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
-        }
+        let grow = SKAction.scale(to: 1.1, duration: 1)
+        let shrink = SKAction.scale(to: 0.9, duration: 1)
+        let cycle = SKAction.sequence([grow, shrink])
+        glowNode.run(SKAction.repeatForever(cycle), withKey: "pulse")
     }
     
     func removeHighlight() {
-        Tile.currentHighlight = nil
-        zPosition = ZPosition.Tile.rawValue
-        glowNode?.hidden = true
+        glowNode.isHidden = true
+        glowNode.removeAction(forKey: "rotate")
+        glowNode.removeAction(forKey: "pulse")
     }
     
-    func isValidPlay(card: Card) -> Bool {
+    /*
+    func isValidPlay(_ card: Card) -> Bool {
         let isAttack = (occupiedBy != nil && occupiedBy!.player.isPlayer != card.player.isPlayer)
 
         if card.isInHand() {
@@ -166,5 +159,6 @@ class Tile : SKSpriteNode {
             return validTarget && validDistance
         }
     }
+    */
     
 }

@@ -10,49 +10,32 @@ import SpriteKit
 
 class Discard : SKSpriteNode {
     
-    var player: Player
-    
     var cards = [Card]()
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    init(_player: Player) {
-        
-        player = _player
+    init() {
         
         // make the border/background
-        var cardBackground: SKTexture
-        // TODO: use different colors or something eventually for different teams
-        if player.isPlayer {
-            cardBackground = SKTexture(imageNamed: "border.jpg")
-        } else {
-            cardBackground = SKTexture(imageNamed: "enemy_card.jpg")
-        }
-        
+        let cardBackground = SKTexture(imageNamed: "border.jpg")
         super.init(texture: cardBackground, color: UIColor(white: 1.0, alpha: 0.0), size: CGSize(width: 200, height: 300))
         
         setScale(0.33)
         
         // TODO: make a different "foundation" image for the discard and don't hide it
-        hidden = true
+        isHidden = true
     }
     
-    func addCard(card: Card) {
+    func addCard(_ card: Card) {
         let topZpos = cards.last?.zPosition
         
-        card.location = .Discard
+        card.location = .discard
         
         if topZpos != nil {
             card.zPosition = topZpos! + 20
         }
         cards.append(card)
-    }
-    
-    func updateCostLabels() {
-        for card in cards {
-            card.updateCostLabel()
-        }
     }
 }

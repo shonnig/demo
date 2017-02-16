@@ -6,9 +6,6 @@
 //  Copyright © 2016 Paul Hudson. All rights reserved.
 //
 
-// hello world!!!!
-// another test
-
 import Foundation
 import SpriteKit
 
@@ -16,6 +13,8 @@ import SpriteKit
 class Player {
 
     let isPlayer: Bool
+    
+    var tiles = [Tile]()
     
     var deck: Deck?
     
@@ -28,7 +27,7 @@ class Player {
             goldLabel.text = "\(gold) (+\(goldPerTurn)) [\(investments)/\(goldPerTurn)]"
             
             // this will change cards highlighting based on if they are playable now
-            hand!.setFaceUp(true)
+            //hand!.setFaceUp(true)
         }
     }
     
@@ -48,7 +47,7 @@ class Player {
     
     var score: Int = 0 {
         didSet {
-            updateScoreLabel()
+            //updateScoreLabel()
         }
     }
     
@@ -56,10 +55,7 @@ class Player {
     
     var otherPlayer: Player?
     
-    var turnButtonY: CGFloat
-    
-    var bgColor: UIColor
-    
+    /*
     var goldDiscount = 0 {
         didSet {
             hand!.updateCostLabels()
@@ -85,10 +81,29 @@ class Player {
             scoreLabel.text = "\(score)"
         }
     }
+    */
     
     init(scene: GameScene, _isPlayer: Bool) {
+        
         isPlayer = _isPlayer
         
+        for row in 0...3 {
+            
+            let heroActionTile = Tile(_row: row, _col: .heroAction, _owner: self)
+            tiles.append(heroActionTile)
+            scene.addChild(heroActionTile)
+            
+            let heroTile = Tile(_row: row, _col: .hero, _owner: self)
+            tiles.append(heroTile)
+            scene.addChild(heroTile)
+            
+            let hero = Hero(type: HeroType.random())
+            hero.position = heroTile.position
+            scene.addChild(hero)
+            heroTile.character = hero
+        }
+        
+        /*
         var drawDiscardY: CGFloat
         var scoreY: CGFloat
         
@@ -96,50 +111,53 @@ class Player {
             drawDiscardY = 50
             scoreY = 150
             turnButtonY = 225
-            bgColor = UIColor.blueColor()
+            bgColor = UIColor.blue
         } else {
             drawDiscardY = 700
             scoreY = 600
             turnButtonY = 550
-            bgColor = UIColor.redColor()
+            bgColor = UIColor.red
         }
         
         let font = "ArialRoundedMTBold"
+        
         
         // Add the gold label
         goldLabel = SKLabelNode(fontNamed: font)
         goldLabel.text = "\(gold)"
         goldLabel.fontSize = 40
-        goldLabel.fontColor = UIColor.yellowColor()
-        goldLabel.zPosition = ZPosition.HudUI.rawValue
-        goldLabel.position = CGPointMake(150,scoreY)
+        goldLabel.fontColor = UIColor.yellow
+        goldLabel.zPosition = ZPosition.hudUI.rawValue
+        goldLabel.position = CGPoint(x: 150,y: scoreY)
         scene.addChild(goldLabel)
         
         // Add the score label
         scoreLabel = SKLabelNode(fontNamed: font)
         scoreLabel.text = "\(score)"
         scoreLabel.fontSize = 40
-        scoreLabel.fontColor = UIColor.whiteColor()
-        scoreLabel.zPosition = ZPosition.HudUI.rawValue
-        scoreLabel.position = CGPointMake(175,scoreY)
+        scoreLabel.fontColor = UIColor.white
+        scoreLabel.zPosition = ZPosition.hudUI.rawValue
+        scoreLabel.position = CGPoint(x: 175,y: scoreY)
         scene.addChild(scoreLabel)
         // TODO: not going to use a score now? Just hide for the time being.
-        scoreLabel.hidden = true
-        
+        scoreLabel.isHidden = true
+ 
         // Player's hand
         hand = Hand(_player: self)
         
         // Player's deck
         deck = Deck(_player: self)
-        deck!.position = CGPointMake(900,drawDiscardY)
+        deck!.position = CGPoint(x: 900,y: drawDiscardY)
         scene.addChild(deck!)
         
         // Player's discard
         discard = Discard(_player: self)
-        discard!.position = CGPointMake(150,drawDiscardY)
+        discard!.position = CGPoint(x: 150,y: drawDiscardY)
         scene.addChild(discard!)
+        */
     }
 
+    /*
     func getScorePoints() -> Int {
         
         let gameScene = deck!.scene as! GameScene
@@ -161,4 +179,5 @@ class Player {
             return 0
         }
     }
+    */
 }

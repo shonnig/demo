@@ -11,8 +11,6 @@ import SpriteKit
 
 class Deck : SKSpriteNode {
     
-    var player: Player
-    
     let drawInterval:CFTimeInterval = 5
     
     var cards = [Card]()
@@ -21,32 +19,30 @@ class Deck : SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
-    init(_player: Player) {
+    init() {
         
-        player = _player
-        
-        super.init(texture: SKTexture(imageNamed: "border.jpg"), color: player.bgColor, size: CGSize(width: 200, height: 300))
+        super.init(texture: SKTexture(imageNamed: "border.jpg"), color: UIColor.white, size: CGSize(width: 200, height: 300))
         colorBlendFactor = 0.2
         
         setScale(0.33)
     }
     
     func addCard(type: CardType) {
-        let card = Card(_player: player, type: type)
+        let card = Card(type: type)
         card.position = position
-        card.hidden = true
+        card.isHidden = true
         scene!.addChild(card)
         cards.append(card)
-        card.location = .Deck
+        card.location = .deck
         card.faceDown = true
     }
     
     func shuffle() {
-        cards.shuffle()
+        //cards.shuffle()
     }
     
     func drawCard() {
-        
+        /*
         // Can never go beyond max hand size
         if player.hand!.isFull() {
             return
@@ -61,10 +57,11 @@ class Deck : SKSpriteNode {
             
             // put discard into draw pile and shuffle
             // TODO: animate this?
-            cards = player.discard!.cards.shuffle().map( { card in
-                card.hidden = true
+            //cards = player.discard!.cards.shuffle().map( { card in
+            cards = player.discard!.cards.map( { card in
+                card.isHidden = true
                 card.position = position
-                card.location = .Deck
+                card.location = .deck
                 return card
                 } )
             player.discard!.cards = [Card]()
@@ -73,10 +70,11 @@ class Deck : SKSpriteNode {
         // remove top card of deck
         let card = cards.removeFirst()
         
-        card.hidden = false
-        card.zPosition = ZPosition.CardInHand.rawValue
+        card.isHidden = false
+        card.zPosition = ZPosition.cardInHand.rawValue
         player.hand!.addCard(card)
         player.hand!.alignHand()
+        */
     }
     
 }

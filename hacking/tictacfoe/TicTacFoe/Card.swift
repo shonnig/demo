@@ -11,12 +11,12 @@ import SpriteKit
 
 // TODO: can Tile just include a Tile reference? Can get row and col from there and would be simpler to find Tile.
 enum CardLocation {
-    case Hand
+    case hand
     // row and col
-    case Tile(Int, Int)
-    case Deck
-    case Discard
-    case Choice
+    case tile(Int, Int)
+    case deck
+    case discard
+    case choice
 }
 
 class Card : SKSpriteNode {
@@ -33,7 +33,7 @@ class Card : SKSpriteNode {
     
     var faceDown = false {
         didSet {
-            cardBack.hidden = !faceDown
+            cardBack.isHidden = !faceDown
         }
     }
     
@@ -66,9 +66,9 @@ class Card : SKSpriteNode {
             }
             
             if health < maxHealth {
-                statsLabel.fontColor = UIColor.redColor()
+                statsLabel.fontColor = UIColor.red
             } else {
-                statsLabel.fontColor = UIColor.blackColor()
+                statsLabel.fontColor = UIColor.black
             }
         }
     }
@@ -82,12 +82,12 @@ class Card : SKSpriteNode {
             }
             
             if health <= 0 {
-                die()
+                //die()
             }
             if health < maxHealth {
-                statsLabel.fontColor = UIColor.redColor()
+                statsLabel.fontColor = UIColor.red
             } else {
-                statsLabel.fontColor = UIColor.blackColor()
+                statsLabel.fontColor = UIColor.black
             }
         }
     }
@@ -108,8 +108,6 @@ class Card : SKSpriteNode {
     
     var range = 0
     
-    var player: Player
-    
     var location: CardLocation?
     
     var isPickedUp = false
@@ -121,21 +119,19 @@ class Card : SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
-    init(_player: Player, type: CardType) {
-        
-        player = _player
+    init(type: CardType) {
         
         // make the card back which is only visible when the card is face down
-        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color: player.bgColor, size: CGSize(width: width, height: height))
+        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color: UIColor.white, size: CGSize(width: width, height: height))
         cardBack.colorBlendFactor = 0.2
-        cardBack.zPosition = ZPosition.CardBack.rawValue - ZPosition.CardInHand.rawValue
-        cardBack.hidden = true
+        cardBack.zPosition = ZPosition.cardBack.rawValue - ZPosition.cardInHand.rawValue
+        cardBack.isHidden = true
         
-        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: player.bgColor, size: CGSize(width: width, height: height))
+        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: UIColor.white, size: CGSize(width: width, height: height))
         colorBlendFactor = 0.2
  
         // allow the Card to intercept touches instead of passing them through the scene
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
         
         // Get card info
         let data = CardInfo.data[type]
@@ -143,7 +139,7 @@ class Card : SKSpriteNode {
         // make the character image and attach to card
         let cardImage = SKSpriteNode(imageNamed: data!.image)
         cardImage.setScale((CGFloat)(data!.scale))
-        cardImage.zPosition = ZPosition.CardImage.rawValue - ZPosition.CardInHand.rawValue
+        cardImage.zPosition = ZPosition.cardImage.rawValue - ZPosition.cardInHand.rawValue
         addChild(cardImage)
         
         // update stats
@@ -179,17 +175,17 @@ class Card : SKSpriteNode {
         } else {
             statsLabel.text = "\(damage)/\(health)"
         }
-        statsLabel.fontColor = UIColor.blackColor()
-        statsLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
-        statsLabel.position = CGPointMake(60,-140)
+        statsLabel.fontColor = UIColor.black
+        statsLabel.zPosition = ZPosition.cardLabel.rawValue - ZPosition.cardInHand.rawValue
+        statsLabel.position = CGPoint(x: 60,y: -140)
         addChild(statsLabel)
         
         // Add the cost label
         costLabel = SKLabelNode(fontNamed: font)
         costLabel.text = "\(cost)"
-        costLabel.fontColor = UIColor.yellowColor()
-        costLabel.zPosition = ZPosition.CardLabel.rawValue - ZPosition.CardInHand.rawValue
-        costLabel.position = CGPointMake(-60,-140)
+        costLabel.fontColor = UIColor.yellow
+        costLabel.zPosition = ZPosition.cardLabel.rawValue - ZPosition.cardInHand.rawValue
+        costLabel.position = CGPoint(x: -60,y: -140)
         addChild(costLabel)
         
         addChild(cardBack)
@@ -205,8 +201,8 @@ class Card : SKSpriteNode {
         glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5), size: CGSize(width: width, height: height))
         glowNode!.setScale(1.1)
         // Make the effect go just under this tile (but above others)
-        glowNode!.zPosition = ZPosition.CardInHandHighlight.rawValue - ZPosition.CardInHand.rawValue
-        glowNode!.hidden = true
+        glowNode!.zPosition = ZPosition.cardInHandHighlight.rawValue - ZPosition.cardInHand.rawValue
+        glowNode!.isHidden = true
         self.addChild(glowNode!)
     }
     
@@ -214,24 +210,24 @@ class Card : SKSpriteNode {
         costLabel.text = "\(currentCost())"
         
         if currentCost() < cost {
-            costLabel.fontColor = UIColor.greenColor()
+            costLabel.fontColor = UIColor.green
         } else {
-            costLabel.fontColor = UIColor.yellowColor()
+            costLabel.fontColor = UIColor.yellow
         }
     }
     
     func addHighlight() {
-        glowNode!.hidden = false
+        glowNode!.isHidden = false
     }
     
     func removeHighlight() {
-        glowNode!.hidden = true
+        glowNode!.isHidden = true
     }
 
     func isInHand() -> Bool {
         var ret:Bool
         switch location! {
-        case .Hand: ret = true
+        case .hand: ret = true
         default: ret = false
         }
         return ret
@@ -240,7 +236,7 @@ class Card : SKSpriteNode {
     func isOnBoard() -> Bool {
         var ret:Bool
         switch location! {
-        case .Tile: ret = true
+        case .tile: ret = true
         default: ret = false
         }
         return ret
@@ -249,18 +245,20 @@ class Card : SKSpriteNode {
     func isInDiscard() -> Bool {
         var ret:Bool
         switch location! {
-        case .Discard: ret = true
+        case .discard: ret = true
         default: ret = false
         }
         return ret
     }
     
+    /*
     
     func die() {
         
         // clear occupation if it has any
-        let tile = currentTile()
-        tile?.occupiedBy = nil
+        if let tile = currentTile() {
+            tile.occupiedBy = nil
+        }
         
         removeHighlight()
         
@@ -277,13 +275,13 @@ class Card : SKSpriteNode {
         
         player.discard!.addCard(self)
         
-        let wait = SKAction.waitForDuration(0.2)
-        let snapTo = SKAction.moveTo(player.discard!.position, duration: 0.5)
+        let wait = SKAction.wait(forDuration: 0.2)
+        let snapTo = SKAction.move(to: player.discard!.position, duration: 0.5)
         let dieDiscard = SKAction.sequence([wait, snapTo])
-        runAction(dieDiscard, withKey: "discard")
+        run(dieDiscard, withKey: "discard")
     }
     
-    func getTile(row: Int, col: Int) ->Tile? {
+    func getTile(_ row: Int, col: Int) -> Tile? {
         var tile: Tile?
         
         let gameScene = scene as! GameScene
@@ -299,20 +297,22 @@ class Card : SKSpriteNode {
     func currentTile() -> Tile? {
         var tile: Tile?
         
+        // FIXNOW
         switch location! {
-        case .Tile(let row, let col):
+        case .tile(let row, let col):
             tile = getTile(row, col: col)
         default: break
         }
         
         return tile
     }
+    */
     
     func currentCost() -> Int {
-        return max(0, cost - player.goldDiscount)
+        return cost
     }
     
-    func hasProp(prop: CardProp) -> Bool {
+    func hasProp(_ prop: CardProp) -> Bool {
         if (props != nil) {
             if (props!.contains(prop)) {
                 return true
@@ -321,6 +321,7 @@ class Card : SKSpriteNode {
         return false
     }
     
+    /*
     func endTurn() {
         actions = 0
     }
@@ -335,7 +336,7 @@ class Card : SKSpriteNode {
         }
     }
     
-    func applyDamage(to: Card, damage: Int) {
+    func applyDamage(_ to: Card, damage: Int) {
         
         to.health -= damage
         
@@ -345,7 +346,7 @@ class Card : SKSpriteNode {
         }
     }
 
-    func attackFromTileToTile(fromTile: Tile, toTile: Tile) {
+    func attackFromTileToTile(_ fromTile: Tile, toTile: Tile) {
         
         actions = actions - 1
         
@@ -363,19 +364,19 @@ class Card : SKSpriteNode {
         let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
         dmgImage.setScale(0.25)
         dmgImage.position = toTile.position
-        dmgImage.zPosition = ZPosition.DamageEffect.rawValue
-        dmgImage.hidden = true
+        dmgImage.zPosition = ZPosition.damageEffect.rawValue
+        dmgImage.isHidden = true
         scene!.addChild(dmgImage)
 
-        let wait1 = SKAction.waitForDuration(0.4)
+        let wait1 = SKAction.wait(forDuration: 0.4)
         let showDmg = SKAction.unhide()
         
-        let doDmg = SKAction.runBlock({self.applyDamage(attackedUnit, damage: dmg)})
-        let wait2 = SKAction.waitForDuration(0.3)
-        let fadeDmg = SKAction.fadeOutWithDuration(0.3)
+        let doDmg = SKAction.run({self.applyDamage(attackedUnit, damage: dmg)})
+        let wait2 = SKAction.wait(forDuration: 0.3)
+        let fadeDmg = SKAction.fadeOut(withDuration: 0.3)
         let removeDmg = SKAction.removeFromParent()
         let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
-        dmgImage.runAction(dmgCycle, withKey: "damage")
+        dmgImage.run(dmgCycle, withKey: "damage")
         
         // animate attack
         // TODO: make separate function? And probably can do math directly on points?
@@ -385,19 +386,21 @@ class Card : SKSpriteNode {
         let yDiff = (oppPos.y - position.y) * 0.35
         let attPos = CGPoint(x: position.x + xDiff, y: position.y + yDiff)
         
-        let attackTo = SKAction.moveTo(attPos, duration: 0.2)
-        let wait = SKAction.waitForDuration(0.3)
-        let attackBack = SKAction.moveTo(fromTile.position, duration: 0.2)
+        let attackTo = SKAction.move(to: attPos, duration: 0.2)
+        let wait = SKAction.wait(forDuration: 0.3)
+        let attackBack = SKAction.move(to: fromTile.position, duration: 0.2)
         let cycle = SKAction.sequence([attackTo, wait, attackBack])
-        runAction(cycle, withKey: "attack")
+        run(cycle, withKey: "attack")
         
-        let liftUp = SKAction.scaleTo(0.75, duration: 0.2)
-        let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
+        let liftUp = SKAction.scale(to: 0.75, duration: 0.2)
+        let dropDown = SKAction.scale(to: 0.33, duration: 0.2)
         let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
-        runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
+        //runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
+        // FIXNOW
+        run(upDownCycle, withKey: "upDown")
     }
     
-    func moveFromTileToTile(fromTile: Tile, toTile: Tile) {
+    func moveFromTileToTile(_ fromTile: Tile, toTile: Tile) {
      
         if fromTile != toTile {
             actions -= 1
@@ -405,7 +408,7 @@ class Card : SKSpriteNode {
         
         fromTile.occupiedBy = nil
         
-        location = .Tile(toTile.row, toTile.col)
+        location = .tile(toTile.row, toTile.col)
         
         // This better not be occupied already
         assert(toTile.occupiedBy == nil)
@@ -437,31 +440,31 @@ class Card : SKSpriteNode {
         
         // animate to this
         let snapToPosition = toTile.position
-        let snapTo = SKAction.moveTo(snapToPosition, duration: 0.3)
-        runAction(snapTo, withKey: "snap")
+        let snapTo = SKAction.move(to: snapToPosition, duration: 0.3)
+        run(snapTo, withKey: "snap")
     }
     
     // TODO: commonize this with unit attacks as well?
-    func damageTile(toTile: Tile) {
+    func damageTile(_ toTile: Tile) {
         // damage image
         let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
         dmgImage.setScale(0.25)
         dmgImage.position = toTile.position
-        dmgImage.zPosition = ZPosition.DamageEffect.rawValue
-        dmgImage.hidden = true
+        dmgImage.zPosition = ZPosition.damageEffect.rawValue
+        dmgImage.isHidden = true
         scene!.addChild(dmgImage)
         
-        let wait1 = SKAction.waitForDuration(0.4)
+        let wait1 = SKAction.wait(forDuration: 0.4)
         let showDmg = SKAction.unhide()
-        let doDmg = SKAction.runBlock({self.applyDamage(toTile.occupiedBy!, damage: self.damage)})
-        let wait2 = SKAction.waitForDuration(0.3)
-        let fadeDmg = SKAction.fadeOutWithDuration(0.3)
+        let doDmg = SKAction.run({self.applyDamage(toTile.occupiedBy!, damage: self.damage)})
+        let wait2 = SKAction.wait(forDuration: 0.3)
+        let fadeDmg = SKAction.fadeOut(withDuration: 0.3)
         let removeDmg = SKAction.removeFromParent()
         let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
-        dmgImage.runAction(dmgCycle, withKey: "damage")
+        dmgImage.run(dmgCycle, withKey: "damage")
     }
     
-    func playSpellOnTile(toTile: Tile) {
+    func playSpellOnTile(_ toTile: Tile) {
         // take out of hand
         player.hand!.removeCard(self)
         
@@ -508,29 +511,31 @@ class Card : SKSpriteNode {
         let yDiff = (oppPos.y - position.y) * 0.35
         let attPos = CGPoint(x: position.x + xDiff, y: position.y + yDiff)
         
-        let attackTo = SKAction.moveTo(attPos, duration: 0.2)
-        let wait = SKAction.waitForDuration(0.3)
+        let attackTo = SKAction.move(to: attPos, duration: 0.2)
+        let wait = SKAction.wait(forDuration: 0.3)
         // Spell should always "die" and go to discard
-        let doDiscard = SKAction.runBlock({self.die()})
+        let doDiscard = SKAction.run({self.die()})
         let cycle = SKAction.sequence([attackTo, wait, doDiscard])
-        runAction(cycle, withKey: "attack")
+        run(cycle, withKey: "attack")
         
-        let liftUp = SKAction.scaleTo(0.75, duration: 0.2)
-        let dropDown = SKAction.scaleTo(0.33, duration: 0.2)
+        let liftUp = SKAction.scale(to: 0.75, duration: 0.2)
+        let dropDown = SKAction.scale(to: 0.33, duration: 0.2)
         let upDownCycle = SKAction.sequence([liftUp, wait, dropDown])
-        runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
+        //runAction(upDownCycle, withKey: "upDown", optionalCompletion: lowerPosition)
+        // FIXNOW
+        run(upDownCycle, withKey: "upDown")
         
         // pay gold cost
         player.gold -= currentCost()
     }
     
-    func moveFromHandToTile(toTile: Tile) {
+    func moveFromHandToTile(_ toTile: Tile) {
         
         // take out of hand
         player.hand!.removeCard(self)
         
         // set on board
-        location = .Tile(toTile.row, toTile.col)
+        location = .tile(toTile.row, toTile.col)
         
         // This _must_ get set after location for highlight to work correctly
         // TODO: unless the card has haste?
@@ -543,8 +548,8 @@ class Card : SKSpriteNode {
         
         // animate to center on tile
         let snapToPosition = toTile.position
-        let snapTo = SKAction.moveTo(snapToPosition, duration: 0.3)
-        runAction(snapTo, withKey: "snap")
+        let snapTo = SKAction.move(to: snapToPosition, duration: 0.3)
+        run(snapTo, withKey: "snap")
         
         // align hand
         player.hand!.alignHand()
@@ -559,6 +564,7 @@ class Card : SKSpriteNode {
     }
     
     func canPlay() -> Bool {
+        /*
         // Can only move cards from hand or on board
         if !isInHand() && !isOnBoard() {
             return false
@@ -579,33 +585,34 @@ class Card : SKSpriteNode {
         if isOnBoard() && actions <= 0 {
             return false
         }
+        */
         
         return true
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if !canPlay() {
             return
         }
         
-        zPosition = ZPosition.MovingCard.rawValue
-        let liftUp = SKAction.scaleTo(0.5, duration: 0.3)
-        runAction(liftUp, withKey: "pickup")
+        zPosition = ZPosition.movingCard.rawValue
+        let liftUp = SKAction.scale(to: 0.5, duration: 0.3)
+        run(liftUp, withKey: "pickup")
 
         startWiggle()
         isPickedUp = true
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if !canPlay() {
             return
         }
         
         for touch in touches {
-            let location = touch.locationInNode(scene!) // make sure this is scene, not self
-            let touchedNode = nodeAtPoint(location)
+            let location = touch.location(in: scene!) // make sure this is scene, not self
+            let touchedNode = atPoint(location)
             touchedNode.position = location
             startWiggle()
             
@@ -614,24 +621,27 @@ class Card : SKSpriteNode {
                 Tile.currentHighlight?.removeHighlight()
             }
             
-            let nodes = scene?.nodesAtPoint(location)
+            /*
+            let nodes = scene?.nodes(at: location)
             for node in nodes! {
                 if node is Tile {
                     let tile = node as! Tile
                     tile.addHighlight(self)
                 }
             }
+            */
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if !canPlay() {
             return
         }
         
-        let dropDown = SKAction.scaleTo(0.33, duration: 0.3)
-        runAction(dropDown, withKey: "drop", optionalCompletion: lowerPosition)
+        let dropDown = SKAction.scale(to: 0.33, duration: 0.3)
+        //runAction(dropDown, withKey: "drop", optionalCompletion: lowerPosition)
+        run(dropDown, withKey: "drop")
         stopWiggle()
         isPickedUp = false
         
@@ -678,11 +688,11 @@ class Card : SKSpriteNode {
         if hasActions() == false {
             let startAngle = CGFloat(RandomFloat(min: 0.05, max: 0.1))
             let secondAngle = CGFloat(startAngle * -1.0)
-            let time = NSTimeInterval(startAngle * 2.0)
+            let time = TimeInterval(startAngle * 2.0)
             
-            let rotBack = SKAction.rotateToAngle(0, duration: 0.15)
-            let rotR = SKAction.rotateByAngle(startAngle, duration: time)
-            let rotL = SKAction.rotateByAngle(secondAngle, duration: time)
+            let rotBack = SKAction.rotate(toAngle: 0, duration: 0.15)
+            let rotR = SKAction.rotate(byAngle: startAngle, duration: time)
+            let rotL = SKAction.rotate(byAngle: secondAngle, duration: time)
             var cycle:SKAction
             
             // 50/50 left or right first
@@ -692,21 +702,22 @@ class Card : SKSpriteNode {
                 cycle = SKAction.sequence([rotBack, rotL, rotR])
             }
 
-            runAction(cycle, withKey: "wiggle")
+            run(cycle, withKey: "wiggle")
         }
     }
     
     func stopWiggle() {
-        removeActionForKey("wiggle")
+        removeAction(forKey: "wiggle")
         
         // return card back to normal angle
-        runAction(SKAction.rotateToAngle(0, duration: 0.15), withKey:"rotate")
+        run(SKAction.rotate(toAngle: 0, duration: 0.15), withKey:"rotate")
     }
     
     func lowerPosition() {
         if !isInDiscard() {
-            zPosition = ZPosition.CardInHand.rawValue
+            zPosition = ZPosition.cardInHand.rawValue
         }
     }
+ */
 
 }

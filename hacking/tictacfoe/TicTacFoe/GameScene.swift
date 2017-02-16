@@ -8,77 +8,118 @@
 
 import GameplayKit
 import SpriteKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 // Extend SKNode with a function that should probably already exist...
+/*
 extension SKNode
 {
-    func runAction( action: SKAction!, withKey: String!, optionalCompletion: dispatch_block_t? )
+    func runAction( _ action: SKAction!, withKey: String!, optionalCompletion: Optional<Any>)
     {
         if let completion = optionalCompletion
         {
-            let completionAction = SKAction.runBlock( completion )
+            let completionAction = SKAction.run( completion as! () -> Void )
             let compositeAction = SKAction.sequence([ action, completionAction ])
-            runAction( compositeAction, withKey: withKey )
+            run( compositeAction, withKey: withKey )
         }
         else
         {
-            runAction( action, withKey: withKey )
+            run( action, withKey: withKey )
         }
     }
 }
+*/
 
-extension CollectionType {
+/*
+extension Collection {
     /// Return a copy of `self` with its elements shuffled
-    func shuffle() -> [Generator.Element] {
+    func shuffle() -> [Iterator.Element] {
         var list = Array(self)
-        list.shuffleInPlace()
+        list.shuffle()
         return list
     }
 }
+*/
 
-extension MutableCollectionType where Index == Int {
-    /// Shuffle the elements of `self` in-place.
-    mutating func shuffleInPlace() {
-        // empty and single-element collections don't shuffle
-        if count < 2 { return }
+extension MutableCollection where Indices.Iterator.Element == Index {
+    /// Shuffles the contents of this collection.
+    mutating func shuffle() {
+        let c = count
+        guard c > 1 else { return }
         
-        for i in 0..<count - 1 {
-            let j = Int(arc4random_uniform(UInt32(count - i))) + i
-            guard i != j else { continue }
-            swap(&self[i], &self[j])
+        for (firstUnshuffled , unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
+            let d: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
+            guard d != 0 else { continue }
+            let i = index(firstUnshuffled, offsetBy: d)
+            swap(&self[firstUnshuffled], &self[i])
         }
     }
 }
 
+extension Sequence {
+    /// Returns an array with the contents of this sequence, shuffled.
+    func shuffled() -> [Iterator.Element] {
+        var result = Array(self)
+        result.shuffle()
+        return result
+    }
+}
+
+
 enum ZPosition: CGFloat {
     
-    case Background = -1000
+    case background = -1000
     
-    case Tile = -100
+    case tile = -100
     
-    case TileHighlight = -20
+    case tileHighlight = -20
     
-    case HighlightedTile = -10
+    case highlightedTile = -10
     
-    case ButtonUI = 0
+    case inPlay = -5
     
-    case CardInHandHighlight = 5
+    case buttonUI = 0
     
-    case CardInHand = 10
+    case cardInHandHighlight = 5
     
-    case CardImage = 15
+    case cardInHand = 10
     
-    case CardLabel = 20
+    case cardImage = 15
     
-    case CardBack = 30
+    case cardLabel = 20
     
-    case DamageEffect = 100
+    case cardBack = 30
     
-    case MovingCardHighlight = 495 // TODO: don't think I need this, but leaving in for now...
+    case damageEffect = 100
     
-    case MovingCard = 500
+    case movingCardHighlight = 495 // TODO: don't think I need this, but leaving in for now...
     
-    case HudUI = 1000
+    case movingCard = 500
+    
+    case hudUI = 1000
     
 }
 
@@ -88,6 +129,7 @@ class GameScene: SKScene {
     
     var opponent: Player?
     
+    /*
     var turnButton: FTButtonNode?
 
     var currentTurn: Player? {
@@ -95,9 +137,11 @@ class GameScene: SKScene {
             newTurn()
         }
     }
+    */
     
     var tiles = [Tile]()
     
+    /*
     var round: Int = 0 {
         didSet {
             roundLabel.text = "Round \(round)"
@@ -158,29 +202,33 @@ class GameScene: SKScene {
             round += 1
         }
     }
+    */
     
-    
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         // TODO: will we need this?
     }
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
         // Init card info
         CardInfo.initInfo()
         
+        HeroInfo.initInfo()
+        
 		let background = SKSpriteNode(imageNamed: "background.jpg")
 		background.position = CGPoint(x: 512, y: 384)
-		background.blendMode = .Replace
-		background.zPosition = ZPosition.Background.rawValue
+		background.blendMode = .replace
+		background.zPosition = ZPosition.background.rawValue
 		addChild(background)
         
+        /*
         let buttonImg = SKTexture(imageNamed: "End_Turn_Button.png")
         turnButton = FTButtonNode(normalTexture: buttonImg, selectedTexture: buttonImg, disabledTexture: buttonImg)
         turnButton!.position = CGPoint(x: 125, y: 200)
-        turnButton!.zPosition = ZPosition.ButtonUI.rawValue
-        turnButton!.userInteractionEnabled = true
+        turnButton!.zPosition = ZPosition.buttonUI.rawValue
+        turnButton!.isUserInteractionEnabled = true
         addChild(turnButton!)
+        */
 
         player = Player(scene: self, _isPlayer: true)
         opponent = Player(scene: self, _isPlayer: false)
@@ -188,6 +236,7 @@ class GameScene: SKScene {
         player!.otherPlayer = opponent
         opponent!.otherPlayer = player
         
+        /*
         for row in 0...Tile.maxRows - 1 {
             var p: Player?
             if row == 0 || row == 1 {
@@ -202,22 +251,25 @@ class GameScene: SKScene {
                 tiles.append(tile)
             }
         }
+        */
         
+        /*
         // Add turn number display
         roundLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
         roundLabel.text = "Round \(round)"
         roundLabel.fontSize = 40
-        roundLabel.fontColor = UIColor.greenColor()
-        roundLabel.zPosition = ZPosition.HudUI.rawValue
-        roundLabel.position = CGPointMake(125,400)
+        roundLabel.fontColor = UIColor.green
+        roundLabel.zPosition = ZPosition.hudUI.rawValue
+        roundLabel.position = CGPoint(x: 125,y: 400)
         addChild(roundLabel)
+        */
         
         // *** Temp init game state
         
         // TODO: temp 10 cards in deck
-        
-        player!.deck!.addCard(.GoblinRaiders)
-        opponent!.deck!.addCard(.Tower)
+        /*
+        player!.deck!.addCard(.goblinRaiders)
+        opponent!.deck!.addCard(.tower)
         
         for _ in 0...9 {
             player!.deck!.addCard(CardType.random())
@@ -233,9 +285,10 @@ class GameScene: SKScene {
         }
         
         // TODO: how to balance going second? Give an extra gold for now?
-        opponent!.gold += 1
+        //opponent!.gold += 1
         
-        currentTurn = player
+        //currentTurn = player
+        */
     }
 
 }

@@ -12,8 +12,8 @@ import SpriteKit
 class FTButtonNode: SKSpriteNode {
     
     enum FTButtonActionType: Int {
-        case TouchUpInside = 1,
-        TouchDown, TouchUp
+        case touchUpInside = 1,
+        touchDown, touchUp
     }
     
     var isEnabled: Bool = true {
@@ -47,13 +47,13 @@ class FTButtonNode: SKSpriteNode {
         self.selectedTexture = selectedTexture
         self.disabledTexture = disabledTexture
         
-        super.init(texture: defaultTexture, color: UIColor.blackColor(), size: defaultTexture.size())
+        super.init(texture: defaultTexture, color: UIColor.black, size: defaultTexture.size())
         
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
         
         // Adding this node as an empty layer. Without it the touch functions are not being called
         // The reason for this is unknown when this was implemented...?
-        let bugFixLayerNode = SKSpriteNode(texture: nil, color: UIColor.whiteColor(), size: defaultTexture.size())
+        let bugFixLayerNode = SKSpriteNode(texture: nil, color: UIColor.white, size: defaultTexture.size())
         bugFixLayerNode.position = self.position
         addChild(bugFixLayerNode)
         
@@ -62,7 +62,7 @@ class FTButtonNode: SKSpriteNode {
     
     var disabledTexture: SKTexture?
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent!)  {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent!)  {
         
         if (!isEnabled) {
             return
@@ -70,16 +70,16 @@ class FTButtonNode: SKSpriteNode {
         isSelected = true
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent!)  {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent!)  {
         
         if (!isEnabled) {
             return
         }
         
         let touch = touches.first
-        let touchLocation = touch!.locationInNode(parent!)
+        let touchLocation = touch!.location(in: parent!)
         
-        if (CGRectContainsPoint(frame, touchLocation)) {
+        if (frame.contains(touchLocation)) {
             isSelected = true
         } else {
             isSelected = false
@@ -87,7 +87,7 @@ class FTButtonNode: SKSpriteNode {
         
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent!) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent!) {
         
         if (!isEnabled) {
             return
@@ -96,12 +96,12 @@ class FTButtonNode: SKSpriteNode {
         isSelected = false
         
         let touch = touches.first
-        let touchLocation = touch!.locationInNode(parent!)
+        let touchLocation = touch!.location(in: parent!)
             
-        if (CGRectContainsPoint(frame, touchLocation) ) {
+        if (frame.contains(touchLocation) ) {
             // toggle whose turn it is
-            let gameScene = scene as! GameScene
-            gameScene.currentTurn = gameScene.currentTurn?.otherPlayer
+            //let gameScene = scene as! GameScene
+            //gameScene.currentTurn = gameScene.currentTurn?.otherPlayer
         }
         
     }

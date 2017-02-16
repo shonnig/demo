@@ -11,28 +11,25 @@ import SpriteKit
 
 
 class Hand {
-
-    var player: Player
     
     let maxSize = 5
     
     var cards = [Card]()
     
-    init(_player: Player) {
-        player = _player
+    init() {
     }
     
-    func addCard(card: Card) {
+    func addCard(_ card: Card) {
         
         // TODO: need to enforce max hand size
-        card.location = .Hand
+        card.location = .hand
         cards.append(card)
         card.faceDown = false
     }
     
-    func removeCard(card: Card) {
-        if let index = cards.indexOf(card) {
-            cards.removeAtIndex(index)
+    func removeCard(_ card: Card) {
+        if let index = cards.index(of: card) {
+            cards.remove(at: index)
         }
     }
     
@@ -43,8 +40,8 @@ class Hand {
     func isFull() -> Bool {
         return cards.count >= maxSize
     }
-    
-    func setFaceUp(doShow: Bool) {
+    /*
+    func setFaceUp(_ doShow: Bool) {
         for card in cards {
             card.faceDown = !doShow
             
@@ -85,13 +82,14 @@ class Hand {
             // If card is currently being moved by user, don't snatch it away from them back to their hand
             if !card.isPickedUp {
                 // kill current action in case alignHand gets called again before done
-                card.removeActionForKey("snap")
+                card.removeAction(forKey: "snap")
             
                 let snapToPosition = CGPoint(x: 300 + (i * 100), y: height)
-                let snapTo = SKAction.moveTo(snapToPosition, duration: 0.3)
-                card.runAction(snapTo, withKey: "snap")
+                let snapTo = SKAction.move(to: snapToPosition, duration: 0.3)
+                card.run(snapTo, withKey: "snap")
             }
             i = i + 1
         }
     }
+     */
 }
