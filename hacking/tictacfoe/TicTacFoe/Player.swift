@@ -101,6 +101,30 @@ class Player {
             hero.position = heroTile.position
             scene.addChild(hero)
             heroTile.character = hero
+            
+            let deck = Deck()
+            deck.isHidden = true
+            scene.addChild(deck)
+            hero.deck = deck
+            
+            let discard = Discard()
+            discard.isHidden = true
+            scene.addChild(discard)
+            hero.discard = discard
+            
+            let hand = Hand()
+            hero.hand = hand
+            
+            for _ in 0...9 {
+                deck.addCard(type: CardId.random())
+            }
+            
+            if let card = deck.drawCard() {
+                card.isHidden = false
+                card.position = heroActionTile.position
+                card.zPosition = ZPosition.inPlay.rawValue
+            }
+            
         }
         
         /*

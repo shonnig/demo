@@ -8,8 +8,21 @@
 
 import Foundation
 
-enum CardType: UInt32 {
+enum Trigger {
     
+    case play
+    case complete
+    case rally
+    
+}
+
+enum CardId: UInt32 {
+    
+    case slice
+    case bash
+    case snipe
+    
+    /*
     // melee units
     case spearman
     case miner
@@ -31,20 +44,26 @@ enum CardType: UInt32 {
     case massHeal
     
     case wall
+    */
 
     // special case for random function, not real choice
     case last
     
-    static func random() -> CardType {
+    static func random() -> CardId {
         let rand = arc4random_uniform(last.rawValue)
-        return CardType(rawValue: rand)!
+        return CardId(rawValue: rand)!
     }
 }
 
-enum CardProp {
+enum CardPropType {
     
     case spell
+    case melee
+    case ranged
+    case aoe
+    case randomAttack
     
+    /*
     // gold manipulation
     case startTurnGainGold1
     case thisTurnDiscount1
@@ -73,23 +92,40 @@ enum CardProp {
     
     // TODO: this only applies to ranged attacks (eg. not when archer is defender) - is this what we want?
     case reduceRangeDamage1
+    */
+}
+
+class CardProp {
+    var type: CardPropType
+    var values: [Int]
+    
+    
+    init(_type: CardPropType, _values: [Int]) {
+        type = _type
+        values = _values
+    }
 }
 
 class CardData {
     
-    var image: String
-    var scale: Float
-    var health: Int
-    var cost: Int
-    var attack: Int
-    var props: Set<CardProp>?
+    //var image: String
+    //var scale: Float
+    //var health: Int
+    //var cost: Int
+    //var attack: Int
     
-    init(i: String, s: Float, a: Int, h: Int, c: Int, p: Set<CardProp>?) {
-        image = i
-        scale = s
-        health = h
-        cost = c
-        attack = a
+    // cost: coins
+    // rally: coins
+    // name: string
+    // text: string
+    
+    var name: String
+    var text: [String]?
+    var props: [CardProp]?
+    
+    init(n: String, t: [String]?, p: [CardProp]?) {
+        name = n
+        text = t
         props = p
     }
 
@@ -97,10 +133,15 @@ class CardData {
 
 class CardInfo {
 
-    static var data = [CardType: CardData]()
+    static var data = [CardId: CardData]()
     
     static func initInfo() {
         
+        data[.slice] =              CardData(n: "Slice",                t: ["Melee Attack: 5","Another line","Last line"],                                                  p: [CardProp(_type: .melee, _values: [5])])
+        data[.snipe] =              CardData(n: "Snipe",                t: ["Ranged Attack: 3"],                                                                            p: [CardProp(_type: .ranged, _values: [3])])
+        data[.bash] =               CardData(n: "Bash",                 t: ["Attack a random", "enemy: 7"],                                                        p: [CardProp(_type: .randomAttack, _values: [7])])
+        
+        /*
         data[.spearman] =          CardData(i: "Spearman.png",            s: 0.25, a: 2, h: 2, c: 2, p: nil)
         data[.miner] =             CardData(i: "230px-Miner.png",         s: 0.60, a: 1, h: 1, c: 2, p: [.startTurnGainGold1])
         data[.archer] =            CardData(i: "archer.png",              s: 0.55, a: 1, h: 2, c: 3, p: [.range2])
@@ -115,6 +156,7 @@ class CardInfo {
         data[.tower] =             CardData(i: "Bow_tower.png",           s: 1.20, a: 1, h: 5, c: 4, p: [.range2, .cannotMove])
         data[.wall] =              CardData(i: "stone_wall.png",          s: 0.60, a: 0, h: 3, c: 1, p: [.cannotAttack, .cannotMove, .reduceRangeDamage1])
         data[.goblinRaiders] =     CardData(i: "goblin_raiders.png",      s: 0.45, a: 2, h: 3, c: 4, p: [.actions2])
+        */
     }
     
 }

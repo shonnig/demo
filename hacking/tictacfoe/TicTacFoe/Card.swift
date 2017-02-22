@@ -22,21 +22,20 @@ enum CardLocation {
 class Card : SKSpriteNode {
     
     // TODO: make static?
-    let width = 200
+    let width = 300
     let height = 300
     
-    var props: Set<CardProp>?
+    var props: [CardProp]
     
-    var cardBack: SKSpriteNode
+    var title: SKLabelNode
     
-    var spell = false
+    var desc: [SKLabelNode]
     
-    var faceDown = false {
-        didSet {
-            cardBack.isHidden = !faceDown
-        }
-    }
+    var cost: CoinChain?
     
+    var rally: CoinChain?
+    
+    /*
     var costLabel: SKLabelNode!
     
     var cost: Int = 1 {
@@ -103,69 +102,65 @@ class Card : SKSpriteNode {
             }
         }
     }
-    
-    var maxActions: Int = 1
-    
-    var range = 0
+    */
     
     var location: CardLocation?
-    
-    var isPickedUp = false
-    
-    // sprite for highlight effect
-    var glowNode: SKSpriteNode?
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    init(type: CardType) {
-        
-        // make the card back which is only visible when the card is face down
-        cardBack = SKSpriteNode(texture: SKTexture(imageNamed: "border.jpg"), color: UIColor.white, size: CGSize(width: width, height: height))
-        cardBack.colorBlendFactor = 0.2
-        cardBack.zPosition = ZPosition.cardBack.rawValue - ZPosition.cardInHand.rawValue
-        cardBack.isHidden = true
-        
-        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: UIColor.white, size: CGSize(width: width, height: height))
-        colorBlendFactor = 0.2
- 
-        // allow the Card to intercept touches instead of passing them through the scene
-        isUserInteractionEnabled = true
+    init(type: CardId) {
         
         // Get card info
         let data = CardInfo.data[type]
         
-        // make the character image and attach to card
-        let cardImage = SKSpriteNode(imageNamed: data!.image)
-        cardImage.setScale((CGFloat)(data!.scale))
-        cardImage.zPosition = ZPosition.cardImage.rawValue - ZPosition.cardInHand.rawValue
-        addChild(cardImage)
-        
-        // update stats
-        cost = data!.cost
-        damage = data!.attack
-        maxHealth = data!.health
-        health = maxHealth
-        props = data!.props
-        
-        if hasProp(.spell) {
-            spell = true
-        }
-        
-        if hasProp(.range1) {
-            range = 1
-        }
-        
-        if hasProp(.range2) {
-            range = 2
-        }
-        
-        if hasProp(.actions2) {
-            maxActions = 2
-        }
+        props = data!.props!
         
         let font = "ArialRoundedMTBold"
+        
+        // Add the title label
+        title = SKLabelNode(fontNamed: font)
+        title.text = data?.name
+        
+        desc = []
+        
+        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: UIColor.white, size: CGSize(width: width, height: height))
+        // TODO: ?
+        colorBlendFactor = 0.2
+ 
+        // TODO: don't hardcode positions
+        title.fontColor = UIColor.black
+        title.fontSize = 50
+        title.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+        title.position = CGPoint(x: 0, y: 100)
+        addChild(title)
+        
+        
+        // Add the description label(s)
+        if let descriptions = data!.text {
+            var y_pos = -60 + (descriptions.count * 30)
+            for line in descriptions {
+                let label = SKLabelNode(fontNamed: font)
+                label.text = line
+                desc.append(label)
+                label.fontColor = UIColor.black
+                label.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+                label.position = CGPoint(x: 0, y: y_pos)
+                addChild(label)
+                y_pos -= 30
+            }
+        }
+        
+        cost = CoinChain(orange: 2,blue: 2,green: 2,purple: 2)
+        cost?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+        cost?.position = CGPoint(x: 0, y: 70)
+        addChild(cost!)
+        
+        // allow the Card to intercept touches instead of passing them through the scene
+        isUserInteractionEnabled = true
+        
+        /*
         
         // Add the health label
         statsLabel = SKLabelNode(fontNamed: font)
@@ -187,15 +182,11 @@ class Card : SKSpriteNode {
         costLabel.zPosition = ZPosition.cardLabel.rawValue - ZPosition.cardInHand.rawValue
         costLabel.position = CGPoint(x: -60,y: -140)
         addChild(costLabel)
-        
-        addChild(cardBack)
-        faceDown = false
-        
+        */
         setScale(0.33)
-        
-        initHighlight()
     }
     
+    /*
     func initHighlight() {
         // create a copy of our original node to create the glow effect
         glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5), size: CGSize(width: width, height: height))
@@ -214,14 +205,6 @@ class Card : SKSpriteNode {
         } else {
             costLabel.fontColor = UIColor.yellow
         }
-    }
-    
-    func addHighlight() {
-        glowNode!.isHidden = false
-    }
-    
-    func removeHighlight() {
-        glowNode!.isHidden = true
     }
 
     func isInHand() -> Bool {
@@ -250,8 +233,6 @@ class Card : SKSpriteNode {
         }
         return ret
     }
-    
-    /*
     
     func die() {
         
@@ -306,18 +287,20 @@ class Card : SKSpriteNode {
         
         return tile
     }
-    */
     
     func currentCost() -> Int {
         return cost
     }
+    */
     
-    func hasProp(_ prop: CardProp) -> Bool {
-        if (props != nil) {
-            if (props!.contains(prop)) {
+    func hasProp(type: CardPropType) -> Bool {
+        
+        for p in props {
+            if p.type == type {
                 return true
             }
         }
+        
         return false
     }
     

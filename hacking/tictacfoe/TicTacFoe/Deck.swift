@@ -27,54 +27,42 @@ class Deck : SKSpriteNode {
         setScale(0.33)
     }
     
-    func addCard(type: CardType) {
+    func addCard(type: CardId) {
         let card = Card(type: type)
         card.position = position
         card.isHidden = true
         scene!.addChild(card)
         cards.append(card)
         card.location = .deck
-        card.faceDown = true
     }
     
     func shuffle() {
         //cards.shuffle()
     }
     
-    func drawCard() {
-        /*
-        // Can never go beyond max hand size
-        if player.hand!.isFull() {
-            return
-        }
+    func drawCard() -> Card? {
         
         // Is the draw pile empty?
         if cards.count == 0 {
-            // If discards is empty too, then return
-            if player.discard!.cards.count == 0 {
-                return
-            }
+            // If discard is empty too, then return
+            //if player.discard!.cards.count == 0 {
+            return nil
+            //}
             
             // put discard into draw pile and shuffle
             // TODO: animate this?
             //cards = player.discard!.cards.shuffle().map( { card in
-            cards = player.discard!.cards.map( { card in
-                card.isHidden = true
-                card.position = position
-                card.location = .deck
-                return card
-                } )
-            player.discard!.cards = [Card]()
+            //cards = player.discard!.cards.map( { card in
+            //    card.isHidden = true
+            //    card.position = position
+            //    card.location = .deck
+            //    return card
+            //    } )
+            //player.discard!.cards = [Card]()
         }
         
         // remove top card of deck
-        let card = cards.removeFirst()
-        
-        card.isHidden = false
-        card.zPosition = ZPosition.cardInHand.rawValue
-        player.hand!.addCard(card)
-        player.hand!.alignHand()
-        */
+        return cards.removeFirst()
     }
     
 }

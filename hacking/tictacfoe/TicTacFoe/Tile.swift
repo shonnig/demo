@@ -77,7 +77,7 @@ class Tile : SKSpriteNode {
         owner = _owner
         isHidden = false
         
-        glowNode = SKSpriteNode(texture: SKTexture(imageNamed: "multicolor_circle.png"), size: CGSize(width: Double(side) * 1.5, height: Double(side) * 1.5))
+        glowNode = SKSpriteNode(texture: SKTexture(imageNamed: "multicolor_circle.png"), size: CGSize(width: Double(side) * 1.7, height: Double(side) * 1.7))
         self.addChild(glowNode)
         glowNode.position = CGPoint(x: 0, y: 0)
         glowNode.zPosition = ZPosition.tileHighlight.rawValue - ZPosition.tile.rawValue

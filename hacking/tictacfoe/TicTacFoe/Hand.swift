@@ -24,7 +24,6 @@ class Hand {
         // TODO: need to enforce max hand size
         card.location = .hand
         cards.append(card)
-        card.faceDown = false
     }
     
     func removeCard(_ card: Card) {

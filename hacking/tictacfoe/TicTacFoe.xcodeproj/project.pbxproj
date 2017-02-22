@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05279C051E5E076300E93B7C /* CoinChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05279C041E5E076300E93B7C /* CoinChain.swift */; };
 		05E129DF1E50A73F00BA53BB /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129DE1E50A73F00BA53BB /* Character.swift */; };
 		05E129E11E50A7DE00BA53BB /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129E01E50A7DE00BA53BB /* Hero.swift */; };
 		05E129E61E53A9DD00BA53BB /* HeroInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129E51E53A9DD00BA53BB /* HeroInfo.swift */; };
 		05E129E81E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif in Resources */ = {isa = PBXBuildFile; fileRef = 05E129E71E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif */; };
 		05E129EA1E556C8600BA53BB /* img-thing.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 05E129E91E556C8600BA53BB /* img-thing.jpeg */; };
 		05E129EC1E556EF200BA53BB /* multicolor_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129EB1E556EF200BA53BB /* multicolor_circle.png */; };
+		05E129F11E56A52300BA53BB /* bear.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129ED1E56A52300BA53BB /* bear.png */; };
+		05E129F21E56A52300BA53BB /* horse.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129EE1E56A52300BA53BB /* horse.png */; };
+		05E129F31E56A52300BA53BB /* rhino.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129EF1E56A52300BA53BB /* rhino.png */; };
+		05E129F41E56A52300BA53BB /* snake.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129F01E56A52300BA53BB /* snake.png */; };
+		05E129F61E56A8F500BA53BB /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129F51E56A8F500BA53BB /* Coin.swift */; };
 		0D04BA9E1CF9CF0000A1687E /* goblin_raiders.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */; };
 		0D0F61041CF1E4EC00027525 /* axe_thrower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */; };
 		0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61051CF1EBDF00027525 /* black_market_trader.png */; };
@@ -56,12 +62,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05279C041E5E076300E93B7C /* CoinChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinChain.swift; sourceTree = "<group>"; };
 		05E129DE1E50A73F00BA53BB /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		05E129E01E50A7DE00BA53BB /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		05E129E51E53A9DD00BA53BB /* HeroInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroInfo.swift; sourceTree = "<group>"; };
 		05E129E71E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "kaim_hero_handaxe.gif~c200.gif"; sourceTree = "<group>"; };
 		05E129E91E556C8600BA53BB /* img-thing.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "img-thing.jpeg"; sourceTree = "<group>"; };
 		05E129EB1E556EF200BA53BB /* multicolor_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multicolor_circle.png; sourceTree = "<group>"; };
+		05E129ED1E56A52300BA53BB /* bear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bear.png; sourceTree = "<group>"; };
+		05E129EE1E56A52300BA53BB /* horse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = horse.png; sourceTree = "<group>"; };
+		05E129EF1E56A52300BA53BB /* rhino.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rhino.png; sourceTree = "<group>"; };
+		05E129F01E56A52300BA53BB /* snake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake.png; sourceTree = "<group>"; };
+		05E129F51E56A8F500BA53BB /* Coin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
 		0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goblin_raiders.png; sourceTree = "<group>"; };
 		0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = axe_thrower.jpg; sourceTree = "<group>"; };
 		0D0F61051CF1EBDF00027525 /* black_market_trader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_market_trader.png; sourceTree = "<group>"; };
@@ -120,6 +132,8 @@
 		058704951E29EE2600DAE208 /* Coins */ = {
 			isa = PBXGroup;
 			children = (
+				05E129F51E56A8F500BA53BB /* Coin.swift */,
+				05279C041E5E076300E93B7C /* CoinChain.swift */,
 			);
 			name = Coins;
 			sourceTree = "<group>";
@@ -204,6 +218,10 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				05E129ED1E56A52300BA53BB /* bear.png */,
+				05E129EE1E56A52300BA53BB /* horse.png */,
+				05E129EF1E56A52300BA53BB /* rhino.png */,
+				05E129F01E56A52300BA53BB /* snake.png */,
 				05E129EB1E556EF200BA53BB /* multicolor_circle.png */,
 				05E129E91E556C8600BA53BB /* img-thing.jpeg */,
 				05E129E71E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif */,
@@ -302,6 +320,7 @@
 				0D62D2481CAE0767003B046A /* border.jpg in Resources */,
 				0DD8FE951CF5FFB700D813A9 /* Bow_tower.png in Resources */,
 				5189A2E11BA8BB01004A19F3 /* GameScene.sks in Resources */,
+				05E129F31E56A52300BA53BB /* rhino.png in Resources */,
 				05E129E81E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif in Resources */,
 				0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */,
 				0D04BA9E1CF9CF0000A1687E /* goblin_raiders.png in Resources */,
@@ -315,12 +334,15 @@
 				05E129EC1E556EF200BA53BB /* multicolor_circle.png in Resources */,
 				0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */,
 				0DD8FE971CF603AF00D813A9 /* stone_wall.png in Resources */,
+				05E129F11E56A52300BA53BB /* bear.png in Resources */,
 				5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */,
 				0D2102D31CF1710600851CF1 /* ogre.png in Resources */,
 				5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */,
 				0D2102CF1CF159E800851CF1 /* archer.png in Resources */,
+				05E129F41E56A52300BA53BB /* snake.png in Resources */,
 				05E129EA1E556C8600BA53BB /* img-thing.jpeg in Resources */,
 				5189A3121BA8C1B9004A19F3 /* background@2x.jpg in Resources */,
+				05E129F21E56A52300BA53BB /* horse.png in Resources */,
 				5189A2E81BA8BB01004A19F3 /* Main.storyboard in Resources */,
 				5189A32C1BA8C1B9004A19F3 /* spark.png in Resources */,
 				0D2102D11CF1683E00851CF1 /* Fireball_2.png in Resources */,
@@ -349,7 +371,9 @@
 				5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */,
 				05E129E11E50A7DE00BA53BB /* Hero.swift in Sources */,
 				0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */,
+				05E129F61E56A8F500BA53BB /* Coin.swift in Sources */,
 				5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */,
+				05279C051E5E076300E93B7C /* CoinChain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
