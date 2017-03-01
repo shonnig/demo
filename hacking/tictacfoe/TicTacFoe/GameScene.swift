@@ -141,6 +141,10 @@ class GameScene: SKScene {
     
     var tiles = [Tile]()
     
+    static let side: CGFloat = 140.0
+    
+    var promptLabel: SKLabelNode?
+    
     /*
     var round: Int = 0 {
         didSet {
@@ -253,16 +257,14 @@ class GameScene: SKScene {
         }
         */
         
-        /*
         // Add turn number display
-        roundLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
-        roundLabel.text = "Round \(round)"
-        roundLabel.fontSize = 40
-        roundLabel.fontColor = UIColor.green
-        roundLabel.zPosition = ZPosition.hudUI.rawValue
-        roundLabel.position = CGPoint(x: 125,y: 400)
-        addChild(roundLabel)
-        */
+        promptLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        promptLabel!.text = "Rally Two Actions"
+        promptLabel!.fontSize = 30
+        promptLabel!.fontColor = UIColor.yellow
+        promptLabel!.zPosition = ZPosition.hudUI.rawValue
+        promptLabel!.position = CGPoint(x: 500,y: 740)
+        addChild(promptLabel!)
         
         // *** Temp init game state
         

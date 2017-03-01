@@ -11,57 +11,116 @@ import SpriteKit
 
 class CoinChain : SKSpriteNode {
 
+    var m_contents: [Coin]
     
-    var contents: [Coin]
+    var m_compact: Bool
     
+    var m_count: [CoinType : Int] {
+        didSet {
+            // Just update all the text
+            m_label[.orange]?.text = "x \(m_count[.orange]!)"
+            m_label[.blue]?.text = "x \(m_count[.blue]!)"
+            m_label[.green]?.text = "x \(m_count[.green]!)"
+            m_label[.yellow]?.text = "x \(m_count[.yellow]!)"
+        }
+    }
     
-    init(orange: Int, blue: Int, green: Int, purple: Int) {
+    var m_label: [CoinType : SKLabelNode]
+    
+    func addCoins(_type: CoinType, _num: Int, _isEmpty: Bool) {
         
-        contents = []
+        if m_compact {
+            if let current = m_count[_type] {
+                m_count[_type] = current + _num
+            } else {
+                m_count[_type] = _num
+            }
+        } else {
+            var x_pos = -55 + (m_contents.count * 22)
+            for _ in 0..<_num {
+                let coin = Coin(_type: _type, _isEmpty: _isEmpty)
+                m_contents.append(coin)
+                coin.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+                coin.position = CGPoint(x: x_pos, y: 0)
+                addChild(coin)
+                x_pos += 22
+            }
+        }
+    }
+    
+    func removeCoins(_type: CoinType, _num: Int) {
+        
+        // Only for compact display now
+        if m_compact {
+            if let current = m_count[_type] {
+                m_count[_type] = current - _num
+            }
+        }
+    }
+    
+    func initCompactCoin(_type: CoinType) {
+        let x_pos = -55 + (m_contents.count * 65)
+        let coin = Coin(_type: _type, _isEmpty: false)
+        m_contents.append(coin)
+        coin.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+        coin.position = CGPoint(x: x_pos, y: 0)
+        addChild(coin)
+        
+        let font = "ArialRoundedMTBold"
+        
+        // Add the title label
+        let label = SKLabelNode(fontNamed: font)
+        label.text = "x \(m_count[_type]!)"
+        label.fontColor = UIColor.white
+        label.fontSize = 20
+        label.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+        label.position = CGPoint(x: x_pos + 25, y: -8)
+        m_label[_type] = label
+        addChild(label)
+    }
+    
+    init(compact: Bool, orange: Int, blue: Int, green: Int, yellow: Int) {
+        
+        m_contents = []
+        m_count = [:]
+        m_label = [:]
+        
+        m_compact = compact
 
         // TODO: fill in with real values
-        super.init(texture: nil, color: UIColor.white, size: CGSize(width: 200, height: 30))
+        // TODO: making a 1x1 pixel... find a better way?
+        super.init(texture: nil, color: UIColor.white, size: CGSize(width: 1, height: 1))
         isHidden = false
         
-        // TODO: make routine so not to repeat code
-        var x_pos = -120
-        for _ in 0..<orange {
-            let coin = Coin(_type: .orange)
-            contents.append(coin)
-            coin.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-            coin.position = CGPoint(x: x_pos, y: 0)
-            addChild(coin)
-            x_pos += 35
+        addCoins(_type: .orange, _num: orange, _isEmpty: true)
+        addCoins(_type: .blue, _num: blue, _isEmpty: true)
+        addCoins(_type: .green, _num: green, _isEmpty: true)
+        addCoins(_type: .yellow, _num: yellow, _isEmpty: true)
+        
+        // Compact shows each coin type with "x N"
+        if compact {
+            initCompactCoin(_type: .orange)
+            initCompactCoin(_type: .blue)
+            initCompactCoin(_type: .green)
+            initCompactCoin(_type: .yellow)
         }
+    }
+    
+    func setEmpty(_type: CoinType, _isEmpty: Bool) {
         
-        for _ in 0..<blue {
-            let coin = Coin(_type: .blue)
-            contents.append(coin)
-            coin.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-            coin.position = CGPoint(x: x_pos, y: 0)
-            addChild(coin)
-            x_pos += 35
+        // Loop through until we find a coin of the right type, but isn't in this state yet
+        for coin in m_contents {
+            if coin.type != _type {
+                continue
+            }
+            
+            if coin.empty == _isEmpty {
+                continue
+            }
+            
+            coin.empty = _isEmpty
+            break
         }
-        
-        for _ in 0..<green {
-            let coin = Coin(_type: .green)
-            contents.append(coin)
-            coin.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-            coin.position = CGPoint(x: x_pos, y: 0)
-            addChild(coin)
-            x_pos += 35
-        }
-        
-        for _ in 0..<purple {
-            let coin = Coin(_type: .purple)
-            contents.append(coin)
-            coin.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-            coin.position = CGPoint(x: x_pos, y: 0)
-            addChild(coin)
-            x_pos += 35
-        }
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

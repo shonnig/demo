@@ -22,6 +22,8 @@ class Player {
     
     var hand: Hand?
     
+    var bag: CoinChain
+    
     var gold: Int = 1 {
         didSet {
             goldLabel.text = "\(gold) (+\(goldPerTurn)) [\(investments)/\(goldPerTurn)]"
@@ -55,40 +57,18 @@ class Player {
     
     var otherPlayer: Player?
     
-    /*
-    var goldDiscount = 0 {
-        didSet {
-            hand!.updateCostLabels()
-            discard!.updateCostLabels()
-            
-            let gameScene = deck!.scene as! GameScene
-            
-            // Update all cards on board too
-            for tile in gameScene.tiles {
-                if tile.occupiedBy != nil && tile.occupiedBy!.player.isPlayer == isPlayer {
-                    tile.occupiedBy?.updateCostLabel()
-                }
-            }
-        }
-    }
-    
-    func updateScoreLabel() {
-        let pendingScore = getScorePoints()
-        
-        if pendingScore > 0 {
-            scoreLabel.text = "\(score) (+\(pendingScore))"
-        } else {
-            scoreLabel.text = "\(score)"
-        }
-    }
-    */
-    
     init(scene: GameScene, _isPlayer: Bool) {
         
         isPlayer = _isPlayer
         
+        bag = CoinChain(compact: true, orange: 0,blue: 0,green: 0,yellow: 0)
+        bag.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+        bag.position = CGPoint(x: (isPlayer ? 250 : 700), y: 20)
+        scene.addChild(bag)
+        
         for row in 0...3 {
             
+            // TODO: Should attach actions, decks, discard, etc. to each hero instead of the player.
             let heroActionTile = Tile(_row: row, _col: .heroAction, _owner: self)
             tiles.append(heroActionTile)
             scene.addChild(heroActionTile)
@@ -124,7 +104,6 @@ class Player {
                 card.position = heroActionTile.position
                 card.zPosition = ZPosition.inPlay.rawValue
             }
-            
         }
         
         /*

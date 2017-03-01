@@ -30,9 +30,6 @@ class Tile : SKSpriteNode {
     var row: Int = 0
     var col: Int = 0
     
-    // TODO: make static?
-    let side = 100
-    
     var owner: Player?
 
     // Card currently occupying the tile
@@ -53,31 +50,31 @@ class Tile : SKSpriteNode {
         if (_owner.isPlayer) {
             switch _col {
             case .heroAction:
-                x = 128
+                x = 100
             case .hero:
-                x = 256
+                x = 280
             default:
                 x = 0
             }
         } else {
             switch _col {
             case .heroAction:
-                x = 896
+                x = 924
             case .hero:
-                x = 768
+                x = 744
             default:
                 x = 0
             }
         }
         
         let background = SKTexture(imageNamed: "tile.jpg")
-        super.init(texture: background, color: UIColor(white: 0.5, alpha: 1.0), size: CGSize(width: side, height: side))
-        position = CGPoint(x: CGFloat(x), y: CGFloat(600 - (row * 150)))
+        super.init(texture: background, color: UIColor(white: 0.5, alpha: 1.0), size: CGSize(width: GameScene.side, height: GameScene.side))
+        position = CGPoint(x: CGFloat(x), y: CGFloat(650 - (row * 180)))
         zPosition = ZPosition.tile.rawValue
         owner = _owner
         isHidden = false
         
-        glowNode = SKSpriteNode(texture: SKTexture(imageNamed: "multicolor_circle.png"), size: CGSize(width: Double(side) * 1.7, height: Double(side) * 1.7))
+        glowNode = SKSpriteNode(texture: SKTexture(imageNamed: "multicolor_circle.png"), size: CGSize(width: Double(GameScene.side) * 1.7, height: Double(GameScene.side) * 1.7))
         self.addChild(glowNode)
         glowNode.position = CGPoint(x: 0, y: 0)
         glowNode.zPosition = ZPosition.tileHighlight.rawValue - ZPosition.tile.rawValue

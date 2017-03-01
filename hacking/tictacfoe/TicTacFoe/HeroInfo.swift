@@ -50,8 +50,8 @@ class HeroInfo {
     
     static func initInfo() {
         
-        data[.sword] =          HeroData(i: "kaim_hero_handaxe.gif~c200.gif",               h: 2, p: nil)
-        data[.spear] =          HeroData(i: "230px-Miner.png",                              h: 1, p: [.foo])
+        data[.sword] =          HeroData(i: "kaim_hero_handaxe.gif~c200.gif",               h: 20, p: nil)
+        data[.spear] =          HeroData(i: "230px-Miner.png",                              h: 14, p: [.foo])
     }
     
 }

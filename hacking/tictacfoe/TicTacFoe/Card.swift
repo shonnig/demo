@@ -21,10 +21,6 @@ enum CardLocation {
 
 class Card : SKSpriteNode {
     
-    // TODO: make static?
-    let width = 300
-    let height = 300
-    
     var props: [CardProp]
     
     var title: SKLabelNode
@@ -125,37 +121,50 @@ class Card : SKSpriteNode {
         
         desc = []
         
-        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: UIColor.white, size: CGSize(width: width, height: height))
+        super.init(texture: SKTexture(imageNamed: "enemy_card.jpg"), color: UIColor.white, size: CGSize(width: GameScene.side, height: GameScene.side))
         // TODO: ?
         colorBlendFactor = 0.2
  
         // TODO: don't hardcode positions
         title.fontColor = UIColor.black
-        title.fontSize = 50
+        title.fontSize = 20
         title.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-        title.position = CGPoint(x: 0, y: 100)
+        title.position = CGPoint(x: 0, y: 50)
         addChild(title)
         
         
         // Add the description label(s)
         if let descriptions = data!.text {
-            var y_pos = -60 + (descriptions.count * 30)
+            var y_pos = -15 + (descriptions.count * 8)
             for line in descriptions {
                 let label = SKLabelNode(fontNamed: font)
                 label.text = line
                 desc.append(label)
                 label.fontColor = UIColor.black
+                label.fontSize = 12
                 label.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
                 label.position = CGPoint(x: 0, y: y_pos)
                 addChild(label)
-                y_pos -= 30
+                y_pos -= 12
             }
         }
         
-        cost = CoinChain(orange: 2,blue: 2,green: 2,purple: 2)
+        // TODO: temp hardcoded for now
+        cost = CoinChain(compact: false, orange: 0,blue: 0,green: 0,yellow: 1)
         cost?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-        cost?.position = CGPoint(x: 0, y: 70)
+        cost?.position = CGPoint(x: 0, y: 10 + (desc.count * 8))
         addChild(cost!)
+        /*
+        cost?.setEmpty(_type: .orange, _isEmpty: false)
+        cost?.setEmpty(_type: .blue, _isEmpty: false)
+        cost?.setEmpty(_type: .green, _isEmpty: false)
+        cost?.setEmpty(_type: .yellow, _isEmpty: false)
+         */
+        
+        rally = CoinChain(compact: false, orange: 1,blue: 1,green: 1,yellow: 1)
+        rally?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+        rally?.position = CGPoint(x: 0, y: -40)
+        addChild(rally!)
         
         // allow the Card to intercept touches instead of passing them through the scene
         isUserInteractionEnabled = true
@@ -183,7 +192,6 @@ class Card : SKSpriteNode {
         costLabel.position = CGPoint(x: -60,y: -140)
         addChild(costLabel)
         */
-        setScale(0.33)
     }
     
     /*
