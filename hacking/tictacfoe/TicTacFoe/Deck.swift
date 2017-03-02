@@ -15,54 +15,45 @@ class Deck : SKSpriteNode {
     
     var cards = [Card]()
     
+    var m_owner: Character
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    init() {
+    init(owner: Character) {
+        
+        m_owner = owner
         
         super.init(texture: SKTexture(imageNamed: "border.jpg"), color: UIColor.white, size: CGSize(width: 200, height: 300))
-        colorBlendFactor = 0.2
-        
-        setScale(0.33)
+        //colorBlendFactor = 0.2
+        //setScale(0.33)
     }
     
     func addCard(type: CardId) {
-        let card = Card(type: type)
+        let card = Card(type: type, owner: m_owner)
         card.position = position
         card.isHidden = true
         scene!.addChild(card)
         cards.append(card)
-        card.location = .deck
-    }
-    
-    func shuffle() {
-        //cards.shuffle()
+        //card.location = .deck
     }
     
     func drawCard() -> Card? {
         
-        // Is the draw pile empty?
+        // Is the draw pile empty? Then shuffle in the discard
         if cards.count == 0 {
-            // If discard is empty too, then return
-            //if player.discard!.cards.count == 0 {
-            return nil
-            //}
-            
-            // put discard into draw pile and shuffle
-            // TODO: animate this?
-            //cards = player.discard!.cards.shuffle().map( { card in
-            //cards = player.discard!.cards.map( { card in
-            //    card.isHidden = true
-            //    card.position = position
-            //    card.location = .deck
-            //    return card
-            //    } )
-            //player.discard!.cards = [Card]()
+            cards = (m_owner.discard?.cards)!
+            m_owner.discard?.cards = []
+            cards.shuffle()
         }
         
-        // remove top card of deck
-        return cards.removeFirst()
+        if cards.count > 0 {
+            // remove top card of deck
+            return cards.removeFirst()
+        } else {
+            return nil
+        }
     }
     
 }

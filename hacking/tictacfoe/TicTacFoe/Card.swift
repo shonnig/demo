@@ -31,87 +31,23 @@ class Card : SKSpriteNode {
     
     var rally: CoinChain?
     
-    /*
-    var costLabel: SKLabelNode!
+    var m_tile: Tile?
     
-    var cost: Int = 1 {
-        didSet {
-            updateCostLabel()
-        }
-    }
+    var m_owner: Character
     
-    var statsLabel: SKLabelNode!
-    
-    var damage: Int = 1 {
-        didSet {
-            if spell {
-                statsLabel.text = "\(damage)"
-            } else {
-                statsLabel.text = "\(damage)/\(health)"
-            }
-        }
-    }
-
-    var maxHealth: Int = 1 {
-        didSet {
-            if spell {
-                statsLabel.text = "\(damage)"
-            } else {
-                statsLabel.text = "\(damage)/\(health)"
-            }
-            
-            if health < maxHealth {
-                statsLabel.fontColor = UIColor.red
-            } else {
-                statsLabel.fontColor = UIColor.black
-            }
-        }
-    }
-    
-    var health: Int = 1 {
-        didSet {
-            if spell {
-                statsLabel.text = "\(damage)"
-            } else {
-                statsLabel.text = "\(damage)/\(health)"
-            }
-            
-            if health <= 0 {
-                //die()
-            }
-            if health < maxHealth {
-                statsLabel.fontColor = UIColor.red
-            } else {
-                statsLabel.fontColor = UIColor.black
-            }
-        }
-    }
-    
-    var actions: Int = 0 {
-        didSet {
-            if isOnBoard() {
-                if actions >= 1 {
-                    addHighlight()
-                } else {
-                    removeHighlight()
-                }
-            }
-        }
-    }
-    */
-    
-    var location: CardLocation?
+    var enabledForRally = false
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    init(type: CardId) {
+    init(type: CardId, owner: Character) {
         
         // Get card info
         let data = CardInfo.data[type]
-        
         props = data!.props!
+        
+        m_owner = owner
         
         let font = "ArialRoundedMTBold"
         
@@ -154,12 +90,6 @@ class Card : SKSpriteNode {
         cost?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
         cost?.position = CGPoint(x: 0, y: 10 + (desc.count * 8))
         addChild(cost!)
-        /*
-        cost?.setEmpty(_type: .orange, _isEmpty: false)
-        cost?.setEmpty(_type: .blue, _isEmpty: false)
-        cost?.setEmpty(_type: .green, _isEmpty: false)
-        cost?.setEmpty(_type: .yellow, _isEmpty: false)
-         */
         
         rally = CoinChain(compact: false, orange: 1,blue: 1,green: 1,yellow: 1)
         rally?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
@@ -168,52 +98,45 @@ class Card : SKSpriteNode {
         
         // allow the Card to intercept touches instead of passing them through the scene
         isUserInteractionEnabled = true
+    }
+    
+    func placeOnTile(tile: Tile) {
+        isHidden = false
+        position = tile.position
+        zPosition = ZPosition.inPlay.rawValue
+        m_tile = tile
+        tile.m_card = self
+    }
+    
+    func hasProp(type: CardPropType) -> Bool {
         
-        /*
-        
-        // Add the health label
-        statsLabel = SKLabelNode(fontNamed: font)
-        
-        if spell {
-            statsLabel.text = "\(damage)"
-        } else {
-            statsLabel.text = "\(damage)/\(health)"
+        for p in props {
+            if p.type == type {
+                return true
+            }
         }
-        statsLabel.fontColor = UIColor.black
-        statsLabel.zPosition = ZPosition.cardLabel.rawValue - ZPosition.cardInHand.rawValue
-        statsLabel.position = CGPoint(x: 60,y: -140)
-        addChild(statsLabel)
         
-        // Add the cost label
-        costLabel = SKLabelNode(fontNamed: font)
-        costLabel.text = "\(cost)"
-        costLabel.fontColor = UIColor.yellow
-        costLabel.zPosition = ZPosition.cardLabel.rawValue - ZPosition.cardInHand.rawValue
-        costLabel.position = CGPoint(x: -60,y: -140)
-        addChild(costLabel)
-        */
+        return false
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        // Did player select this card to rally?
+        
+        if enabledForRally {
+            m_tile?.removeHighlight()
+            enabledForRally = false
+            m_tile = nil
+            m_owner.discard?.addCard(self)
+            
+            
+            // move rally coins to bag
+            
+            // pick a new action
+        }
     }
     
     /*
-    func initHighlight() {
-        // create a copy of our original node to create the glow effect
-        glowNode = SKSpriteNode(color: UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5), size: CGSize(width: width, height: height))
-        glowNode!.setScale(1.1)
-        // Make the effect go just under this tile (but above others)
-        glowNode!.zPosition = ZPosition.cardInHandHighlight.rawValue - ZPosition.cardInHand.rawValue
-        glowNode!.isHidden = true
-        self.addChild(glowNode!)
-    }
-    
-    func updateCostLabel() {
-        costLabel.text = "\(currentCost())"
-        
-        if currentCost() < cost {
-            costLabel.fontColor = UIColor.green
-        } else {
-            costLabel.fontColor = UIColor.yellow
-        }
-    }
 
     func isInHand() -> Bool {
         var ret:Bool
@@ -294,37 +217,6 @@ class Card : SKSpriteNode {
         }
         
         return tile
-    }
-    
-    func currentCost() -> Int {
-        return cost
-    }
-    */
-    
-    func hasProp(type: CardPropType) -> Bool {
-        
-        for p in props {
-            if p.type == type {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
-    /*
-    func endTurn() {
-        actions = 0
-    }
-    
-    func startTurn() {
-        
-        // Reset number of actions
-        actions = maxActions
-        
-        if hasProp(.startTurnGainGold1) {
-            player.gold += 1
-        }
     }
     
     func applyDamage(_ to: Card, damage: Int) {

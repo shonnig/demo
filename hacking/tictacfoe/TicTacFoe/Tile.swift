@@ -20,6 +20,8 @@ class Tile : SKSpriteNode {
         
     }
     
+    var m_card: Card?
+    
     var character: Character?
     
     static var currentHighlight: Tile?
@@ -79,8 +81,11 @@ class Tile : SKSpriteNode {
         glowNode.position = CGPoint(x: 0, y: 0)
         glowNode.zPosition = ZPosition.tileHighlight.rawValue - ZPosition.tile.rawValue
         glowNode.isHidden = true
-        
+    }
+    
+    func enableForRally() {
         addHighlight()
+        m_card?.enabledForRally = true
     }
     
     func addHighlight() {
@@ -101,61 +106,4 @@ class Tile : SKSpriteNode {
         glowNode.removeAction(forKey: "rotate")
         glowNode.removeAction(forKey: "pulse")
     }
-    
-    /*
-    func isValidPlay(_ card: Card) -> Bool {
-        let isAttack = (occupiedBy != nil && occupiedBy!.player.isPlayer != card.player.isPlayer)
-
-        if card.isInHand() {
-            
-            // Is it a unit attack spell?
-            if card.hasProp(.unitDamageSpell) {
-                return isAttack
-            }
-            
-            // If it's an area attack spell or global spell, it can be played on any tile
-            if card.hasProp(.areaDamageSpell) || card.hasProp(.massHeal2) {
-                return true
-            }
-            
-            // Must be empty tile and owned by player to play from hand.
-            return occupiedBy == nil && owner?.isPlayer == card.player.isPlayer
-        } else {
-            
-            if card.hasProp(.cannotMove) && !isAttack {
-                return false
-            }
-            
-            if card.hasProp(.cannotAttack) && isAttack {
-                return false
-            }
-            
-            // Can be a move to empty or attack, and by default only one space
-            // TODO: don't allow diagonal moves/attacks?
-            let validTarget = (occupiedBy == nil || occupiedBy == card || isAttack)
-            let current = card.currentTile()
-            
-            let rowOffset = abs(row - current!.row)
-            let colOffset = abs(col - current!.col)
-            var maxRange = 1
-            
-            // If attacking, range units may have more reach
-            if isAttack {
-                maxRange = max(maxRange, card.range)
-            }
-            
-            var validDistance = ((rowOffset <= maxRange) && (colOffset <= maxRange))
-            
-            // Trailblazing 2 allows you to move spaces orthogonally
-            if card.hasProp(.trailblazer2) {
-                if (rowOffset == 0 && colOffset <= 2) || (rowOffset <= 2 && colOffset == 0) {
-                    validDistance = true
-                }
-            }
-        
-            return validTarget && validDistance
-        }
-    }
-    */
-    
 }

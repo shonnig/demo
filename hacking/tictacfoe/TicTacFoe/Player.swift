@@ -24,36 +24,7 @@ class Player {
     
     var bag: CoinChain
     
-    var gold: Int = 1 {
-        didSet {
-            goldLabel.text = "\(gold) (+\(goldPerTurn)) [\(investments)/\(goldPerTurn)]"
-            
-            // this will change cards highlighting based on if they are playable now
-            //hand!.setFaceUp(true)
-        }
-    }
-    
-    var goldLabel: SKLabelNode!
-
-    var goldPerTurn: Int = 0 {
-        didSet {
-            goldLabel.text = "\(gold) (+\(goldPerTurn)) [\(investments)/\(goldPerTurn)]"
-        }
-    }
-    
-    var investments: Int = 0 {
-        didSet {
-            goldLabel.text = "\(gold) (+\(goldPerTurn)) [\(investments)/\(goldPerTurn)]"
-        }
-    }
-    
-    var score: Int = 0 {
-        didSet {
-            //updateScoreLabel()
-        }
-    }
-    
-    var scoreLabel: SKLabelNode!
+    var ralliesPending = 2
     
     var otherPlayer: Player?
     
@@ -82,105 +53,28 @@ class Player {
             scene.addChild(hero)
             heroTile.character = hero
             
-            let deck = Deck()
+            let deck = Deck(owner: hero)
             deck.isHidden = true
             scene.addChild(deck)
             hero.deck = deck
             
-            let discard = Discard()
+            let discard = Discard(owner: hero)
             discard.isHidden = true
             scene.addChild(discard)
             hero.discard = discard
             
-            let hand = Hand()
-            hero.hand = hand
+            //let hand = Hand()
+            //hero.hand = hand
             
             for _ in 0...9 {
                 deck.addCard(type: CardId.random())
             }
             
+            // Draw card and put on action tile
             if let card = deck.drawCard() {
-                card.isHidden = false
-                card.position = heroActionTile.position
-                card.zPosition = ZPosition.inPlay.rawValue
+                card.placeOnTile(tile: heroActionTile)
+                heroActionTile.enableForRally()
             }
         }
-        
-        /*
-        var drawDiscardY: CGFloat
-        var scoreY: CGFloat
-        
-        if isPlayer {
-            drawDiscardY = 50
-            scoreY = 150
-            turnButtonY = 225
-            bgColor = UIColor.blue
-        } else {
-            drawDiscardY = 700
-            scoreY = 600
-            turnButtonY = 550
-            bgColor = UIColor.red
-        }
-        
-        let font = "ArialRoundedMTBold"
-        
-        
-        // Add the gold label
-        goldLabel = SKLabelNode(fontNamed: font)
-        goldLabel.text = "\(gold)"
-        goldLabel.fontSize = 40
-        goldLabel.fontColor = UIColor.yellow
-        goldLabel.zPosition = ZPosition.hudUI.rawValue
-        goldLabel.position = CGPoint(x: 150,y: scoreY)
-        scene.addChild(goldLabel)
-        
-        // Add the score label
-        scoreLabel = SKLabelNode(fontNamed: font)
-        scoreLabel.text = "\(score)"
-        scoreLabel.fontSize = 40
-        scoreLabel.fontColor = UIColor.white
-        scoreLabel.zPosition = ZPosition.hudUI.rawValue
-        scoreLabel.position = CGPoint(x: 175,y: scoreY)
-        scene.addChild(scoreLabel)
-        // TODO: not going to use a score now? Just hide for the time being.
-        scoreLabel.isHidden = true
- 
-        // Player's hand
-        hand = Hand(_player: self)
-        
-        // Player's deck
-        deck = Deck(_player: self)
-        deck!.position = CGPoint(x: 900,y: drawDiscardY)
-        scene.addChild(deck!)
-        
-        // Player's discard
-        discard = Discard(_player: self)
-        discard!.position = CGPoint(x: 150,y: drawDiscardY)
-        scene.addChild(discard!)
-        */
     }
-
-    /*
-    func getScorePoints() -> Int {
-        
-        let gameScene = deck!.scene as! GameScene
-        var tilesOwned = 0
-        
-        for tile in gameScene.tiles {
-            
-            // find tiles owned for scoring
-            if tile.owner?.isPlayer == isPlayer {
-                tilesOwned += 1
-            }
-        }
-        
-        // Score points for every tile owned above ten at the end of the turn
-        let scoreThreshold = 10
-        if tilesOwned > scoreThreshold {
-            return (tilesOwned - scoreThreshold)
-        } else {
-            return 0
-        }
-    }
-    */
 }

@@ -25,8 +25,6 @@ class Character : SKSpriteNode {
             } else {
                 statsLabel.fontColor = UIColor.white
             }
-            
-            //statsLabel.drawText()
         }
     }
     
@@ -64,7 +62,6 @@ class Character : SKSpriteNode {
         let reScale = GameScene.side / _texture.size().height
         super.init(texture: _texture, color: UIColor.white, size: CGSize(width: reScale * _texture.size().width, height: reScale * _texture.size().height))
 
-        //statsLabel.drawText()
         addChild(statsLabel)
         
         //deck = Deck()

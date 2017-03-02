@@ -12,11 +12,15 @@ class Discard : SKSpriteNode {
     
     var cards = [Card]()
     
+    var m_owner: Character
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    init() {
+    init(owner: Character) {
+        
+        m_owner = owner
         
         // make the border/background
         let cardBackground = SKTexture(imageNamed: "border.jpg")
@@ -29,13 +33,14 @@ class Discard : SKSpriteNode {
     }
     
     func addCard(_ card: Card) {
-        let topZpos = cards.last?.zPosition
+        //let topZpos = cards.last?.zPosition
         
-        card.location = .discard
+        //card.location = .discard
         
-        if topZpos != nil {
-            card.zPosition = topZpos! + 20
-        }
+        //if topZpos != nil {
+        //    card.zPosition = topZpos! + 20
+        //}
         cards.append(card)
+        card.isHidden = true
     }
 }

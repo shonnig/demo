@@ -126,18 +126,7 @@ enum ZPosition: CGFloat {
 class GameScene: SKScene {
     
     var player: Player?
-    
     var opponent: Player?
-    
-    /*
-    var turnButton: FTButtonNode?
-
-    var currentTurn: Player? {
-        didSet {
-            newTurn()
-        }
-    }
-    */
     
     var tiles = [Tile]()
     
@@ -145,71 +134,17 @@ class GameScene: SKScene {
     
     var promptLabel: SKLabelNode?
     
-    /*
-    var round: Int = 0 {
-        didSet {
-            roundLabel.text = "Round \(round)"
-        }
-    }
-    
-    var roundLabel: SKLabelNode!
-    
-    func newTurn() {
-        
-        // clear any gold discounts
-        currentTurn?.otherPlayer!.goldDiscount = 0
-        
-        // move end turn button TODO: this is just a quick and dirty thing for now
-        turnButton!.position.y = (currentTurn?.turnButtonY)!
-        
-        // Do card turn ends
-        for tile in tiles {
-            if tile.occupiedBy != nil {
-                let card = tile.occupiedBy!
-                if card.player.isPlayer != currentTurn?.isPlayer {
-                    card.endTurn()
-                }
-            }
-        }
-        
-        // Score points for every tile owned above a certain number at the end of the turn
-        currentTurn?.otherPlayer!.score += (currentTurn?.otherPlayer!.getScorePoints())!
-        
-        // Draw a card for player's new turn
-        currentTurn!.deck!.drawCard()
-        
-        // Give them gold for turn
-        currentTurn!.gold += currentTurn!.goldPerTurn
-        
-        // Increment investments and possibly update gold per turn for player
-        currentTurn?.investments += 1
-        if currentTurn?.investments >= currentTurn?.goldPerTurn {
-            currentTurn?.goldPerTurn += 1
-            currentTurn?.investments = 0
-        }
-        
-        // Do card turn starts
-        for tile in tiles {
-            if tile.occupiedBy != nil {
-                let card = tile.occupiedBy!
-                if card.player.isPlayer == currentTurn?.isPlayer {
-                    card.startTurn()
-                }
-            }
-        }
-        
-        currentTurn?.hand?.setFaceUp(true)
-        currentTurn?.otherPlayer!.hand?.setFaceUp(false)
-        
-        // increment round number
-        if currentTurn!.isPlayer {
-            round += 1
-        }
-    }
-    */
-    
     override func update(_ currentTime: TimeInterval) {
-        // TODO: will we need this?
+        
+        if (player?.ralliesPending)! > 0 || (opponent?.ralliesPending)! > 0 {
+            return
+        }
+        
+        
+        // If no coins in bag for either player, prompt for rallying again...
+        
+        // If there coins, start selecting now...
+        
     }
     
     override func didMove(to view: SKView) {
@@ -240,24 +175,7 @@ class GameScene: SKScene {
         player!.otherPlayer = opponent
         opponent!.otherPlayer = player
         
-        /*
-        for row in 0...Tile.maxRows - 1 {
-            var p: Player?
-            if row == 0 || row == 1 {
-                p = player!
-            } else if row == 3 || row == 4 {
-                p = opponent!
-            }
-            
-            for col in 0...Tile.maxColumns - 1 {
-                let tile = Tile(_row: row, _col: col, _owner: p)
-                addChild(tile)
-                tiles.append(tile)
-            }
-        }
-        */
-        
-        // Add turn number display
+        // Add label prompting action from player
         promptLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
         promptLabel!.text = "Rally Two Actions"
         promptLabel!.fontSize = 30
