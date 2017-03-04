@@ -88,6 +88,11 @@ class Tile : SKSpriteNode {
         m_card?.enabledForRally = true
     }
     
+    func disableForRally() {
+        removeHighlight()
+        m_card?.enabledForRally = false
+    }
+    
     func addHighlight() {
         
         glowNode.isHidden = false

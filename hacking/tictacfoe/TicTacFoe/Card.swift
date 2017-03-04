@@ -122,17 +122,29 @@ class Card : SKSpriteNode {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         // Did player select this card to rally?
-        
         if enabledForRally {
-            m_tile?.removeHighlight()
-            enabledForRally = false
-            m_tile = nil
-            m_owner.discard?.addCard(self)
             
-            
-            // move rally coins to bag
-            
-            // pick a new action
+            if let tile = m_tile, let player = m_tile?.owner {
+                
+                tile.disableForRally()
+                
+                player.ralliesPending -= 1
+                
+                // If not waiting for any more rallies after this, disable all the remaining choices
+                if player.ralliesPending <= 0 {
+                    for tile in player.tiles {
+                        tile.disableForRally()
+                    }
+                }
+
+                // Discard the card
+                m_owner.discard?.addCard(self)
+                
+                // Move rally coins to bag
+                rally?.moveCoinsToChain(row: tile.row, new: player.bag)
+                
+                // pick a new action
+            }
         }
     }
     

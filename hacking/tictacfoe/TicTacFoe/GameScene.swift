@@ -32,6 +32,16 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
+extension SKNode {
+    var positionInScene:CGPoint? {
+        if let scene = scene, let parent = parent {
+            return parent.convert(position, to:scene)
+        } else {
+            return nil
+        }
+    }
+}
+
 
 // Extend SKNode with a function that should probably already exist...
 /*
@@ -49,17 +59,6 @@ extension SKNode
         {
             run( action, withKey: withKey )
         }
-    }
-}
-*/
-
-/*
-extension Collection {
-    /// Return a copy of `self` with its elements shuffled
-    func shuffle() -> [Iterator.Element] {
-        var list = Array(self)
-        list.shuffle()
-        return list
     }
 }
 */

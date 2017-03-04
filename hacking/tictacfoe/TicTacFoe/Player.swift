@@ -49,9 +49,8 @@ class Player {
             scene.addChild(heroTile)
             
             let hero = Hero(type: HeroType.random())
-            hero.position = heroTile.position
             scene.addChild(hero)
-            heroTile.character = hero
+            hero.placeOnTile(tile: heroTile)
             
             let deck = Deck(owner: hero)
             deck.isHidden = true

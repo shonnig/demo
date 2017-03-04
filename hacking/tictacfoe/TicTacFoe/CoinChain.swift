@@ -123,6 +123,41 @@ class CoinChain : SKSpriteNode {
         }
     }
     
+    // NOTE: only supported from rally costs to bags (compact) right now
+    func moveCoinsToChain(row: Int, new: CoinChain) {
+        
+        var delay = 0.0
+        for coin in m_contents {
+            
+            let newCoin = Coin(_type: coin.type, _isEmpty: false)
+            
+            if let scene = coin.scene, let scenePos = coin.positionInScene {
+                
+                // Find where the matching coin in the bag is
+                var toPos: CGPoint?
+                for dest in new.m_contents {
+                    if dest.type == coin.type {
+                        toPos = dest.positionInScene
+                        break
+                    }
+                }
+                
+                // Animate it to the bag
+                if let to = toPos {
+                    newCoin.position = scenePos
+                    scene.addChild(newCoin)
+                    let wait = SKAction.wait(forDuration: delay)
+                    let moveTo = SKAction.move(to: to, duration: (0.8 / Double(row + 1)))
+                    let remove = SKAction.removeFromParent() // I've verified this deletes the node
+                    let increment = SKAction.run( { new.addCoins(_type: coin.type, _num: 1, _isEmpty: false) })
+                    let rally = SKAction.sequence([wait, moveTo, remove, increment])
+                    newCoin.run(rally, withKey: "rally")
+                    delay += 0.3
+                }
+            }
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

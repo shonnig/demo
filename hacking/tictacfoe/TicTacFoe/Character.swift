@@ -28,6 +28,8 @@ class Character : SKSpriteNode {
         }
     }
     
+    var m_tile: Tile?
+    
     var deck: Deck?
     
     var discard: Discard?
@@ -82,6 +84,14 @@ class Character : SKSpriteNode {
         //    opponent!.deck!.drawCard()
         //}
         
+    }
+    
+    func placeOnTile(tile: Tile) {
+        isHidden = false
+        position = tile.position
+        zPosition = ZPosition.inPlay.rawValue
+        m_tile = tile
+        tile.character = self
     }
 
     
