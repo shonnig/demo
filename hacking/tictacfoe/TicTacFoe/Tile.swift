@@ -12,30 +12,21 @@ import SpriteKit
 class Tile : SKSpriteNode {
 
     enum Column {
-        
         case heroAction
         case hero
         case allyAction
         case ally
-        
     }
     
     var m_card: Card?
     
+    // Character that is in this row (may be on this tile itself)
     var character: Character?
-    
-    static var currentHighlight: Tile?
-    
-    static let maxRows = 5
-    static let maxColumns = 5
     
     var row: Int = 0
     var col: Int = 0
     
     var owner: Player?
-
-    // Card currently occupying the tile
-    var occupiedBy: Card?
     
     // sprite for highlight effect
     var glowNode: SKSpriteNode!

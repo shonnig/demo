@@ -35,7 +35,11 @@ class Card : SKSpriteNode {
     
     var m_owner: Character
     
+    var mHand: Hand?
+    
+    // TODO: maybe make these into an enum?
     var enabledForRally = false
+    var enabledForPlay = false
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
@@ -100,9 +104,18 @@ class Card : SKSpriteNode {
         isUserInteractionEnabled = true
     }
     
-    func placeOnTile(tile: Tile) {
+    func placeOnTile(tile: Tile, animate: Bool) {
+        
+        if animate {
+            let unZoom = SKAction.scale(to: 1.0, duration: 0.3)
+            let moveTo = SKAction.move(to: tile.position, duration: 0.3)
+            let play = SKAction.group([unZoom, moveTo])
+            run(play, withKey: "play")
+        } else {
+            position = tile.position
+        }
+        
         isHidden = false
-        position = tile.position
         zPosition = ZPosition.inPlay.rawValue
         m_tile = tile
         tile.m_card = self
@@ -121,10 +134,33 @@ class Card : SKSpriteNode {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        // Did player select this card while it's in their hand?
+        if enabledForPlay {
+            if let hand = mHand, let tile = mHand?.mPendingTile, let player = tile.owner {
+                
+                // Move from hand to action tile
+                hand.removeCard(self)
+                placeOnTile(tile: tile, animate: true)
+                
+                // Discard other cards
+                hand.discardAll()
+                player.hand = nil
+            }
+            
+            return
+        }
+        
+        // If a hand is currently active, don't allow other choices behind it to interact
+        if let player = m_tile?.owner {
+            if player.hand != nil || player.otherPlayer?.hand != nil {
+                return
+            }
+        }
+        
         // Did player select this card to rally?
         if enabledForRally {
             
-            if let tile = m_tile, let player = m_tile?.owner {
+            if let tile = m_tile, let deck = m_tile?.character?.deck, let player = m_tile?.owner {
                 
                 tile.disableForRally()
                 
@@ -143,7 +179,14 @@ class Card : SKSpriteNode {
                 // Move rally coins to bag
                 rally?.moveCoinsToChain(row: tile.row, new: player.bag)
                 
-                // pick a new action
+                // Draw a hand of 3 cards to choose next action from
+                var drawn = [Card]()
+                for _ in 0..<3 {
+                    if let card = deck.drawCard() {
+                        drawn.append(card)
+                    }
+                }
+                player.hand = Hand(cards: drawn, player: player, pending: tile)
             }
         }
     }

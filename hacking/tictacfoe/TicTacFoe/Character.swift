@@ -11,20 +11,15 @@ import SpriteKit
 
 class Character : SKSpriteNode {
 
-    var maxHealth: Int
+    var maxHealth: Int {
+        didSet {
+            updateHealthLabel()
+        }
+    }
     
     var health: Int {
         didSet {
-            statsLabel.outlinedText = "\(health)/\(maxHealth)"
-            
-            if health <= 0 {
-                //die()
-            }
-            if health < maxHealth {
-                statsLabel.fontColor = UIColor.red
-            } else {
-                statsLabel.fontColor = UIColor.white
-            }
+            updateHealthLabel()
         }
     }
     
@@ -40,6 +35,21 @@ class Character : SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateHealthLabel() {
+        statsLabel.outlinedText = "\(health)/\(maxHealth)"
+        
+        if health <= 0 {
+            //die()
+        }
+        
+        // White if fully healed, red if damaged
+        if health < maxHealth {
+            statsLabel.fontColor = UIColor.red
+        } else {
+            statsLabel.fontColor = UIColor.white
+        }
     }
     
     init(imgName: String) {
@@ -65,25 +75,6 @@ class Character : SKSpriteNode {
         super.init(texture: _texture, color: UIColor.white, size: CGSize(width: reScale * _texture.size().width, height: reScale * _texture.size().height))
 
         addChild(statsLabel)
-        
-        //deck = Deck()
-        //discard = Discard()
-        //hand = Hand()
-        
-        //for _ in 0...9 {
-        //    deck.addCard(type: CardType.random())
-        //}
-        
-        
-        //player!.deck!.shuffle()
-        //opponent!.deck!.shuffle()
-        
-        // TODO: start with hand of 3?
-        //for _ in 0...2 {
-        //    player!.deck!.drawCard()
-        //    opponent!.deck!.drawCard()
-        //}
-        
     }
     
     func placeOnTile(tile: Tile) {

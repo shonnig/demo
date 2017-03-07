@@ -27,6 +27,8 @@ class CoinChain : SKSpriteNode {
     
     var m_label: [CoinType : SKLabelNode]
     
+    var mOwner: Player?
+    
     func addCoins(_type: CoinType, _num: Int, _isEmpty: Bool) {
         
         if m_compact {
@@ -156,6 +158,80 @@ class CoinChain : SKSpriteNode {
                 }
             }
         }
+    }
+    
+    func numEmptyCoinsOfType(type: CoinType) -> Int {
+        var num = 0
+        for coin in m_contents {
+            if coin.type == type && coin.empty {
+                num += 1
+            }
+        }
+        return num
+    }
+    
+    func getCompactCount() -> Int {
+        var num = 0
+        for (_,count) in m_count {
+            num += count
+        }
+        return num
+    }
+    
+    func getFirstCoinOfType(type: CoinType, empty: Bool) -> Coin? {
+        for coin in m_contents {
+            if coin.type == type && coin.empty == empty {
+                return coin
+            }
+        }
+        return nil
+    }
+    
+    // Pick out a random coin from the bag and animate it to a free slot
+    func pickRandomCoin() {
+        if let player = mOwner, let type = randomType() {
+            if let startCoin = getFirstCoinOfType(type: type, empty: false), let scene = startCoin.scene, let scenePos = startCoin.positionInScene {
+                
+                player.isPicking = true
+                
+                let newCoin = Coin(_type: type, _isEmpty: false)
+                newCoin.position = scenePos
+                scene.addChild(newCoin)
+                
+                // Decrement bag
+                removeCoins(_type: type, _num: 1)
+                
+                if let card = player.pickEmptyCoinOfType(type: type), let endCoin = card.cost?.getFirstCoinOfType(type: type, empty: true), let toPos = endCoin.positionInScene {
+                    // We found a home for this coin
+                    let moveTo = SKAction.move(to: toPos, duration: 2)
+                    let remove = SKAction.removeFromParent() // I've verified this deletes the node
+                    let increment = SKAction.run( { card.cost?.setEmpty(_type: type, _isEmpty: false) })
+                    let setDone = SKAction.run( { player.isPicking = false } )
+                    let rally = SKAction.sequence([moveTo, remove, increment, setDone])
+                    newCoin.run(rally, withKey: "pick")
+                    
+                } else {
+                    // If can't find any empty to fill, animate that coin was picked, but wasted...
+                    let moveTo = SKAction.move(to: CGPoint(x: 512, y: 384), duration: 2)
+                    let remove = SKAction.removeFromParent() // I've verified this deletes the node
+                    let setDone = SKAction.run( { player.isPicking = false } )
+                    let rally = SKAction.sequence([moveTo, remove, setDone])
+                    newCoin.run(rally, withKey: "pick")
+                }
+            }
+        }
+    }
+    
+    func randomType() -> CoinType? {
+        let roll = Int(arc4random_uniform(UInt32(getCompactCount())))
+        var threshold = 0
+        for (type,count) in m_count {
+            threshold += count
+            if roll < threshold {
+                return type
+            }
+        }
+        return nil
     }
     
     required init?(coder aDecoder: NSCoder) {

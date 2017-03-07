@@ -133,24 +133,57 @@ class GameScene: SKScene {
     
     var promptLabel: SKLabelNode?
     
+    // Pick which bag the next coin comes from
+    func selectBagWeighted() -> Player? {
+        if let firstCount = player?.bag.getCompactCount(), let secondCount = opponent?.bag.getCompactCount() {
+            let total = firstCount + secondCount
+            if total > 0 {
+                let roll = Int(arc4random_uniform(UInt32(total)))
+                return (roll < firstCount ? player : opponent)
+            }
+        }
+        return nil
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         
+        // Does player need to resolve an action?
+        
+        // Does player need to select a card?
+        if player?.hand != nil || opponent?.hand != nil {
+            return
+        }
+        
+        // Waiting on player to rally a card
         if (player?.ralliesPending)! > 0 || (opponent?.ralliesPending)! > 0 {
             return
         }
         
+        promptLabel?.isHidden = true
         
-        // If no coins in bag for either player, prompt for rallying again...
+        // Waiting a pick to finish animating
+        if (player?.isPicking)! || (opponent?.isPicking)! {
+            return
+        }
         
-        // If there coins, start selecting now...
-        
+        // If there are coins, start selecting now...
+        if let lucky = selectBagWeighted() {
+            lucky.bag.pickRandomCoin()
+        } else {
+            // If no coins in bag for either player, prompt for rallying again...
+            player?.ralliesPending = 1
+            opponent?.ralliesPending = 1
+            promptLabel!.text = "Rally An Action"
+            promptLabel?.isHidden = false
+            player?.enableActionsForRally()
+            opponent?.enableActionsForRally()
+        }
     }
     
     override func didMove(to view: SKView) {
         
         // Init card info
         CardInfo.initInfo()
-        
         HeroInfo.initInfo()
         
 		let background = SKSpriteNode(imageNamed: "background.jpg")
@@ -182,32 +215,6 @@ class GameScene: SKScene {
         promptLabel!.zPosition = ZPosition.hudUI.rawValue
         promptLabel!.position = CGPoint(x: 500,y: 740)
         addChild(promptLabel!)
-        
-        // *** Temp init game state
-        
-        // TODO: temp 10 cards in deck
-        /*
-        player!.deck!.addCard(.goblinRaiders)
-        opponent!.deck!.addCard(.tower)
-        
-        for _ in 0...9 {
-            player!.deck!.addCard(CardType.random())
-            opponent!.deck!.addCard(CardType.random())
-        }
-        //player!.deck!.shuffle()
-        //opponent!.deck!.shuffle()
-        
-        // TODO: start with hand of 3?
-        for _ in 0...2 {
-            player!.deck!.drawCard()
-            opponent!.deck!.drawCard()
-        }
-        
-        // TODO: how to balance going second? Give an extra gold for now?
-        //opponent!.gold += 1
-        
-        //currentTurn = player
-        */
     }
 
 }

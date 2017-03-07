@@ -25,6 +25,7 @@ class Deck : SKSpriteNode {
         
         m_owner = owner
         
+        // TODO: no visible deck at the moment
         super.init(texture: SKTexture(imageNamed: "border.jpg"), color: UIColor.white, size: CGSize(width: 200, height: 300))
         //colorBlendFactor = 0.2
         //setScale(0.33)
