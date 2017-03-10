@@ -13,6 +13,9 @@
 		05279C0B1E5F8E0100E93B7C /* shield.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C0A1E5F8E0100E93B7C /* shield.png */; };
 		05279C0D1E5F944A00E93B7C /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C0C1E5F944A00E93B7C /* eye.png */; };
 		05279C111E668E3600E93B7C /* MKOutlinedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */; };
+		05279C131E721EBF00E93B7C /* Chunkfive.otf in Resources */ = {isa = PBXBuildFile; fileRef = 05279C121E721EBF00E93B7C /* Chunkfive.otf */; };
+		05279C151E7250DE00E93B7C /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C141E7250DE00E93B7C /* done.png */; };
+		05279C171E725FF000E93B7C /* barbarian.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C161E725FF000E93B7C /* barbarian.png */; };
 		05E129DF1E50A73F00BA53BB /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129DE1E50A73F00BA53BB /* Character.swift */; };
 		05E129E11E50A7DE00BA53BB /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129E01E50A7DE00BA53BB /* Hero.swift */; };
 		05E129E61E53A9DD00BA53BB /* HeroInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129E51E53A9DD00BA53BB /* HeroInfo.swift */; };
@@ -73,6 +76,9 @@
 		05279C0A1E5F8E0100E93B7C /* shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield.png; sourceTree = "<group>"; };
 		05279C0C1E5F944A00E93B7C /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
 		05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKOutlinedLabelNode.swift; sourceTree = "<group>"; };
+		05279C121E721EBF00E93B7C /* Chunkfive.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Chunkfive.otf; path = ../../../../../../../../Downloads/ChunkFive/Chunkfive.otf; sourceTree = "<group>"; };
+		05279C141E7250DE00E93B7C /* done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = done.png; sourceTree = "<group>"; };
+		05279C161E725FF000E93B7C /* barbarian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barbarian.png; sourceTree = "<group>"; };
 		05E129DE1E50A73F00BA53BB /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		05E129E01E50A7DE00BA53BB /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		05E129E51E53A9DD00BA53BB /* HeroInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroInfo.swift; sourceTree = "<group>"; };
@@ -229,6 +235,9 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				05279C161E725FF000E93B7C /* barbarian.png */,
+				05279C141E7250DE00E93B7C /* done.png */,
+				05279C121E721EBF00E93B7C /* Chunkfive.otf */,
 				05279C0A1E5F8E0100E93B7C /* shield.png */,
 				05279C0C1E5F944A00E93B7C /* eye.png */,
 				05279C081E5F8D8900E93B7C /* hammer.png */,
@@ -342,6 +351,7 @@
 				05279C0D1E5F944A00E93B7C /* eye.png in Resources */,
 				0D04BA9E1CF9CF0000A1687E /* goblin_raiders.png in Resources */,
 				0D2102D91CF17FAD00851CF1 /* lightning.png in Resources */,
+				05279C131E721EBF00E93B7C /* Chunkfive.otf in Resources */,
 				0D0F61081CF21BF600027525 /* hop.png in Resources */,
 				5189A3111BA8C1B9004A19F3 /* background.jpg in Resources */,
 				0D57BE451CB6FF1E002F32DA /* enemy_card.jpg in Resources */,
@@ -353,10 +363,12 @@
 				0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */,
 				0DD8FE971CF603AF00D813A9 /* stone_wall.png in Resources */,
 				05E129F11E56A52300BA53BB /* bear.png in Resources */,
+				05279C151E7250DE00E93B7C /* done.png in Resources */,
 				5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */,
 				0D2102D31CF1710600851CF1 /* ogre.png in Resources */,
 				5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */,
 				05279C0B1E5F8E0100E93B7C /* shield.png in Resources */,
+				05279C171E725FF000E93B7C /* barbarian.png in Resources */,
 				0D2102CF1CF159E800851CF1 /* archer.png in Resources */,
 				05E129F41E56A52300BA53BB /* snake.png in Resources */,
 				05E129EA1E556C8600BA53BB /* img-thing.jpeg in Resources */,

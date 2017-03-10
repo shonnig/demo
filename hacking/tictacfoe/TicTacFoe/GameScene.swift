@@ -8,6 +8,7 @@
 
 import GameplayKit
 import SpriteKit
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -32,6 +33,7 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
+// Convert between position in parent and position in scene
 extension SKNode {
     var positionInScene:CGPoint? {
         if let scene = scene, let parent = parent {
@@ -41,27 +43,6 @@ extension SKNode {
         }
     }
 }
-
-
-// Extend SKNode with a function that should probably already exist...
-/*
-extension SKNode
-{
-    func runAction( _ action: SKAction!, withKey: String!, optionalCompletion: Optional<Any>)
-    {
-        if let completion = optionalCompletion
-        {
-            let completionAction = SKAction.run( completion as! () -> Void )
-            let compositeAction = SKAction.sequence([ action, completionAction ])
-            run( compositeAction, withKey: withKey )
-        }
-        else
-        {
-            run( action, withKey: withKey )
-        }
-    }
-}
-*/
 
 extension MutableCollection where Indices.Iterator.Element == Index {
     /// Shuffles the contents of this collection.
@@ -87,6 +68,49 @@ extension Sequence {
     }
 }
 
+extension Array {
+    func randomItem() -> Element {
+        let index = Int(arc4random_uniform(UInt32(self.count)))
+        return self[index]
+    }
+}
+
+extension SKTexture {
+    class func flipImage(name:String,flipHoriz:Bool,flipVert:Bool)->SKTexture {
+        if !flipHoriz && !flipVert {
+            return SKTexture.init(imageNamed: name)
+        }
+        let image = UIImage(named:name)
+        
+        UIGraphicsBeginImageContext(image!.size)
+        let context = UIGraphicsGetCurrentContext()
+        
+        if !flipHoriz && flipVert {
+            // Do nothing, X is flipped normally in a Core Graphics Context
+            // but in landscape is inverted so this is Y
+        } else
+            if flipHoriz && !flipVert{
+                // fix X axis but is inverted so fix Y axis
+                context!.translateBy(x: 0, y: image!.size.height)
+                context!.scaleBy(x: 1.0, y: -1.0)
+                // flip Y but is inverted so flip X here
+                context!.translateBy(x: image!.size.width, y: 0)
+                context!.scaleBy(x: -1.0, y: 1.0)
+            } else
+                if flipHoriz && flipVert {
+                    // flip Y but is inverted so flip X here
+                    context!.translateBy(x: image!.size.width, y: 0)
+                    context!.scaleBy(x: -1.0, y: 1.0)
+        }
+        
+        //CGContextDrawImage(context, CGRectMake(0.0, 0.0, image!.size.width, image!.size.height), image!.cgImage)
+        context?.draw(image!.cgImage!, in: CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return SKTexture(image: newImage!)
+    }
+}
 
 enum ZPosition: CGFloat {
     
@@ -133,6 +157,10 @@ class GameScene: SKScene {
     
     var promptLabel: SKLabelNode?
     
+    var doneButton: FTButtonNode?
+    
+    var skipRally = false
+    
     // Pick which bag the next coin comes from
     func selectBagWeighted() -> Player? {
         if let firstCount = player?.bag.getCompactCount(), let secondCount = opponent?.bag.getCompactCount() {
@@ -147,40 +175,87 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         
-        // Does player need to resolve an action?
-        
-        // Does player need to select a card?
-        if player?.hand != nil || opponent?.hand != nil {
-            return
-        }
-        
-        // Waiting on player to rally a card
-        if (player?.ralliesPending)! > 0 || (opponent?.ralliesPending)! > 0 {
-            return
-        }
-        
-        promptLabel?.isHidden = true
-        
-        // Waiting a pick to finish animating
-        if (player?.isPicking)! || (opponent?.isPicking)! {
-            return
-        }
-        
-        // If there are coins, start selecting now...
-        if let lucky = selectBagWeighted() {
-            lucky.bag.pickRandomCoin()
-        } else {
-            // If no coins in bag for either player, prompt for rallying again...
-            player?.ralliesPending = 1
-            opponent?.ralliesPending = 1
-            promptLabel!.text = "Rally An Action"
-            promptLabel?.isHidden = false
-            player?.enableActionsForRally()
-            opponent?.enableActionsForRally()
+        if let p1 = player, let p2 = opponent {
+            
+            // Did one player just lose?
+            if p1.lost {
+                promptLabel!.text = "Right player won!"
+                promptLabel?.isHidden = false
+                return
+            }
+            
+            if p2.lost {
+                promptLabel!.text = "Left player won!"
+                promptLabel?.isHidden = false
+                return
+            }
+            
+            // Does player need to resolve an action?
+            if p1.isResolving || p2.isResolving {
+                promptLabel!.text = "Choose a target"
+                promptLabel?.isHidden = false
+                return
+            }
+            
+            // Does player need to select a card from hand?
+            if p1.hand != nil || p2.hand != nil {
+                promptLabel!.text = "Select your next action"
+                promptLabel?.isHidden = false
+                return
+            }
+            
+            // Waiting on player to rally a card
+            if p1.ralliesPending > 0 || p2.ralliesPending > 0 {
+                
+                // Did player push the button to skip doing a rally?
+                if skipRally {
+                    p1.ralliesPending = 0
+                    p2.ralliesPending = 0
+                    p1.disableActionsForRally()
+                    p2.disableActionsForRally()
+                    skipRally = false
+                } else {
+                    promptLabel!.text = "Rally An Action"
+                    promptLabel?.isHidden = false
+                }
+                
+                return
+            }
+            
+            doneButton?.isUserInteractionEnabled = false
+            doneButton?.isHidden = true
+            promptLabel?.isHidden = true
+            
+            // Waiting for current pick to finish animating
+            if p1.isPicking || p2.isPicking {
+                return
+            }
+            
+            // If there are coins, start selecting now...
+            if let lucky = selectBagWeighted() {
+                lucky.bag.pickRandomCoin()
+            } else {
+                // If no coins in bag for either player, prompt for rallying again...
+                p1.ralliesPending = 1
+                p2.ralliesPending = 1
+                p1.enableActionsForRally()
+                p2.enableActionsForRally()
+            }
         }
     }
     
     override func didMove(to view: SKView) {
+        
+        /*
+        // For finding out available fonts
+         
+        for name in UIFont.familyNames {
+            print(name)
+            if let nameString = name as? String {
+                print(UIFont.fontNames(forFamilyName: nameString))
+            }
+        }
+        */
         
         // Init card info
         CardInfo.initInfo()
@@ -192,14 +267,15 @@ class GameScene: SKScene {
 		background.zPosition = ZPosition.background.rawValue
 		addChild(background)
         
-        /*
-        let buttonImg = SKTexture(imageNamed: "End_Turn_Button.png")
-        turnButton = FTButtonNode(normalTexture: buttonImg, selectedTexture: buttonImg, disabledTexture: buttonImg)
-        turnButton!.position = CGPoint(x: 125, y: 200)
-        turnButton!.zPosition = ZPosition.buttonUI.rawValue
-        turnButton!.isUserInteractionEnabled = true
-        addChild(turnButton!)
-        */
+        let buttonImg = SKTexture(imageNamed: "done.png")
+        //doneButton = FTButtonNode(normalTexture: buttonImg, selectedTexture: buttonImg, disabledTexture: buttonImg)
+        doneButton = FTButtonNode(defaultTexture: buttonImg)
+        doneButton!.position = CGPoint(x: 980, y: 740)
+        doneButton!.zPosition = ZPosition.buttonUI.rawValue
+        doneButton!.isUserInteractionEnabled = false
+        doneButton!.isHidden = true
+        doneButton!.setScale(0.15)
+        addChild(doneButton!)
 
         player = Player(scene: self, _isPlayer: true)
         opponent = Player(scene: self, _isPlayer: false)

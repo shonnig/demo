@@ -61,7 +61,7 @@ enum CardPropType {
     case melee
     case ranged
     case aoe
-    case randomAttack
+    case chaotic
     
     /*
     // gold manipulation
@@ -122,11 +122,15 @@ class CardData {
     var name: String
     var text: [String]?
     var props: [CardProp]?
+    var cost: [Int]
+    var rally: [Int]
     
-    init(n: String, t: [String]?, p: [CardProp]?) {
+    init(n: String, t: [String]?, p: [CardProp]?, c: [Int], r: [Int]) {
         name = n
         text = t
         props = p
+        cost = c
+        rally = r
     }
 
 }
@@ -137,9 +141,9 @@ class CardInfo {
     
     static func initInfo() {
         
-        data[.slice] =              CardData(n: "Slice",                t: ["Melee Attack: 5","Another line","Last line"],                                                  p: [CardProp(_type: .melee, _values: [5])])
-        data[.snipe] =              CardData(n: "Snipe",                t: ["Ranged Attack: 3"],                                                                            p: [CardProp(_type: .ranged, _values: [3])])
-        data[.bash] =               CardData(n: "Bash",                 t: ["Attack a random", "enemy: 7"],                                                        p: [CardProp(_type: .randomAttack, _values: [7])])
+        data[.slice] =       CardData(n: "Slice",           t: ["Melee Attack:","5 damage"],                                   p: [CardProp(_type: .melee, _values: [5])],          c: [1, 1, 0, 1], r: [1, 2, 0, 0])
+        data[.snipe] =       CardData(n: "Snipe",           t: ["Ranged Attack:", "4 damage"],                                 p: [CardProp(_type: .ranged, _values: [4])],         c: [0, 0, 3, 0], r: [0, 0, 4, 0])
+        data[.bash] =        CardData(n: "Bash",            t: ["Attack a random", "enemy for 6 damage"],                      p: [CardProp(_type: .chaotic, _values: [6])],        c: [4, 0, 0, 0], r: [4, 0, 0, 0])
         
         /*
         data[.spearman] =          CardData(i: "Spearman.png",            s: 0.25, a: 2, h: 2, c: 2, p: nil)

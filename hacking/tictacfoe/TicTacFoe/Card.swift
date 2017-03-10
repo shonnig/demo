@@ -89,16 +89,20 @@ class Card : SKSpriteNode {
             }
         }
         
-        // TODO: temp hardcoded for now
-        cost = CoinChain(compact: false, orange: 0,blue: 0,green: 0,yellow: 1)
-        cost?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-        cost?.position = CGPoint(x: 0, y: 10 + (desc.count * 8))
-        addChild(cost!)
+        if let coins = data?.cost {
+            cost = CoinChain(compact: false, orange: coins[0], blue: coins[1],green: coins[2],yellow: coins[3])
+            cost?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+            cost?.position = CGPoint(x: 0, y: 10 + (desc.count * 8))
+            cost?.mCostForCard = self
+            addChild(cost!)
+        }
         
-        rally = CoinChain(compact: false, orange: 1,blue: 1,green: 1,yellow: 1)
-        rally?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-        rally?.position = CGPoint(x: 0, y: -40)
-        addChild(rally!)
+        if let coins = data?.rally {
+            rally = CoinChain(compact: false, orange: coins[0],blue: coins[1],green: coins[2],yellow: coins[3])
+            rally?.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
+            rally?.position = CGPoint(x: 0, y: -40)
+            addChild(rally!)
+        }
         
         // allow the Card to intercept touches instead of passing them through the scene
         isUserInteractionEnabled = true
@@ -121,7 +125,7 @@ class Card : SKSpriteNode {
         tile.m_card = self
     }
     
-    func hasProp(type: CardPropType) -> Bool {
+    func hasProp(_ type: CardPropType) -> Bool {
         
         for p in props {
             if p.type == type {
@@ -130,6 +134,150 @@ class Card : SKSpriteNode {
         }
         
         return false
+    }
+    
+    func getProp(_ type: CardPropType) -> CardProp? {
+        
+        for p in props {
+            if p.type == type {
+                return p
+            }
+        }
+        
+        return nil
+    }
+    
+    func getValidTargets(_ type: CardPropType) -> [Tile] {
+        var targets = [Tile]()
+        
+        if let tile = m_tile, let player = tile.owner, let opp = player.otherPlayer {
+            switch type {
+            case .melee:
+                // Check for an enemy immediately across from us
+                if opp.mHeroTiles[tile.row].character != nil {
+                    targets.append(opp.mHeroTiles[tile.row])
+                } else {
+                    // If no enemy immediately across, may choose from any enemy
+                    for enemyTile in opp.mHeroTiles {
+                        if enemyTile.character != nil {
+                            targets.append(enemyTile)
+                        }
+                    }
+                }
+                break
+            case .ranged:
+                // May choose from any enemy
+                for enemyTile in opp.mHeroTiles {
+                    if enemyTile.character != nil {
+                        targets.append(enemyTile)
+                    }
+                }
+                break
+            case .chaotic:
+                // Pick a random enemy
+                var validTargets = [Tile]()
+                for enemyTile in opp.mHeroTiles {
+                    if enemyTile.character != nil {
+                        validTargets.append(enemyTile)
+                    }
+                }
+                targets.append(validTargets.randomItem())
+                break
+            default:
+                break
+            }
+        }
+        
+        return targets
+    }
+    
+    // Called when the cost of an action has been filled
+    //
+    func resolve() {
+        
+        if let player = m_tile?.owner, let tile = m_tile {
+            
+            // Suspend other sequences
+            player.isResolving = true
+        
+            
+            // Should only have one attack type at most
+            var targets: [Tile]?
+            var prop: CardProp?
+            if hasProp(.melee) {
+                targets = getValidTargets(.melee)
+                prop = getProp(.melee)
+            }
+            if hasProp(.ranged) {
+                targets = getValidTargets(.ranged)
+                prop = getProp(.ranged)
+            }
+            if hasProp(.chaotic) {
+                targets = getValidTargets(.chaotic)
+                prop = getProp(.chaotic)
+            }
+            
+            if let found = targets, let damage = prop?.values[0] {
+                
+                let from = player.mHeroTiles[tile.row]
+                
+                // Save off damage for when attack occurs
+                // TODO: make a full blown attack class to save all the data we need?
+                player.currentAttackDamage = damage
+                
+                // If only one target, just attack
+                if found.count == 1 {
+                    from.attackTile(found[0])
+                }
+                
+                // If there are multiple targets, let player choose
+                if found.count > 1 {
+                    player.currentAttacker = from
+                    for choice in found {
+                        choice.enableForTarget()
+                    }
+                }
+            }
+        }
+    }
+    
+    // After a card is resolved, and resulting attacks/etc. are completed, finish up with this function
+    //
+    func resolveComplete() {
+        
+        if let tile = m_tile, let player = tile.owner, let deck = tile.character?.deck {
+            // Resume other sequences
+            player.isResolving = false
+            
+            // Clear out state of a pending attack
+            player.currentAttacker = nil
+            player.currentAttackDamage = 0
+            
+            // Discard the card
+            m_owner.discard?.addCard(self)
+            
+            // Don't bother drawing next hand if someone just won the game
+            if player.lost == false && player.otherPlayer?.lost == false {
+                
+                // Draw a hand of 3 cards to choose next action from
+                var drawn = [Card]()
+                for _ in 0..<3 {
+                    if let card = deck.drawCard() {
+                        drawn.append(card)
+                    }
+                }
+                player.hand = Hand(cards: drawn, player: player, pending: tile)
+                
+                // After a player resolves an action, their opponent may rally a card
+                player.otherPlayer?.ralliesPending = 1
+                player.otherPlayer?.enableActionsForRally()
+                
+                // Show "done" button so they may skip this if they want
+                let gameScene = scene as! GameScene
+                gameScene.doneButton?.isHidden = false
+                gameScene.doneButton?.isUserInteractionEnabled = true
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -168,7 +316,7 @@ class Card : SKSpriteNode {
                 
                 // If not waiting for any more rallies after this, disable all the remaining choices
                 if player.ralliesPending <= 0 {
-                    for tile in player.tiles {
+                    for tile in player.mHeroActionTiles {
                         tile.disableForRally()
                     }
                 }
@@ -190,6 +338,8 @@ class Card : SKSpriteNode {
             }
         }
     }
+    
+
     
     /*
 

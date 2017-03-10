@@ -36,5 +36,7 @@ class Discard : SKSpriteNode {
         cards.append(card)
         card.isHidden = true
         card.m_tile = nil
+        // Lose any coins that were placed on this card
+        card.cost?.emptyAll()
     }
 }

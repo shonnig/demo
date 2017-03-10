@@ -84,6 +84,16 @@ class Tile : SKSpriteNode {
         m_card?.enabledForRally = false
     }
     
+    func enableForTarget() {
+        addHighlight()
+        character?.enabledForTarget = true
+    }
+    
+    func disableForTarget() {
+        removeHighlight()
+        character?.enabledForTarget = false
+    }
+    
     func addHighlight() {
         
         glowNode.isHidden = false
@@ -101,5 +111,47 @@ class Tile : SKSpriteNode {
         glowNode.isHidden = true
         glowNode.removeAction(forKey: "rotate")
         glowNode.removeAction(forKey: "pulse")
+    }
+    
+    // TODO: Need different attack types (not just melee attack)
+    //
+    func attackTile(_ toTile: Tile) {
+        
+        //let defendingPlayer = toTile.owner,
+        if let attackingPlayer = owner, let attackingUnit = character, let defendingUnit = toTile.character, let attackingCard = owner?.mHeroActionTiles[self.row].m_card {
+            
+            // damage image
+            let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
+            dmgImage.setScale(0.25)
+            dmgImage.position = toTile.position
+            dmgImage.zPosition = ZPosition.damageEffect.rawValue
+            dmgImage.isHidden = true
+            scene!.addChild(dmgImage)
+            
+            let wait1 = SKAction.wait(forDuration: 0.8)
+            let showDmg = SKAction.unhide()
+            let doDmg = SKAction.run( { defendingUnit.applyDamage(attackingPlayer.currentAttackDamage) } )
+            let wait2 = SKAction.wait(forDuration: 0.3)
+            let fadeDmg = SKAction.fadeOut(withDuration: 0.3)
+            let removeDmg = SKAction.removeFromParent()
+            let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg])
+            dmgImage.run(dmgCycle, withKey: "damage")
+            
+            // animate attack
+            // TODO: make separate function? And probably can do math directly on points?
+            // find partial position to opponent
+            let oppPos = defendingUnit.position
+            let xDiff = (oppPos.x - position.x) * 0.90
+            let yDiff = (oppPos.y - position.y) * 0.90
+            let attPos = CGPoint(x: position.x + xDiff, y: position.y + yDiff)
+            
+            let firstWait = SKAction.wait(forDuration: 0.5)
+            let attackTo = SKAction.move(to: attPos, duration: 0.3)
+            let secondWait = SKAction.wait(forDuration: 0.3)
+            let attackBack = SKAction.move(to: self.position, duration: 0.3)
+            let complete = SKAction.run( { attackingCard.resolveComplete() } )
+            let cycle = SKAction.sequence([firstWait, attackTo, secondWait, attackBack, complete])
+            attackingUnit.run(cycle, withKey: "attack")
+        }
     }
 }

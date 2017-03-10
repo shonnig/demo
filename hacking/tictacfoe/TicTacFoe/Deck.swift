@@ -57,4 +57,8 @@ class Deck : SKSpriteNode {
         }
     }
     
+    func shuffle() {
+        cards.shuffle()
+    }
+    
 }

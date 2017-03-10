@@ -31,7 +31,7 @@ class Coin : SKSpriteNode {
                     cbf = 0.1
                 }
                 // TODO: check if action is already in progress and cancel first?
-                let action = SKAction.colorize(with: color, colorBlendFactor: CGFloat(cbf), duration: 1)
+                let action = SKAction.colorize(with: color, colorBlendFactor: CGFloat(cbf), duration: 0.2)
                 run(action)
             }
         }

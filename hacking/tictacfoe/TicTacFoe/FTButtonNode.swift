@@ -16,6 +16,7 @@ class FTButtonNode: SKSpriteNode {
         touchDown, touchUp
     }
     
+    /*
     var isEnabled: Bool = true {
         didSet {
             if (disabledTexture != nil) {
@@ -23,6 +24,7 @@ class FTButtonNode: SKSpriteNode {
             }
         }
     }
+    */
     var isSelected: Bool = false {
         didSet {
             //texture = isSelected ? selectedTexture : defaultTexture
@@ -35,17 +37,19 @@ class FTButtonNode: SKSpriteNode {
         }
     }
     var defaultTexture: SKTexture
-    var selectedTexture: SKTexture
+    //var selectedTexture: SKTexture
     
     required init(coder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    init(normalTexture defaultTexture: SKTexture!, selectedTexture:SKTexture!, disabledTexture: SKTexture?) {
+    //init(normalTexture defaultTexture: SKTexture!, selectedTexture:SKTexture!, disabledTexture: SKTexture?) {
+    
+    init(defaultTexture: SKTexture) {
         
         self.defaultTexture = defaultTexture
-        self.selectedTexture = selectedTexture
-        self.disabledTexture = disabledTexture
+        //self.selectedTexture = selectedTexture
+        //self.disabledTexture = disabledTexture
         
         super.init(texture: defaultTexture, color: UIColor.black, size: defaultTexture.size())
         
@@ -53,28 +57,28 @@ class FTButtonNode: SKSpriteNode {
         
         // Adding this node as an empty layer. Without it the touch functions are not being called
         // The reason for this is unknown when this was implemented...?
-        let bugFixLayerNode = SKSpriteNode(texture: nil, color: UIColor.white, size: defaultTexture.size())
-        bugFixLayerNode.position = self.position
-        addChild(bugFixLayerNode)
+        //let bugFixLayerNode = SKSpriteNode(texture: nil, color: UIColor.white, size: defaultTexture.size())
+        //bugFixLayerNode.position = self.position
+        //addChild(bugFixLayerNode)
         
     }
 
     
-    var disabledTexture: SKTexture?
+    //var disabledTexture: SKTexture?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent!)  {
         
-        if (!isEnabled) {
-            return
-        }
+        //if (!isEnabled) {
+        //    return
+        //}
         isSelected = true
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent!)  {
         
-        if (!isEnabled) {
-            return
-        }
+        //if (!isEnabled) {
+        //    return
+        //}
         
         let touch = touches.first
         let touchLocation = touch!.location(in: parent!)
@@ -89,9 +93,9 @@ class FTButtonNode: SKSpriteNode {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent!) {
         
-        if (!isEnabled) {
-            return
-        }
+        //if (!isEnabled) {
+        //    return
+        //}
         
         isSelected = false
         
@@ -99,9 +103,9 @@ class FTButtonNode: SKSpriteNode {
         let touchLocation = touch!.location(in: parent!)
             
         if (frame.contains(touchLocation) ) {
-            // toggle whose turn it is
-            //let gameScene = scene as! GameScene
-            //gameScene.currentTurn = gameScene.currentTurn?.otherPlayer
+            // notify scene button was pushed
+            let gameScene = scene as! GameScene
+            gameScene.skipRally = true
         }
         
     }

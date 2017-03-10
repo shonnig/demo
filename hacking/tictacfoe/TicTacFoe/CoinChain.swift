@@ -27,6 +27,8 @@ class CoinChain : SKSpriteNode {
     
     var m_label: [CoinType : SKLabelNode]
     
+    var mCostForCard: Card?
+    
     var mOwner: Player?
     
     func addCoins(_type: CoinType, _num: Int, _isEmpty: Bool) {
@@ -108,20 +110,34 @@ class CoinChain : SKSpriteNode {
         }
     }
     
+    func emptyAll() {
+        // Loop through until we find a coin of the right type, but isn't in this state yet
+        for coin in m_contents {
+            coin.empty = true
+        }
+    }
+    
     func setEmpty(_type: CoinType, _isEmpty: Bool) {
+        
+        // While we're looking for a proper coin, see if all the coins are full
+        var allFull = true
+        var filled = false
         
         // Loop through until we find a coin of the right type, but isn't in this state yet
         for coin in m_contents {
-            if coin.type != _type {
-                continue
+            if !filled && coin.type == _type && coin.empty != _isEmpty {
+                coin.empty = _isEmpty
+                filled = true
             }
             
-            if coin.empty == _isEmpty {
-                continue
+            allFull = allFull && !coin.empty
+        }
+        
+        // TODO: check for card cost
+        if allFull {
+            if let card = mCostForCard {
+                card.resolve()
             }
-            
-            coin.empty = _isEmpty
-            break
         }
     }
     
@@ -188,6 +204,7 @@ class CoinChain : SKSpriteNode {
     }
     
     // Pick out a random coin from the bag and animate it to a free slot
+    //
     func pickRandomCoin() {
         if let player = mOwner, let type = randomType() {
             if let startCoin = getFirstCoinOfType(type: type, empty: false), let scene = startCoin.scene, let scenePos = startCoin.positionInScene {
@@ -201,21 +218,36 @@ class CoinChain : SKSpriteNode {
                 // Decrement bag
                 removeCoins(_type: type, _num: 1)
                 
+                // Common "look at" animation
+                let time = 0.6
+                let moveTo = SKAction.move(to: CGPoint(x: 512, y: 384), duration: TimeInterval(time))
+                let zoom = SKAction.scale(to: 3, duration: TimeInterval(time))
+                let pull = SKAction.group([moveTo,zoom])
+                let wait = SKAction.wait(forDuration: 0.4)
+                let lookAt = SKAction.sequence([pull, wait])
+                
                 if let card = player.pickEmptyCoinOfType(type: type), let endCoin = card.cost?.getFirstCoinOfType(type: type, empty: true), let toPos = endCoin.positionInScene {
+                    
+                    // TODO: need to find bug where coins are going to the wrong place for some reason...
+                    assert(card.isHidden == false)
+                    assert(card.m_tile?.m_card == card)
+                    
                     // We found a home for this coin
-                    let moveTo = SKAction.move(to: toPos, duration: 2)
+                    let moveTo = SKAction.move(to: toPos, duration: TimeInterval(time))
+                    let zoom = SKAction.scale(to: 1, duration: TimeInterval(time))
+                    let place = SKAction.group([moveTo,zoom])
                     let remove = SKAction.removeFromParent() // I've verified this deletes the node
                     let increment = SKAction.run( { card.cost?.setEmpty(_type: type, _isEmpty: false) })
                     let setDone = SKAction.run( { player.isPicking = false } )
-                    let rally = SKAction.sequence([moveTo, remove, increment, setDone])
+                    let rally = SKAction.sequence([lookAt, place, remove, increment, setDone])
                     newCoin.run(rally, withKey: "pick")
                     
                 } else {
                     // If can't find any empty to fill, animate that coin was picked, but wasted...
-                    let moveTo = SKAction.move(to: CGPoint(x: 512, y: 384), duration: 2)
+                    let fade = SKAction.fadeOut(withDuration: 0.4)
                     let remove = SKAction.removeFromParent() // I've verified this deletes the node
                     let setDone = SKAction.run( { player.isPicking = false } )
-                    let rally = SKAction.sequence([moveTo, remove, setDone])
+                    let rally = SKAction.sequence([lookAt, fade, remove, setDone])
                     newCoin.run(rally, withKey: "pick")
                 }
             }

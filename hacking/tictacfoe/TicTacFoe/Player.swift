@@ -14,7 +14,9 @@ class Player {
 
     let isPlayer: Bool
     
-    var tiles = [Tile]()
+    var mHeroActionTiles = [Tile]()
+    
+    var mHeroTiles = [Tile]()
     
     var hand: Hand?
     
@@ -26,6 +28,14 @@ class Player {
     var otherPlayer: Player?
     
     var isPicking = false
+    
+    var isResolving = false
+    
+    var currentAttacker: Tile?
+    
+    var currentAttackDamage = 0
+    
+    var lost = false
     
     init(scene: GameScene, _isPlayer: Bool) {
         
@@ -39,11 +49,11 @@ class Player {
         for row in 0...3 {
             
             let heroActionTile = Tile(_row: row, _col: .heroAction, _owner: self)
-            tiles.append(heroActionTile)
+            mHeroActionTiles.append(heroActionTile)
             scene.addChild(heroActionTile)
             
             let heroTile = Tile(_row: row, _col: .hero, _owner: self)
-            tiles.append(heroTile)
+            mHeroTiles.append(heroTile)
             scene.addChild(heroTile)
             
             let hero = Hero(type: HeroType.random())
@@ -56,11 +66,7 @@ class Player {
             deck.isHidden = true
             scene.addChild(deck)
             hero.deck = deck
-            
-            // TODO: temporary initialization of deck
-            for _ in 0...9 {
-                deck.addCard(type: CardId.random())
-            }
+            hero.initDeck()
             
             let discard = Discard(owner: hero)
             discard.isHidden = true
@@ -78,27 +84,43 @@ class Player {
     }
     
     func enableActionsForRally() {
-        for tile in tiles {
+        for tile in mHeroActionTiles {
             if tile.m_card != nil {
                 tile.enableForRally()
             }
         }
     }
     
+    func disableActionsForRally() {
+        for tile in mHeroActionTiles {
+            if tile.m_card != nil {
+                tile.disableForRally()
+            }
+        }
+    }
+    
+    // Looks at all the available actions, and for a given coin type, picks a random empty coin on one of those cards.
+    // There may not be any of course.
+    //
     func pickEmptyCoinOfType(type: CoinType) -> Card? {
         
+        var numCards = 0
+        
         var total = 0
-        for tile in tiles {
+        for tile in mHeroActionTiles {
             if let cost = tile.m_card?.cost {
+                numCards += 1
                 total += cost.numEmptyCoinsOfType(type: type)
             }
         }
+        
+        print("looking for an empty coin slot, and found \(numCards) cards available")
         
         // There may not be any empty of this type!
         if total > 0 {
             let roll = Int(arc4random_uniform(UInt32(total)))
             var threshold = 0
-            for tile in tiles {
+            for tile in mHeroActionTiles {
                 if let card = tile.m_card, let cost = tile.m_card?.cost {
                     threshold += cost.numEmptyCoinsOfType(type: type)
                     if roll < threshold {

@@ -32,6 +32,10 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Chunkfive.otf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
