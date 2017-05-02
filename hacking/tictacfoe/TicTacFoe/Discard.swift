@@ -35,6 +35,9 @@ class Discard : SKSpriteNode {
     func addCard(_ card: Card) {
         cards.append(card)
         card.isHidden = true
+        if let tile = card.m_tile {
+            tile.m_card = nil
+        }
         card.m_tile = nil
         // Lose any coins that were placed on this card
         card.cost?.emptyAll()

@@ -11,6 +11,8 @@ import SpriteKit
 
 class CoinChain : SKSpriteNode {
 
+    static let sMaxCoins = 9
+    
     var m_contents: [Coin]
     
     var m_compact: Bool
@@ -38,6 +40,11 @@ class CoinChain : SKSpriteNode {
                 m_count[_type] = current + _num
             } else {
                 m_count[_type] = _num
+            }
+            
+            // Cannot exceed the maximum number of coins of one type in the bag
+            if m_count[_type]! > CoinChain.sMaxCoins {
+                m_count[_type] = CoinChain.sMaxCoins
             }
         } else {
             var x_pos = -55 + (m_contents.count * 22)
@@ -203,7 +210,7 @@ class CoinChain : SKSpriteNode {
         return nil
     }
     
-    // Pick out a random coin from the bag and animate it to a free slot
+    // Pick out a random coin from the bag and animate it to a free cost slot on a card in play
     //
     func pickRandomCoin() {
         if let player = mOwner, let type = randomType() {
@@ -231,6 +238,19 @@ class CoinChain : SKSpriteNode {
                     // TODO: need to find bug where coins are going to the wrong place for some reason...
                     assert(card.isHidden == false)
                     assert(card.m_tile?.m_card == card)
+                    
+                    print("Found a destination for coin")
+                    
+                    if let row = card.m_tile?.row, let player = card.m_tile?.owner {
+                        let costPos = card.cost!.positionInScene!
+                        print("Destination is in row \(row)")
+                        print("Owner is player: \(player.isPlayer)")
+                        print("end coin type is \(endCoin.type)")
+                        print("end position is x: \(toPos.x), y: \(toPos.y)")
+                        print("end position of cost is x: \(costPos.x), y: \(costPos.y)")
+                        print("card position is x: \(card.position.x), y: \(card.position.y)")
+                    }
+                    
                     
                     // We found a home for this coin
                     let moveTo = SKAction.move(to: toPos, duration: TimeInterval(time))

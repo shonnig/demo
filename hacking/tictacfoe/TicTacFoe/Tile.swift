@@ -154,4 +154,62 @@ class Tile : SKSpriteNode {
             attackingUnit.run(cycle, withKey: "attack")
         }
     }
+    
+    func aoeAllTiles() {
+        
+        if let attackingPlayer = owner, let defendingPlayer = attackingPlayer.otherPlayer, let attackingCard = owner?.mHeroActionTiles[self.row].m_card {
+        
+            for toTile in defendingPlayer.mHeroTiles {
+            
+                if let defendingUnit = toTile.character {
+                    // damage image
+                    let dmgImage = SKSpriteNode(imageNamed: "Explosion.png")
+                    dmgImage.setScale(0.25)
+                    dmgImage.position = toTile.position
+                    dmgImage.zPosition = ZPosition.damageEffect.rawValue
+                    dmgImage.isHidden = true
+                    scene!.addChild(dmgImage)
+                    
+                    let wait1 = SKAction.wait(forDuration: 0.8)
+                    let showDmg = SKAction.unhide()
+                    let doDmg = SKAction.run( { defendingUnit.applyDamage(attackingPlayer.currentAttackDamage) } )
+                    let wait2 = SKAction.wait(forDuration: 0.3)
+                    let fadeDmg = SKAction.fadeOut(withDuration: 0.3)
+                    let removeDmg = SKAction.removeFromParent()
+                    let complete = SKAction.run( { attackingCard.resolveComplete() } )
+                    let dmgCycle = SKAction.sequence([wait1, showDmg, doDmg, wait2, fadeDmg, removeDmg, complete])
+                    dmgImage.run(dmgCycle, withKey: "damage")
+                }
+            }
+        }
+    }
+    
+    func aoeHealAllTiles(_ amount: Int) {
+        
+        if let player = owner, let healingCard = owner?.mHeroActionTiles[self.row].m_card {
+            
+            for toTile in player.mHeroTiles {
+                
+                if let targetUnit = toTile.character {
+                    // heal image
+                    let healImage = SKSpriteNode(imageNamed: "heal.png")
+                    healImage.setScale(0.25)
+                    healImage.position = toTile.position
+                    healImage.zPosition = ZPosition.damageEffect.rawValue
+                    healImage.isHidden = true
+                    scene!.addChild(healImage)
+                    
+                    let wait1 = SKAction.wait(forDuration: 0.8)
+                    let showHeal = SKAction.unhide()
+                    let doHeal = SKAction.run( { targetUnit.applyHeal(amount) } )
+                    let wait2 = SKAction.wait(forDuration: 0.3)
+                    let fadeHeal = SKAction.fadeOut(withDuration: 0.3)
+                    let removeHeal = SKAction.removeFromParent()
+                    let complete = SKAction.run( { healingCard.resolveComplete() } )
+                    let dmgCycle = SKAction.sequence([wait1, showHeal, doHeal, wait2, fadeHeal, removeHeal, complete])
+                    healImage.run(dmgCycle, withKey: "heal")
+                }
+            }
+        }
+    }
 }

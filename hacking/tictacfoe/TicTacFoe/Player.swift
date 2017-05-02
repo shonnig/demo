@@ -40,13 +40,21 @@ class Player {
     init(scene: GameScene, _isPlayer: Bool) {
         
         isPlayer = _isPlayer
+        var heroList: [HeroType]
+        
+        if isPlayer {
+            heroList = [HeroType.archer, HeroType.barbarian, HeroType.necromancer, HeroType.healer]
+        } else {
+            heroList = [HeroType.alchemist, HeroType.shield_knight, HeroType.bard, HeroType.sword_wizard]
+        }
         
         bag = CoinChain(compact: true, orange: 0,blue: 0,green: 0,yellow: 0)
         bag.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
         bag.position = CGPoint(x: (isPlayer ? 250 : 700), y: 20)
         scene.addChild(bag)
         
-        for row in 0...3 {
+        var row = 0
+        for type in heroList {
             
             let heroActionTile = Tile(_row: row, _col: .heroAction, _owner: self)
             mHeroActionTiles.append(heroActionTile)
@@ -56,7 +64,7 @@ class Player {
             mHeroTiles.append(heroTile)
             scene.addChild(heroTile)
             
-            let hero = Hero(type: HeroType.random())
+            let hero = Hero(type: type)
             scene.addChild(hero)
             hero.placeOnTile(tile: heroTile)
             heroActionTile.character = hero
@@ -78,6 +86,8 @@ class Player {
                 card.placeOnTile(tile: heroActionTile, animate: false)
                 heroActionTile.enableForRally()
             }
+            
+            row += 1
         }
         
         bag.mOwner = self
@@ -117,7 +127,7 @@ class Player {
         print("looking for an empty coin slot, and found \(numCards) cards available")
         
         // There may not be any empty of this type!
-        if total > 0 {
+        if total > 0 {	
             let roll = Int(arc4random_uniform(UInt32(total)))
             var threshold = 0
             for tile in mHeroActionTiles {

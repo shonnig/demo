@@ -161,4 +161,11 @@ class Character : SKSpriteNode {
             run(rally, withKey: "death")
         }
     }
+    
+    func applyHeal(_ amount: Int) {
+        health += amount
+        if health > maxHealth {
+            health = maxHealth
+        }
+    }
 }

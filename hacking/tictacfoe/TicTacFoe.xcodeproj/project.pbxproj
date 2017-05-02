@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05276DAC1E80C79500870383 /* alchemist.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DA81E80C79500870383 /* alchemist.png */; };
+		05276DAD1E80C79500870383 /* bard.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DA91E80C79500870383 /* bard.png */; };
+		05276DAE1E80C79500870383 /* necromancer.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DAA1E80C79500870383 /* necromancer.png */; };
+		05276DAF1E80C79500870383 /* shield_knight.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DAB1E80C79500870383 /* shield_knight.png */; };
+		05276DB11E80CEC100870383 /* heal.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DB01E80CEC100870383 /* heal.png */; };
 		05279C051E5E076300E93B7C /* CoinChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05279C041E5E076300E93B7C /* CoinChain.swift */; };
 		05279C071E5F85AC00E93B7C /* crossed_swords.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C061E5F85AC00E93B7C /* crossed_swords.png */; };
 		05279C091E5F8D8900E93B7C /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C081E5F8D8900E93B7C /* hammer.png */; };
@@ -16,6 +21,8 @@
 		05279C131E721EBF00E93B7C /* Chunkfive.otf in Resources */ = {isa = PBXBuildFile; fileRef = 05279C121E721EBF00E93B7C /* Chunkfive.otf */; };
 		05279C151E7250DE00E93B7C /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C141E7250DE00E93B7C /* done.png */; };
 		05279C171E725FF000E93B7C /* barbarian.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C161E725FF000E93B7C /* barbarian.png */; };
+		0544F8901E7C0A890007D37F /* sword_wizard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0544F88F1E7C0A890007D37F /* sword_wizard.png */; };
+		0544F8921E7C0A920007D37F /* healer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0544F8911E7C0A920007D37F /* healer.png */; };
 		05E129DF1E50A73F00BA53BB /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129DE1E50A73F00BA53BB /* Character.swift */; };
 		05E129E11E50A7DE00BA53BB /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129E01E50A7DE00BA53BB /* Hero.swift */; };
 		05E129E61E53A9DD00BA53BB /* HeroInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129E51E53A9DD00BA53BB /* HeroInfo.swift */; };
@@ -70,6 +77,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05276DA81E80C79500870383 /* alchemist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alchemist.png; sourceTree = "<group>"; };
+		05276DA91E80C79500870383 /* bard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bard.png; sourceTree = "<group>"; };
+		05276DAA1E80C79500870383 /* necromancer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = necromancer.png; sourceTree = "<group>"; };
+		05276DAB1E80C79500870383 /* shield_knight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield_knight.png; sourceTree = "<group>"; };
+		05276DB01E80CEC100870383 /* heal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heal.png; sourceTree = "<group>"; };
 		05279C041E5E076300E93B7C /* CoinChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinChain.swift; sourceTree = "<group>"; };
 		05279C061E5F85AC00E93B7C /* crossed_swords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crossed_swords.png; sourceTree = "<group>"; };
 		05279C081E5F8D8900E93B7C /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
@@ -79,6 +91,8 @@
 		05279C121E721EBF00E93B7C /* Chunkfive.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Chunkfive.otf; path = ../../../../../../../../Downloads/ChunkFive/Chunkfive.otf; sourceTree = "<group>"; };
 		05279C141E7250DE00E93B7C /* done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = done.png; sourceTree = "<group>"; };
 		05279C161E725FF000E93B7C /* barbarian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barbarian.png; sourceTree = "<group>"; };
+		0544F88F1E7C0A890007D37F /* sword_wizard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sword_wizard.png; sourceTree = "<group>"; };
+		0544F8911E7C0A920007D37F /* healer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = healer.png; sourceTree = "<group>"; };
 		05E129DE1E50A73F00BA53BB /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		05E129E01E50A7DE00BA53BB /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		05E129E51E53A9DD00BA53BB /* HeroInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroInfo.swift; sourceTree = "<group>"; };
@@ -235,6 +249,13 @@
 		5189A2F41BA8C1B9004A19F3 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				05276DB01E80CEC100870383 /* heal.png */,
+				05276DA81E80C79500870383 /* alchemist.png */,
+				05276DA91E80C79500870383 /* bard.png */,
+				05276DAA1E80C79500870383 /* necromancer.png */,
+				05276DAB1E80C79500870383 /* shield_knight.png */,
+				0544F8911E7C0A920007D37F /* healer.png */,
+				0544F88F1E7C0A890007D37F /* sword_wizard.png */,
 				05279C161E725FF000E93B7C /* barbarian.png */,
 				05279C141E7250DE00E93B7C /* done.png */,
 				05279C121E721EBF00E93B7C /* Chunkfive.otf */,
@@ -339,6 +360,7 @@
 				0D76DDDD1CD5C6FF003687B9 /* End_Turn_Button.png in Resources */,
 				0D62D24C1CAE38BE003B046A /* 230px-Miner.png in Resources */,
 				0D0F61041CF1E4EC00027525 /* axe_thrower.jpg in Resources */,
+				05276DAE1E80C79500870383 /* necromancer.png in Resources */,
 				0D2102D51CF176F300851CF1 /* scout.jpg in Resources */,
 				0D57BE431CB6FE76002F32DA /* enemy_card.png in Resources */,
 				0D62D2481CAE0767003B046A /* border.jpg in Resources */,
@@ -350,6 +372,7 @@
 				05279C091E5F8D8900E93B7C /* hammer.png in Resources */,
 				05279C0D1E5F944A00E93B7C /* eye.png in Resources */,
 				0D04BA9E1CF9CF0000A1687E /* goblin_raiders.png in Resources */,
+				0544F8921E7C0A920007D37F /* healer.png in Resources */,
 				0D2102D91CF17FAD00851CF1 /* lightning.png in Resources */,
 				05279C131E721EBF00E93B7C /* Chunkfive.otf in Resources */,
 				0D0F61081CF21BF600027525 /* hop.png in Resources */,
@@ -359,20 +382,25 @@
 				05279C071E5F85AC00E93B7C /* crossed_swords.png in Resources */,
 				0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */,
 				0D62D24A1CAE0852003B046A /* Spearman.png in Resources */,
+				0544F8901E7C0A890007D37F /* sword_wizard.png in Resources */,
 				05E129EC1E556EF200BA53BB /* multicolor_circle.png in Resources */,
 				0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */,
 				0DD8FE971CF603AF00D813A9 /* stone_wall.png in Resources */,
+				05276DB11E80CEC100870383 /* heal.png in Resources */,
 				05E129F11E56A52300BA53BB /* bear.png in Resources */,
 				05279C151E7250DE00E93B7C /* done.png in Resources */,
 				5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */,
 				0D2102D31CF1710600851CF1 /* ogre.png in Resources */,
+				05276DAF1E80C79500870383 /* shield_knight.png in Resources */,
 				5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */,
 				05279C0B1E5F8E0100E93B7C /* shield.png in Resources */,
 				05279C171E725FF000E93B7C /* barbarian.png in Resources */,
 				0D2102CF1CF159E800851CF1 /* archer.png in Resources */,
 				05E129F41E56A52300BA53BB /* snake.png in Resources */,
+				05276DAC1E80C79500870383 /* alchemist.png in Resources */,
 				05E129EA1E556C8600BA53BB /* img-thing.jpeg in Resources */,
 				5189A3121BA8C1B9004A19F3 /* background@2x.jpg in Resources */,
+				05276DAD1E80C79500870383 /* bard.png in Resources */,
 				05E129F21E56A52300BA53BB /* horse.png in Resources */,
 				5189A2E81BA8BB01004A19F3 /* Main.storyboard in Resources */,
 				5189A32C1BA8C1B9004A19F3 /* spark.png in Resources */,
