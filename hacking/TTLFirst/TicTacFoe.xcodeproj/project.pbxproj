@@ -1,0 +1,599 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05276DAC1E80C79500870383 /* alchemist.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DA81E80C79500870383 /* alchemist.png */; };
+		05276DAD1E80C79500870383 /* bard.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DA91E80C79500870383 /* bard.png */; };
+		05276DAE1E80C79500870383 /* necromancer.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DAA1E80C79500870383 /* necromancer.png */; };
+		05276DAF1E80C79500870383 /* shield_knight.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DAB1E80C79500870383 /* shield_knight.png */; };
+		05276DB11E80CEC100870383 /* heal.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DB01E80CEC100870383 /* heal.png */; };
+		05279C051E5E076300E93B7C /* CoinChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05279C041E5E076300E93B7C /* CoinChain.swift */; };
+		05279C071E5F85AC00E93B7C /* crossed_swords.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C061E5F85AC00E93B7C /* crossed_swords.png */; };
+		05279C091E5F8D8900E93B7C /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C081E5F8D8900E93B7C /* hammer.png */; };
+		05279C0B1E5F8E0100E93B7C /* shield.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C0A1E5F8E0100E93B7C /* shield.png */; };
+		05279C0D1E5F944A00E93B7C /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C0C1E5F944A00E93B7C /* eye.png */; };
+		05279C111E668E3600E93B7C /* MKOutlinedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */; };
+		05279C131E721EBF00E93B7C /* Chunkfive.otf in Resources */ = {isa = PBXBuildFile; fileRef = 05279C121E721EBF00E93B7C /* Chunkfive.otf */; };
+		05279C151E7250DE00E93B7C /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C141E7250DE00E93B7C /* done.png */; };
+		05279C171E725FF000E93B7C /* barbarian.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C161E725FF000E93B7C /* barbarian.png */; };
+		0544F8901E7C0A890007D37F /* sword_wizard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0544F88F1E7C0A890007D37F /* sword_wizard.png */; };
+		0544F8921E7C0A920007D37F /* healer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0544F8911E7C0A920007D37F /* healer.png */; };
+		05E129DF1E50A73F00BA53BB /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129DE1E50A73F00BA53BB /* Character.swift */; };
+		05E129E11E50A7DE00BA53BB /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129E01E50A7DE00BA53BB /* Hero.swift */; };
+		05E129E61E53A9DD00BA53BB /* HeroInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129E51E53A9DD00BA53BB /* HeroInfo.swift */; };
+		05E129E81E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif in Resources */ = {isa = PBXBuildFile; fileRef = 05E129E71E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif */; };
+		05E129EA1E556C8600BA53BB /* img-thing.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 05E129E91E556C8600BA53BB /* img-thing.jpeg */; };
+		05E129EC1E556EF200BA53BB /* multicolor_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129EB1E556EF200BA53BB /* multicolor_circle.png */; };
+		05E129F11E56A52300BA53BB /* bear.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129ED1E56A52300BA53BB /* bear.png */; };
+		05E129F21E56A52300BA53BB /* horse.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129EE1E56A52300BA53BB /* horse.png */; };
+		05E129F31E56A52300BA53BB /* rhino.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129EF1E56A52300BA53BB /* rhino.png */; };
+		05E129F41E56A52300BA53BB /* snake.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E129F01E56A52300BA53BB /* snake.png */; };
+		05E129F61E56A8F500BA53BB /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129F51E56A8F500BA53BB /* Coin.swift */; };
+		0D04BA9E1CF9CF0000A1687E /* goblin_raiders.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */; };
+		0D0F61041CF1E4EC00027525 /* axe_thrower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */; };
+		0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61051CF1EBDF00027525 /* black_market_trader.png */; };
+		0D0F61081CF21BF600027525 /* hop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61071CF21BF600027525 /* hop.png */; };
+		0D0F610A1CF2218400027525 /* heal_spell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0F61091CF2218400027525 /* heal_spell.png */; };
+		0D2102CF1CF159E800851CF1 /* archer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102CE1CF159E800851CF1 /* archer.png */; };
+		0D2102D11CF1683E00851CF1 /* Fireball_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D01CF1683E00851CF1 /* Fireball_2.png */; };
+		0D2102D31CF1710600851CF1 /* ogre.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D21CF1710600851CF1 /* ogre.png */; };
+		0D2102D51CF176F300851CF1 /* scout.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D41CF176F300851CF1 /* scout.jpg */; };
+		0D2102D91CF17FAD00851CF1 /* lightning.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2102D81CF17FAD00851CF1 /* lightning.png */; };
+		0D223FF81CB9551700C41139 /* Discard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D223FF71CB9551700C41139 /* Discard.swift */; };
+		0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D31CC601CBD6E06005B6B72 /* Player.swift */; };
+		0D51BED61CE273F800E4E02C /* CardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51BED51CE273F800E4E02C /* CardInfo.swift */; };
+		0D57BE431CB6FE76002F32DA /* enemy_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D57BE421CB6FE76002F32DA /* enemy_card.png */; };
+		0D57BE451CB6FF1E002F32DA /* enemy_card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */; };
+		0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D581ECC1CB8584900DC6CB2 /* Explosion.png */; };
+		0D62D2421CAE00A9003B046A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62D2411CAE00A9003B046A /* Card.swift */; };
+		0D62D2481CAE0767003B046A /* border.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2471CAE0767003B046A /* border.jpg */; };
+		0D62D24A1CAE0852003B046A /* Spearman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D2491CAE0852003B046A /* Spearman.png */; };
+		0D62D24C1CAE38BE003B046A /* 230px-Miner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D62D24B1CAE38BE003B046A /* 230px-Miner.png */; };
+		0D76DDDD1CD5C6FF003687B9 /* End_Turn_Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */; };
+		0D76DDDF1CD5CA50003687B9 /* FTButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */; };
+		0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7E18A91CB379FB00FE94E2 /* Deck.swift */; };
+		0DB571561CB1E0A30000A898 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB571551CB1E0A30000A898 /* Hand.swift */; };
+		0DD8FE951CF5FFB700D813A9 /* Bow_tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */; };
+		0DD8FE971CF603AF00D813A9 /* stone_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD8FE961CF603AF00D813A9 /* stone_wall.png */; };
+		0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDBFB321CAEEF7D0015AE00 /* Tile.swift */; };
+		0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0DFF7A9A1CAF485000E802CF /* tile.jpg */; };
+		5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */; };
+		5189A2E11BA8BB01004A19F3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5189A2E01BA8BB01004A19F3 /* GameScene.sks */; };
+		5189A2E31BA8BB01004A19F3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5189A2E21BA8BB01004A19F3 /* GameScene.swift */; };
+		5189A2E51BA8BB01004A19F3 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5189A2E41BA8BB01004A19F3 /* GameViewController.swift */; };
+		5189A2E81BA8BB01004A19F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5189A2E61BA8BB01004A19F3 /* Main.storyboard */; };
+		5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5189A2E91BA8BB01004A19F3 /* Assets.xcassets */; };
+		5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5189A2EB1BA8BB01004A19F3 /* LaunchScreen.storyboard */; };
+		5189A3111BA8C1B9004A19F3 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5189A2F51BA8C1B9004A19F3 /* background.jpg */; };
+		5189A3121BA8C1B9004A19F3 /* background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5189A2F61BA8C1B9004A19F3 /* background@2x.jpg */; };
+		5189A3231BA8C1B9004A19F3 /* FireParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5189A3071BA8C1B9004A19F3 /* FireParticles.sks */; };
+		5189A32C1BA8C1B9004A19F3 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5189A3101BA8C1B9004A19F3 /* spark.png */; };
+		5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5189A32D1BA8C3F4004A19F3 /* Helper.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		05276DA81E80C79500870383 /* alchemist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alchemist.png; sourceTree = "<group>"; };
+		05276DA91E80C79500870383 /* bard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bard.png; sourceTree = "<group>"; };
+		05276DAA1E80C79500870383 /* necromancer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = necromancer.png; sourceTree = "<group>"; };
+		05276DAB1E80C79500870383 /* shield_knight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield_knight.png; sourceTree = "<group>"; };
+		05276DB01E80CEC100870383 /* heal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heal.png; sourceTree = "<group>"; };
+		05279C041E5E076300E93B7C /* CoinChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinChain.swift; sourceTree = "<group>"; };
+		05279C061E5F85AC00E93B7C /* crossed_swords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crossed_swords.png; sourceTree = "<group>"; };
+		05279C081E5F8D8900E93B7C /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
+		05279C0A1E5F8E0100E93B7C /* shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield.png; sourceTree = "<group>"; };
+		05279C0C1E5F944A00E93B7C /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
+		05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKOutlinedLabelNode.swift; sourceTree = "<group>"; };
+		05279C121E721EBF00E93B7C /* Chunkfive.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Chunkfive.otf; path = ../../../../../../../../Downloads/ChunkFive/Chunkfive.otf; sourceTree = "<group>"; };
+		05279C141E7250DE00E93B7C /* done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = done.png; sourceTree = "<group>"; };
+		05279C161E725FF000E93B7C /* barbarian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barbarian.png; sourceTree = "<group>"; };
+		0544F88F1E7C0A890007D37F /* sword_wizard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sword_wizard.png; sourceTree = "<group>"; };
+		0544F8911E7C0A920007D37F /* healer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = healer.png; sourceTree = "<group>"; };
+		05E129DE1E50A73F00BA53BB /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		05E129E01E50A7DE00BA53BB /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
+		05E129E51E53A9DD00BA53BB /* HeroInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroInfo.swift; sourceTree = "<group>"; };
+		05E129E71E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "kaim_hero_handaxe.gif~c200.gif"; sourceTree = "<group>"; };
+		05E129E91E556C8600BA53BB /* img-thing.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "img-thing.jpeg"; sourceTree = "<group>"; };
+		05E129EB1E556EF200BA53BB /* multicolor_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multicolor_circle.png; sourceTree = "<group>"; };
+		05E129ED1E56A52300BA53BB /* bear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bear.png; sourceTree = "<group>"; };
+		05E129EE1E56A52300BA53BB /* horse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = horse.png; sourceTree = "<group>"; };
+		05E129EF1E56A52300BA53BB /* rhino.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rhino.png; sourceTree = "<group>"; };
+		05E129F01E56A52300BA53BB /* snake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snake.png; sourceTree = "<group>"; };
+		05E129F51E56A8F500BA53BB /* Coin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
+		0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goblin_raiders.png; sourceTree = "<group>"; };
+		0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = axe_thrower.jpg; sourceTree = "<group>"; };
+		0D0F61051CF1EBDF00027525 /* black_market_trader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_market_trader.png; sourceTree = "<group>"; };
+		0D0F61071CF21BF600027525 /* hop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hop.png; sourceTree = "<group>"; };
+		0D0F61091CF2218400027525 /* heal_spell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heal_spell.png; sourceTree = "<group>"; };
+		0D2102CE1CF159E800851CF1 /* archer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archer.png; sourceTree = "<group>"; };
+		0D2102D01CF1683E00851CF1 /* Fireball_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fireball_2.png; sourceTree = "<group>"; };
+		0D2102D21CF1710600851CF1 /* ogre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ogre.png; sourceTree = "<group>"; };
+		0D2102D41CF176F300851CF1 /* scout.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scout.jpg; sourceTree = "<group>"; };
+		0D2102D81CF17FAD00851CF1 /* lightning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightning.png; sourceTree = "<group>"; };
+		0D223FF71CB9551700C41139 /* Discard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discard.swift; sourceTree = "<group>"; };
+		0D31CC601CBD6E06005B6B72 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		0D51BED51CE273F800E4E02C /* CardInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardInfo.swift; sourceTree = "<group>"; };
+		0D57BE421CB6FE76002F32DA /* enemy_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_card.png; sourceTree = "<group>"; };
+		0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = enemy_card.jpg; sourceTree = "<group>"; };
+		0D581ECC1CB8584900DC6CB2 /* Explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Explosion.png; sourceTree = "<group>"; };
+		0D62D2411CAE00A9003B046A /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		0D62D2471CAE0767003B046A /* border.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = border.jpg; sourceTree = "<group>"; };
+		0D62D2491CAE0852003B046A /* Spearman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spearman.png; sourceTree = "<group>"; };
+		0D62D24B1CAE38BE003B046A /* 230px-Miner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "230px-Miner.png"; sourceTree = "<group>"; };
+		0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = End_Turn_Button.png; sourceTree = "<group>"; };
+		0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTButtonNode.swift; sourceTree = "<group>"; };
+		0D7E18A91CB379FB00FE94E2 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		0DB571551CB1E0A30000A898 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
+		0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bow_tower.png; sourceTree = "<group>"; };
+		0DD8FE961CF603AF00D813A9 /* stone_wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone_wall.png; sourceTree = "<group>"; };
+		0DDBFB321CAEEF7D0015AE00 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		0DFF7A9A1CAF485000E802CF /* tile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tile.jpg; sourceTree = "<group>"; };
+		5189A2DB1BA8BB01004A19F3 /* TicTacFoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacFoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5189A2E01BA8BB01004A19F3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		5189A2E21BA8BB01004A19F3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		5189A2E41BA8BB01004A19F3 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		5189A2E71BA8BB01004A19F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5189A2E91BA8BB01004A19F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5189A2EC1BA8BB01004A19F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5189A2EE1BA8BB01004A19F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5189A2F51BA8C1B9004A19F3 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		5189A2F61BA8C1B9004A19F3 /* background@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background@2x.jpg"; sourceTree = "<group>"; };
+		5189A3071BA8C1B9004A19F3 /* FireParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticles.sks; sourceTree = "<group>"; };
+		5189A3101BA8C1B9004A19F3 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		5189A32D1BA8C3F4004A19F3 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5189A2D81BA8BB01004A19F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		058704951E29EE2600DAE208 /* Coins */ = {
+			isa = PBXGroup;
+			children = (
+				05E129F51E56A8F500BA53BB /* Coin.swift */,
+				05279C041E5E076300E93B7C /* CoinChain.swift */,
+			);
+			name = Coins;
+			sourceTree = "<group>";
+		};
+		05E129DD1E50A72800BA53BB /* Characters */ = {
+			isa = PBXGroup;
+			children = (
+				0DDBFB321CAEEF7D0015AE00 /* Tile.swift */,
+				0D51BED51CE273F800E4E02C /* CardInfo.swift */,
+				0D62D2411CAE00A9003B046A /* Card.swift */,
+				05E129DE1E50A73F00BA53BB /* Character.swift */,
+				0D7E18A91CB379FB00FE94E2 /* Deck.swift */,
+				0D223FF71CB9551700C41139 /* Discard.swift */,
+				0DB571551CB1E0A30000A898 /* Hand.swift */,
+				05E129E01E50A7DE00BA53BB /* Hero.swift */,
+				05E129E51E53A9DD00BA53BB /* HeroInfo.swift */,
+			);
+			name = Characters;
+			sourceTree = "<group>";
+		};
+		05E129E21E53A4FF00BA53BB /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				5189A2EE1BA8BB01004A19F3 /* Info.plist */,
+				5189A2EB1BA8BB01004A19F3 /* LaunchScreen.storyboard */,
+				5189A2E61BA8BB01004A19F3 /* Main.storyboard */,
+				5189A2E01BA8BB01004A19F3 /* GameScene.sks */,
+				5189A2E21BA8BB01004A19F3 /* GameScene.swift */,
+				5189A2E41BA8BB01004A19F3 /* GameViewController.swift */,
+				5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */,
+				5189A2E91BA8BB01004A19F3 /* Assets.xcassets */,
+			);
+			name = Infrastructure;
+			sourceTree = "<group>";
+		};
+		05E129E31E53A53600BA53BB /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				05E129DD1E50A72800BA53BB /* Characters */,
+				0D31CC601CBD6E06005B6B72 /* Player.swift */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
+		05E129E41E53A54200BA53BB /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */,
+				5189A32D1BA8C3F4004A19F3 /* Helper.swift */,
+				05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		5189A2D21BA8BB01004A19F3 = {
+			isa = PBXGroup;
+			children = (
+				5189A2DD1BA8BB01004A19F3 /* TicTacFoe */,
+				5189A2DC1BA8BB01004A19F3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5189A2DC1BA8BB01004A19F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5189A2DB1BA8BB01004A19F3 /* TicTacFoe.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5189A2DD1BA8BB01004A19F3 /* TicTacFoe */ = {
+			isa = PBXGroup;
+			children = (
+				058704951E29EE2600DAE208 /* Coins */,
+				5189A2F41BA8C1B9004A19F3 /* Content */,
+				05E129E21E53A4FF00BA53BB /* Infrastructure */,
+				05E129E31E53A53600BA53BB /* Player */,
+				05E129E41E53A54200BA53BB /* Utility */,
+			);
+			path = TicTacFoe;
+			sourceTree = "<group>";
+		};
+		5189A2F41BA8C1B9004A19F3 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				05276DB01E80CEC100870383 /* heal.png */,
+				05276DA81E80C79500870383 /* alchemist.png */,
+				05276DA91E80C79500870383 /* bard.png */,
+				05276DAA1E80C79500870383 /* necromancer.png */,
+				05276DAB1E80C79500870383 /* shield_knight.png */,
+				0544F8911E7C0A920007D37F /* healer.png */,
+				0544F88F1E7C0A890007D37F /* sword_wizard.png */,
+				05279C161E725FF000E93B7C /* barbarian.png */,
+				05279C141E7250DE00E93B7C /* done.png */,
+				05279C121E721EBF00E93B7C /* Chunkfive.otf */,
+				05279C0A1E5F8E0100E93B7C /* shield.png */,
+				05279C0C1E5F944A00E93B7C /* eye.png */,
+				05279C081E5F8D8900E93B7C /* hammer.png */,
+				05279C061E5F85AC00E93B7C /* crossed_swords.png */,
+				05E129ED1E56A52300BA53BB /* bear.png */,
+				05E129EE1E56A52300BA53BB /* horse.png */,
+				05E129EF1E56A52300BA53BB /* rhino.png */,
+				05E129F01E56A52300BA53BB /* snake.png */,
+				05E129EB1E556EF200BA53BB /* multicolor_circle.png */,
+				05E129E91E556C8600BA53BB /* img-thing.jpeg */,
+				05E129E71E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif */,
+				0D04BA9D1CF9CF0000A1687E /* goblin_raiders.png */,
+				0DD8FE961CF603AF00D813A9 /* stone_wall.png */,
+				0DD8FE941CF5FFB700D813A9 /* Bow_tower.png */,
+				0D0F61091CF2218400027525 /* heal_spell.png */,
+				0D0F61071CF21BF600027525 /* hop.png */,
+				0D0F61051CF1EBDF00027525 /* black_market_trader.png */,
+				0D0F61031CF1E4EC00027525 /* axe_thrower.jpg */,
+				0D2102D81CF17FAD00851CF1 /* lightning.png */,
+				0D2102D41CF176F300851CF1 /* scout.jpg */,
+				0D2102D21CF1710600851CF1 /* ogre.png */,
+				0D2102D01CF1683E00851CF1 /* Fireball_2.png */,
+				0D2102CE1CF159E800851CF1 /* archer.png */,
+				0D76DDDC1CD5C6FF003687B9 /* End_Turn_Button.png */,
+				0D581ECC1CB8584900DC6CB2 /* Explosion.png */,
+				0D57BE441CB6FF1E002F32DA /* enemy_card.jpg */,
+				0D57BE421CB6FE76002F32DA /* enemy_card.png */,
+				0DFF7A9A1CAF485000E802CF /* tile.jpg */,
+				0D62D24B1CAE38BE003B046A /* 230px-Miner.png */,
+				0D62D2491CAE0852003B046A /* Spearman.png */,
+				0D62D2471CAE0767003B046A /* border.jpg */,
+				5189A2F51BA8C1B9004A19F3 /* background.jpg */,
+				5189A2F61BA8C1B9004A19F3 /* background@2x.jpg */,
+				5189A3071BA8C1B9004A19F3 /* FireParticles.sks */,
+				5189A3101BA8C1B9004A19F3 /* spark.png */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5189A2DA1BA8BB01004A19F3 /* TicTacFoe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5189A2F11BA8BB01004A19F3 /* Build configuration list for PBXNativeTarget "TicTacFoe" */;
+			buildPhases = (
+				5189A2D71BA8BB01004A19F3 /* Sources */,
+				5189A2D81BA8BB01004A19F3 /* Frameworks */,
+				5189A2D91BA8BB01004A19F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TicTacFoe;
+			productName = TicTacFoe;
+			productReference = 5189A2DB1BA8BB01004A19F3 /* TicTacFoe.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5189A2D31BA8BB01004A19F3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Paul Hudson";
+				TargetAttributes = {
+					5189A2DA1BA8BB01004A19F3 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = FJ99TL6XWM;
+						LastSwiftMigration = 0810;
+					};
+				};
+			};
+			buildConfigurationList = 5189A2D61BA8BB01004A19F3 /* Build configuration list for PBXProject "TicTacFoe" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5189A2D21BA8BB01004A19F3;
+			productRefGroup = 5189A2DC1BA8BB01004A19F3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5189A2DA1BA8BB01004A19F3 /* TicTacFoe */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5189A2D91BA8BB01004A19F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D76DDDD1CD5C6FF003687B9 /* End_Turn_Button.png in Resources */,
+				0D62D24C1CAE38BE003B046A /* 230px-Miner.png in Resources */,
+				0D0F61041CF1E4EC00027525 /* axe_thrower.jpg in Resources */,
+				05276DAE1E80C79500870383 /* necromancer.png in Resources */,
+				0D2102D51CF176F300851CF1 /* scout.jpg in Resources */,
+				0D57BE431CB6FE76002F32DA /* enemy_card.png in Resources */,
+				0D62D2481CAE0767003B046A /* border.jpg in Resources */,
+				0DD8FE951CF5FFB700D813A9 /* Bow_tower.png in Resources */,
+				5189A2E11BA8BB01004A19F3 /* GameScene.sks in Resources */,
+				05E129F31E56A52300BA53BB /* rhino.png in Resources */,
+				05E129E81E53B44700BA53BB /* kaim_hero_handaxe.gif~c200.gif in Resources */,
+				0DFF7A9B1CAF485000E802CF /* tile.jpg in Resources */,
+				05279C091E5F8D8900E93B7C /* hammer.png in Resources */,
+				05279C0D1E5F944A00E93B7C /* eye.png in Resources */,
+				0D04BA9E1CF9CF0000A1687E /* goblin_raiders.png in Resources */,
+				0544F8921E7C0A920007D37F /* healer.png in Resources */,
+				0D2102D91CF17FAD00851CF1 /* lightning.png in Resources */,
+				05279C131E721EBF00E93B7C /* Chunkfive.otf in Resources */,
+				0D0F61081CF21BF600027525 /* hop.png in Resources */,
+				5189A3111BA8C1B9004A19F3 /* background.jpg in Resources */,
+				0D57BE451CB6FF1E002F32DA /* enemy_card.jpg in Resources */,
+				5189A3231BA8C1B9004A19F3 /* FireParticles.sks in Resources */,
+				05279C071E5F85AC00E93B7C /* crossed_swords.png in Resources */,
+				0D581ECD1CB8584900DC6CB2 /* Explosion.png in Resources */,
+				0D62D24A1CAE0852003B046A /* Spearman.png in Resources */,
+				0544F8901E7C0A890007D37F /* sword_wizard.png in Resources */,
+				05E129EC1E556EF200BA53BB /* multicolor_circle.png in Resources */,
+				0D0F61061CF1EBDF00027525 /* black_market_trader.png in Resources */,
+				0DD8FE971CF603AF00D813A9 /* stone_wall.png in Resources */,
+				05276DB11E80CEC100870383 /* heal.png in Resources */,
+				05E129F11E56A52300BA53BB /* bear.png in Resources */,
+				05279C151E7250DE00E93B7C /* done.png in Resources */,
+				5189A2ED1BA8BB01004A19F3 /* LaunchScreen.storyboard in Resources */,
+				0D2102D31CF1710600851CF1 /* ogre.png in Resources */,
+				05276DAF1E80C79500870383 /* shield_knight.png in Resources */,
+				5189A2EA1BA8BB01004A19F3 /* Assets.xcassets in Resources */,
+				05279C0B1E5F8E0100E93B7C /* shield.png in Resources */,
+				05279C171E725FF000E93B7C /* barbarian.png in Resources */,
+				0D2102CF1CF159E800851CF1 /* archer.png in Resources */,
+				05E129F41E56A52300BA53BB /* snake.png in Resources */,
+				05276DAC1E80C79500870383 /* alchemist.png in Resources */,
+				05E129EA1E556C8600BA53BB /* img-thing.jpeg in Resources */,
+				5189A3121BA8C1B9004A19F3 /* background@2x.jpg in Resources */,
+				05276DAD1E80C79500870383 /* bard.png in Resources */,
+				05E129F21E56A52300BA53BB /* horse.png in Resources */,
+				5189A2E81BA8BB01004A19F3 /* Main.storyboard in Resources */,
+				5189A32C1BA8C1B9004A19F3 /* spark.png in Resources */,
+				0D2102D11CF1683E00851CF1 /* Fireball_2.png in Resources */,
+				0D0F610A1CF2218400027525 /* heal_spell.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5189A2D71BA8BB01004A19F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05E129DF1E50A73F00BA53BB /* Character.swift in Sources */,
+				0D76DDDF1CD5CA50003687B9 /* FTButtonNode.swift in Sources */,
+				5189A2E31BA8BB01004A19F3 /* GameScene.swift in Sources */,
+				5189A2E51BA8BB01004A19F3 /* GameViewController.swift in Sources */,
+				0D223FF81CB9551700C41139 /* Discard.swift in Sources */,
+				0D62D2421CAE00A9003B046A /* Card.swift in Sources */,
+				05E129E61E53A9DD00BA53BB /* HeroInfo.swift in Sources */,
+				0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */,
+				0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */,
+				0D51BED61CE273F800E4E02C /* CardInfo.swift in Sources */,
+				0DB571561CB1E0A30000A898 /* Hand.swift in Sources */,
+				5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */,
+				05E129E11E50A7DE00BA53BB /* Hero.swift in Sources */,
+				0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */,
+				05E129F61E56A8F500BA53BB /* Coin.swift in Sources */,
+				5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */,
+				05279C111E668E3600E93B7C /* MKOutlinedLabelNode.swift in Sources */,
+				05279C051E5E076300E93B7C /* CoinChain.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5189A2E61BA8BB01004A19F3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5189A2E71BA8BB01004A19F3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5189A2EB1BA8BB01004A19F3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5189A2EC1BA8BB01004A19F3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5189A2EF1BA8BB01004A19F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		5189A2F01BA8BB01004A19F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5189A2F21BA8BB01004A19F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TicTacFoe/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shonnigford.my-first-demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		5189A2F31BA8BB01004A19F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TicTacFoe/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shonnigford.my-first-demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5189A2D61BA8BB01004A19F3 /* Build configuration list for PBXProject "TicTacFoe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5189A2EF1BA8BB01004A19F3 /* Debug */,
+				5189A2F01BA8BB01004A19F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5189A2F11BA8BB01004A19F3 /* Build configuration list for PBXNativeTarget "TicTacFoe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5189A2F21BA8BB01004A19F3 /* Debug */,
+				5189A2F31BA8BB01004A19F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5189A2D31BA8BB01004A19F3 /* Project object */;
+}
