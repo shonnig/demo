@@ -21,6 +21,18 @@
 		05279C131E721EBF00E93B7C /* Chunkfive.otf in Resources */ = {isa = PBXBuildFile; fileRef = 05279C121E721EBF00E93B7C /* Chunkfive.otf */; };
 		05279C151E7250DE00E93B7C /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C141E7250DE00E93B7C /* done.png */; };
 		05279C171E725FF000E93B7C /* barbarian.png in Resources */ = {isa = PBXBuildFile; fileRef = 05279C161E725FF000E93B7C /* barbarian.png */; };
+		052D9ACA1EFE1B7F00883F82 /* TTLGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9AC91EFE1B7F00883F82 /* TTLGameScene.swift */; };
+		052D9ACD1EFE1E8000883F82 /* TTLPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9ACC1EFE1E8000883F82 /* TTLPlayer.swift */; };
+		052D9ACF1EFE1EC100883F82 /* GamePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9ACE1EFE1EC100883F82 /* GamePlayer.swift */; };
+		052D9AD11EFE1ECF00883F82 /* TTLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9AD01EFE1ECF00883F82 /* TTLLocation.swift */; };
+		052D9AD51EFE1EDF00883F82 /* TTLCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9AD41EFE1EDF00883F82 /* TTLCard.swift */; };
+		052D9AD71EFE1EF400883F82 /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9AD61EFE1EF400883F82 /* GameCard.swift */; };
+		052D9AD91EFE200E00883F82 /* TTLLocationHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9AD81EFE200E00883F82 /* TTLLocationHand.swift */; };
+		052D9ADB1EFE202A00883F82 /* TTLLocationDiscard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9ADA1EFE202A00883F82 /* TTLLocationDiscard.swift */; };
+		052D9ADD1EFE206800883F82 /* TTLLocationDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9ADC1EFE206800883F82 /* TTLLocationDeck.swift */; };
+		052D9ADF1EFE2A1900883F82 /* GameLocationHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9ADE1EFE2A1900883F82 /* GameLocationHand.swift */; };
+		052D9AE11EFE2A3500883F82 /* GameLocationDiscard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9AE01EFE2A3500883F82 /* GameLocationDiscard.swift */; };
+		052D9AE31EFE2A4F00883F82 /* GameLocationDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052D9AE21EFE2A4F00883F82 /* GameLocationDeck.swift */; };
 		0544F8901E7C0A890007D37F /* sword_wizard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0544F88F1E7C0A890007D37F /* sword_wizard.png */; };
 		0544F8921E7C0A920007D37F /* healer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0544F8911E7C0A920007D37F /* healer.png */; };
 		05E129DF1E50A73F00BA53BB /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E129DE1E50A73F00BA53BB /* Character.swift */; };
@@ -91,6 +103,18 @@
 		05279C121E721EBF00E93B7C /* Chunkfive.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Chunkfive.otf; path = ../../../../../../../../Downloads/ChunkFive/Chunkfive.otf; sourceTree = "<group>"; };
 		05279C141E7250DE00E93B7C /* done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = done.png; sourceTree = "<group>"; };
 		05279C161E725FF000E93B7C /* barbarian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barbarian.png; sourceTree = "<group>"; };
+		052D9AC91EFE1B7F00883F82 /* TTLGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLGameScene.swift; sourceTree = "<group>"; };
+		052D9ACC1EFE1E8000883F82 /* TTLPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLPlayer.swift; sourceTree = "<group>"; };
+		052D9ACE1EFE1EC100883F82 /* GamePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayer.swift; sourceTree = "<group>"; };
+		052D9AD01EFE1ECF00883F82 /* TTLLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLLocation.swift; sourceTree = "<group>"; };
+		052D9AD41EFE1EDF00883F82 /* TTLCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLCard.swift; sourceTree = "<group>"; };
+		052D9AD61EFE1EF400883F82 /* GameCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
+		052D9AD81EFE200E00883F82 /* TTLLocationHand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLLocationHand.swift; sourceTree = "<group>"; };
+		052D9ADA1EFE202A00883F82 /* TTLLocationDiscard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLLocationDiscard.swift; sourceTree = "<group>"; };
+		052D9ADC1EFE206800883F82 /* TTLLocationDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLLocationDeck.swift; sourceTree = "<group>"; };
+		052D9ADE1EFE2A1900883F82 /* GameLocationHand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLocationHand.swift; sourceTree = "<group>"; };
+		052D9AE01EFE2A3500883F82 /* GameLocationDiscard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLocationDiscard.swift; sourceTree = "<group>"; };
+		052D9AE21EFE2A4F00883F82 /* GameLocationDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLocationDeck.swift; sourceTree = "<group>"; };
 		0544F88F1E7C0A890007D37F /* sword_wizard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sword_wizard.png; sourceTree = "<group>"; };
 		0544F8911E7C0A920007D37F /* healer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = healer.png; sourceTree = "<group>"; };
 		05E129DE1E50A73F00BA53BB /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
@@ -159,18 +183,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		058704951E29EE2600DAE208 /* Coins */ = {
+		052D9AC81EFE19AD00883F82 /* TTL */ = {
 			isa = PBXGroup;
 			children = (
-				05E129F51E56A8F500BA53BB /* Coin.swift */,
-				05279C041E5E076300E93B7C /* CoinChain.swift */,
+				052D9AE41EFE2BA200883F82 /* Boilerplate */,
+				052D9AC91EFE1B7F00883F82 /* TTLGameScene.swift */,
+				052D9ACC1EFE1E8000883F82 /* TTLPlayer.swift */,
+				052D9AD01EFE1ECF00883F82 /* TTLLocation.swift */,
+				052D9AD41EFE1EDF00883F82 /* TTLCard.swift */,
+				052D9AD81EFE200E00883F82 /* TTLLocationHand.swift */,
+				052D9ADA1EFE202A00883F82 /* TTLLocationDiscard.swift */,
+				052D9ADC1EFE206800883F82 /* TTLLocationDeck.swift */,
 			);
-			name = Coins;
+			name = TTL;
 			sourceTree = "<group>";
 		};
-		05E129DD1E50A72800BA53BB /* Characters */ = {
+		052D9ACB1EFE1BDC00883F82 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				5189A2E21BA8BB01004A19F3 /* GameScene.swift */,
+				052D9ACE1EFE1EC100883F82 /* GamePlayer.swift */,
+				052D9AD61EFE1EF400883F82 /* GameCard.swift */,
+				052D9ADE1EFE2A1900883F82 /* GameLocationHand.swift */,
+				052D9AE01EFE2A3500883F82 /* GameLocationDiscard.swift */,
+				052D9AE21EFE2A4F00883F82 /* GameLocationDeck.swift */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		052D9AE41EFE2BA200883F82 /* Boilerplate */ = {
+			isa = PBXGroup;
+			children = (
+				5189A2EE1BA8BB01004A19F3 /* Info.plist */,
+				5189A2EB1BA8BB01004A19F3 /* LaunchScreen.storyboard */,
+				5189A2E61BA8BB01004A19F3 /* Main.storyboard */,
+				5189A2E01BA8BB01004A19F3 /* GameScene.sks */,
+				5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */,
+				5189A2E91BA8BB01004A19F3 /* Assets.xcassets */,
+				5189A2E41BA8BB01004A19F3 /* GameViewController.swift */,
+			);
+			name = Boilerplate;
+			sourceTree = "<group>";
+		};
+		058704951E29EE2600DAE208 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */,
+				5189A32D1BA8C3F4004A19F3 /* Helper.swift */,
+				05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */,
+				0D31CC601CBD6E06005B6B72 /* Player.swift */,
 				0DDBFB321CAEEF7D0015AE00 /* Tile.swift */,
 				0D51BED51CE273F800E4E02C /* CardInfo.swift */,
 				0D62D2411CAE00A9003B046A /* Card.swift */,
@@ -180,42 +241,10 @@
 				0DB571551CB1E0A30000A898 /* Hand.swift */,
 				05E129E01E50A7DE00BA53BB /* Hero.swift */,
 				05E129E51E53A9DD00BA53BB /* HeroInfo.swift */,
+				05E129F51E56A8F500BA53BB /* Coin.swift */,
+				05279C041E5E076300E93B7C /* CoinChain.swift */,
 			);
-			name = Characters;
-			sourceTree = "<group>";
-		};
-		05E129E21E53A4FF00BA53BB /* Infrastructure */ = {
-			isa = PBXGroup;
-			children = (
-				5189A2EE1BA8BB01004A19F3 /* Info.plist */,
-				5189A2EB1BA8BB01004A19F3 /* LaunchScreen.storyboard */,
-				5189A2E61BA8BB01004A19F3 /* Main.storyboard */,
-				5189A2E01BA8BB01004A19F3 /* GameScene.sks */,
-				5189A2E21BA8BB01004A19F3 /* GameScene.swift */,
-				5189A2E41BA8BB01004A19F3 /* GameViewController.swift */,
-				5189A2DE1BA8BB01004A19F3 /* AppDelegate.swift */,
-				5189A2E91BA8BB01004A19F3 /* Assets.xcassets */,
-			);
-			name = Infrastructure;
-			sourceTree = "<group>";
-		};
-		05E129E31E53A53600BA53BB /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				05E129DD1E50A72800BA53BB /* Characters */,
-				0D31CC601CBD6E06005B6B72 /* Player.swift */,
-			);
-			name = Player;
-			sourceTree = "<group>";
-		};
-		05E129E41E53A54200BA53BB /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */,
-				5189A32D1BA8C3F4004A19F3 /* Helper.swift */,
-				05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */,
-			);
-			name = Utility;
+			name = Old;
 			sourceTree = "<group>";
 		};
 		5189A2D21BA8BB01004A19F3 = {
@@ -237,11 +266,10 @@
 		5189A2DD1BA8BB01004A19F3 /* TicTacFoe */ = {
 			isa = PBXGroup;
 			children = (
-				058704951E29EE2600DAE208 /* Coins */,
+				052D9ACB1EFE1BDC00883F82 /* Game */,
+				052D9AC81EFE19AD00883F82 /* TTL */,
+				058704951E29EE2600DAE208 /* Old */,
 				5189A2F41BA8C1B9004A19F3 /* Content */,
-				05E129E21E53A4FF00BA53BB /* Infrastructure */,
-				05E129E31E53A53600BA53BB /* Player */,
-				05E129E41E53A54200BA53BB /* Utility */,
 			);
 			path = TicTacFoe;
 			sourceTree = "<group>";
@@ -416,23 +444,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				052D9AE11EFE2A3500883F82 /* GameLocationDiscard.swift in Sources */,
 				05E129DF1E50A73F00BA53BB /* Character.swift in Sources */,
 				0D76DDDF1CD5CA50003687B9 /* FTButtonNode.swift in Sources */,
 				5189A2E31BA8BB01004A19F3 /* GameScene.swift in Sources */,
+				052D9ACD1EFE1E8000883F82 /* TTLPlayer.swift in Sources */,
 				5189A2E51BA8BB01004A19F3 /* GameViewController.swift in Sources */,
 				0D223FF81CB9551700C41139 /* Discard.swift in Sources */,
+				052D9ACA1EFE1B7F00883F82 /* TTLGameScene.swift in Sources */,
 				0D62D2421CAE00A9003B046A /* Card.swift in Sources */,
 				05E129E61E53A9DD00BA53BB /* HeroInfo.swift in Sources */,
 				0DDBFB331CAEEF7D0015AE00 /* Tile.swift in Sources */,
 				0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */,
+				052D9AD91EFE200E00883F82 /* TTLLocationHand.swift in Sources */,
 				0D51BED61CE273F800E4E02C /* CardInfo.swift in Sources */,
 				0DB571561CB1E0A30000A898 /* Hand.swift in Sources */,
+				052D9AD51EFE1EDF00883F82 /* TTLCard.swift in Sources */,
+				052D9ADF1EFE2A1900883F82 /* GameLocationHand.swift in Sources */,
+				052D9AD71EFE1EF400883F82 /* GameCard.swift in Sources */,
 				5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */,
+				052D9ACF1EFE1EC100883F82 /* GamePlayer.swift in Sources */,
 				05E129E11E50A7DE00BA53BB /* Hero.swift in Sources */,
 				0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */,
 				05E129F61E56A8F500BA53BB /* Coin.swift in Sources */,
 				5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */,
+				052D9AD11EFE1ECF00883F82 /* TTLLocation.swift in Sources */,
+				052D9AE31EFE2A4F00883F82 /* GameLocationDeck.swift in Sources */,
+				052D9ADD1EFE206800883F82 /* TTLLocationDeck.swift in Sources */,
 				05279C111E668E3600E93B7C /* MKOutlinedLabelNode.swift in Sources */,
+				052D9ADB1EFE202A00883F82 /* TTLLocationDiscard.swift in Sources */,
 				05279C051E5E076300E93B7C /* CoinChain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
