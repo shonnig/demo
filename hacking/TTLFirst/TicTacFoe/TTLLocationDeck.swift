@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import SpriteKit
 
-
-class TTLLocationDeck {
+class TTLLocationDeck: SKSpriteNode {
     
     
 }

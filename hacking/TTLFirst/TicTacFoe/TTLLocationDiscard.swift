@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import SpriteKit
 
-
-class TTLLocationDiscard {
+class TTLLocationDiscard: SKSpriteNode {
     
     
 }

@@ -13,8 +13,8 @@ import SpriteKit
 class GameCard: TTLCard {
     
     static let sFont = "ArialRoundedMTBold"
-    static let sFrameImage = "enemy_card.jpg"
-    static let sWidth = 120
+    static let sFrameImage = "cardfront.png"
+    static let sWidth = 140
     static let sHeight = 200
     
     var mTitle: SKLabelNode?
@@ -34,17 +34,12 @@ class GameCard: TTLCard {
         if let title = mTitle {
             title.text = titleText
             title.fontColor = UIColor.black
-            title.fontSize = 20
+            title.fontSize = 16
             //title.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
-            title.zPosition = 100
-            title.position = CGPoint(x: 0, y: 170)
+            title.zPosition = 10
+            title.position = CGPoint(x: 0, y: -15)
             addChild(title)
         }
-        
-        // TODO?
-        position = CGPoint(x: 300, y: 300)
-        isHidden = false
-        zPosition = 500
         
         if let scene = GameScene.sCurrentScene {
             // TODO: don't like this

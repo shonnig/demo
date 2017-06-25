@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import SpriteKit
 
 class GamePlayer: TTLPlayer {
     
@@ -18,6 +18,15 @@ class GamePlayer: TTLPlayer {
     
     let mDeck = GameLocationDeck()
     
-    
+    func setup() {
+        
+        mDeck.position = CGPoint(x: 900, y: 100)
+        mDiscard.position = CGPoint(x: 100, y: 100)
+        if let scene = GameScene.sCurrentScene {
+            // TODO: don't like this
+            scene.addChild(mDeck)
+            scene.addChild(mDiscard)
+        }
+    }
     
 }

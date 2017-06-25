@@ -157,9 +157,15 @@ class GameScene: TTLGameScene {
         background.zPosition = ZPosition.background.rawValue
         addChild(background)
         
+        mPlayer.setup()
+        
         // TODO: temp
-        let card1 = GameCard()
-        mPlayer.mHand.addCard(card1)
+        for i in 0...6 {
+            let card = GameCard()
+            card.position = CGPoint(x: 300 + i * 100, y: 300 + i * 100)
+            card.zPosition = 1000 // TODO
+            mPlayer.mHand.addCard(card)
+        }
         
         /*
          // For finding out available fonts
