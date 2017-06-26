@@ -10,6 +10,7 @@
 		050A1E4F1EFF5FD200FD1C97 /* cardback.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 050A1E4E1EFF5FD200FD1C97 /* cardback.jpg */; };
 		050A1E511EFF64B200FD1C97 /* cardfront.png in Resources */ = {isa = PBXBuildFile; fileRef = 050A1E501EFF64B200FD1C97 /* cardfront.png */; };
 		050A1E531EFF6ACB00FD1C97 /* discard.png in Resources */ = {isa = PBXBuildFile; fileRef = 050A1E521EFF6ACB00FD1C97 /* discard.png */; };
+		050A1E551F00ABD300FD1C97 /* GlowFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050A1E541F00ABD300FD1C97 /* GlowFilter.swift */; };
 		05276DAC1E80C79500870383 /* alchemist.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DA81E80C79500870383 /* alchemist.png */; };
 		05276DAD1E80C79500870383 /* bard.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DA91E80C79500870383 /* bard.png */; };
 		05276DAE1E80C79500870383 /* necromancer.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DAA1E80C79500870383 /* necromancer.png */; };
@@ -95,6 +96,7 @@
 		050A1E4E1EFF5FD200FD1C97 /* cardback.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cardback.jpg; sourceTree = "<group>"; };
 		050A1E501EFF64B200FD1C97 /* cardfront.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardfront.png; sourceTree = "<group>"; };
 		050A1E521EFF6ACB00FD1C97 /* discard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discard.png; sourceTree = "<group>"; };
+		050A1E541F00ABD300FD1C97 /* GlowFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowFilter.swift; sourceTree = "<group>"; };
 		05276DA81E80C79500870383 /* alchemist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alchemist.png; sourceTree = "<group>"; };
 		05276DA91E80C79500870383 /* bard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bard.png; sourceTree = "<group>"; };
 		05276DAA1E80C79500870383 /* necromancer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = necromancer.png; sourceTree = "<group>"; };
@@ -200,6 +202,8 @@
 				052D9AD81EFE200E00883F82 /* TTLLocationHand.swift */,
 				052D9ADA1EFE202A00883F82 /* TTLLocationDiscard.swift */,
 				052D9ADC1EFE206800883F82 /* TTLLocationDeck.swift */,
+				05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */,
+				050A1E541F00ABD300FD1C97 /* GlowFilter.swift */,
 			);
 			name = TTL;
 			sourceTree = "<group>";
@@ -236,7 +240,6 @@
 			children = (
 				0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */,
 				5189A32D1BA8C3F4004A19F3 /* Helper.swift */,
-				05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */,
 				0D31CC601CBD6E06005B6B72 /* Player.swift */,
 				0DDBFB321CAEEF7D0015AE00 /* Tile.swift */,
 				0D51BED51CE273F800E4E02C /* CardInfo.swift */,
@@ -477,6 +480,7 @@
 				5189A2DF1BA8BB01004A19F3 /* AppDelegate.swift in Sources */,
 				052D9ACF1EFE1EC100883F82 /* GamePlayer.swift in Sources */,
 				05E129E11E50A7DE00BA53BB /* Hero.swift in Sources */,
+				050A1E551F00ABD300FD1C97 /* GlowFilter.swift in Sources */,
 				0D31CC611CBD6E06005B6B72 /* Player.swift in Sources */,
 				05E129F61E56A8F500BA53BB /* Coin.swift in Sources */,
 				5189A32E1BA8C3F4004A19F3 /* Helper.swift in Sources */,
