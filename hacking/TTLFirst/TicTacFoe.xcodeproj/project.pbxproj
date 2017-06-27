@@ -198,10 +198,10 @@
 				052D9AC91EFE1B7F00883F82 /* TTLGameScene.swift */,
 				052D9ACC1EFE1E8000883F82 /* TTLPlayer.swift */,
 				052D9AD01EFE1ECF00883F82 /* TTLLocation.swift */,
-				052D9AD41EFE1EDF00883F82 /* TTLCard.swift */,
 				052D9AD81EFE200E00883F82 /* TTLLocationHand.swift */,
 				052D9ADA1EFE202A00883F82 /* TTLLocationDiscard.swift */,
 				052D9ADC1EFE206800883F82 /* TTLLocationDeck.swift */,
+				052D9AD41EFE1EDF00883F82 /* TTLCard.swift */,
 				05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */,
 				050A1E541F00ABD300FD1C97 /* GlowFilter.swift */,
 			);
@@ -213,10 +213,10 @@
 			children = (
 				5189A2E21BA8BB01004A19F3 /* GameScene.swift */,
 				052D9ACE1EFE1EC100883F82 /* GamePlayer.swift */,
-				052D9AD61EFE1EF400883F82 /* GameCard.swift */,
 				052D9ADE1EFE2A1900883F82 /* GameLocationHand.swift */,
 				052D9AE01EFE2A3500883F82 /* GameLocationDiscard.swift */,
 				052D9AE21EFE2A4F00883F82 /* GameLocationDeck.swift */,
+				052D9AD61EFE1EF400883F82 /* GameCard.swift */,
 			);
 			name = Game;
 			sourceTree = "<group>";

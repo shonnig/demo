@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class TTLLocationDeck: SKSpriteNode {
+class TTLLocationDeck: TTLLocation {
     
     
 }

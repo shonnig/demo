@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class TTLLocationDiscard: SKSpriteNode {
+class TTLLocationDiscard: TTLLocation {
     
     
 }

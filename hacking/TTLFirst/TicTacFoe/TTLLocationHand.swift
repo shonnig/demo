@@ -19,8 +19,6 @@ class TTLLocationHand {
     
     var mCards: [TTLCard] = []
     
-    
-    
     func addCard(_ card: TTLCard) {
         // TODO: check max hand size
         
@@ -41,10 +39,10 @@ class TTLLocationHand {
             }
         }
         var x = 512 - ((separation * (mCards.count - 1)) / 2)
-        var z = CGFloat(1000) // TODO
+        var z = 1000 // TODO
         
         for card in mCards {
-            card.zPosition = z
+            card.setZ(z)
             card.moveTo(x,y)
             x += separation
             z += 100 // TODO

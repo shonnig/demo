@@ -71,6 +71,7 @@ class GameScene: TTLGameScene {
     */
     
     static var sCurrentScene: GameScene?
+    static var sCurrentView: SKView?
     
     let mPlayer = GamePlayer()
     
@@ -150,6 +151,7 @@ class GameScene: TTLGameScene {
     override func didMove(to view: SKView) {
         
         GameScene.sCurrentScene = self
+        GameScene.sCurrentView = view
         
         let background = SKSpriteNode(imageNamed: "background.jpg")
         background.position = CGPoint(x: 512, y: 384)
@@ -163,7 +165,7 @@ class GameScene: TTLGameScene {
         for i in 0...6 {
             let card = GameCard()
             card.position = CGPoint(x: 300 + i * 100, y: 300 + i * 100)
-            card.zPosition = 1000 // TODO
+            card.setZ(1000) // TODO
             mPlayer.mHand.addCard(card)
         }
         
