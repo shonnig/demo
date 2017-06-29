@@ -62,9 +62,9 @@ class GameCard: TTLCard {
         }
         
         // TODO: temp
-        if mCost < 2 {
-            setHighlight(true)
-        }
+        //if mCost < 2 {
+        //    setHighlight(true)
+        //}
     }
     
 

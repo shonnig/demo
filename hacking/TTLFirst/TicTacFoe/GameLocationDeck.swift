@@ -16,7 +16,7 @@ class GameLocationDeck: TTLLocationDeck {
         super.init(texture: SKTexture(imageNamed: "cardback.jpg"), color: UIColor.white, size: CGSize(width: GameCard.sWidth, height: GameCard.sHeight))
         // TODO: investigate this?
         colorBlendFactor = 0.2
-        zPosition = 1000
+        zPosition = 500
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -11,6 +11,7 @@ import SpriteKit
 
 class GamePlayer: TTLPlayer {
     
+    var mMana = 3 // TODO
     
     let mHand = GameLocationHand()
     
@@ -26,6 +27,10 @@ class GamePlayer: TTLPlayer {
             scene.addChild(mDeck)
             scene.addChild(mDiscard)
         }
+    }
+    
+    func updateValidChoices() {
+        mHand.updateValidChoices(mMana)
     }
     
 }

@@ -20,6 +20,14 @@ class TTLCard: SKSpriteNode {
     
     var mGlowFilter: GlowFilter?
     
+    var mValidPlay = false
+    
+    var mIsDragged = false
+    
+    var mHand: TTLLocationHand?
+    
+    static var sInteractionLockCount = 0
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -48,6 +56,18 @@ class TTLCard: SKSpriteNode {
         isUserInteractionEnabled = true
     }
     
+    func canInteract() -> Bool {
+        return TTLCard.sInteractionLockCount == 0
+    }
+    
+    func setInteract(_ enabled: Bool) {
+        if enabled {
+            TTLCard.sInteractionLockCount -= 1
+        } else {
+            TTLCard.sInteractionLockCount += 1
+        }
+    }
+    
     func setZ(_ z: Int) {
         mHighlight?.zPosition = CGFloat(z)
     }
@@ -56,9 +76,13 @@ class TTLCard: SKSpriteNode {
         mHighlight?.zPosition += CGFloat(z)
     }
     
+    func setValidPlay(_ valid: Bool) {
+        mValidPlay = valid
+    }
+    
     func setHighlight(_ enabled: Bool) {
         if enabled {
-            mGlowFilter?.glowColor = GameCard.sHighlightColor.withAlphaComponent(0.5)
+            mGlowFilter?.glowColor = GameCard.sHighlightColor.withAlphaComponent(0.9)
         } else {
             mGlowFilter?.glowColor = GameCard.sHighlightColor.withAlphaComponent(0.0)
         }
@@ -67,7 +91,7 @@ class TTLCard: SKSpriteNode {
     func moveTo(_ x: Int, _ y: Int) {
         // TODO: stop animation in progress? Only for movement?
         
-        let moveTo = SKAction.move(to: CGPoint(x: x, y: y), duration: 0.6)
+        let moveTo = SKAction.move(to: CGPoint(x: x, y: y), duration: 0.3)
         moveTo.timingMode = SKActionTimingMode.easeInEaseOut;
         run(moveTo, withKey: "move")
     }
@@ -91,23 +115,42 @@ class TTLCard: SKSpriteNode {
     
     // Zoomed in view of the card when touching it
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            mOriginalTouch = touch.location(in: GameScene.sCurrentView)
+        if canInteract() {
+            mOriginalTouch = touches.first?.location(in: scene!)
+            setZoom(true)
         }
-        setZoom(true)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let newTouch = touches.first?.location(in: GameScene.sCurrentView), let origTouch = mOriginalTouch {
-            // End zoom if moved about X pixels from first touch
-            let tolerance = CGFloat(10)
-            if abs(newTouch.x - origTouch.x) > tolerance || abs(newTouch.y - origTouch.y) > tolerance {
-                setZoom(false)
+        if canInteract() {
+            if let newTouch = touches.first?.location(in: scene!), let origTouch = mOriginalTouch {
+                // End zoom if moved about X pixels from first touch
+                let tolerance = CGFloat(10)
+                if abs(newTouch.x - origTouch.x) > tolerance || abs(newTouch.y - origTouch.y) > tolerance {
+                    setZoom(false)
+                    
+                    if mValidPlay {
+                        position = newTouch
+                        if !mIsDragged {
+                            mIsDragged = true
+                            setHighlight(false)
+                            modZ(5000)
+                        }
+                    }
+                }
             }
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         setZoom(false)
+        
+        // TODO
+        if mIsDragged {
+            mIsDragged = false
+            mHand?.repositionCards()
+            // TODO: hack
+            GameScene.getPlayer().updateValidChoices()
+        }
     }
 }

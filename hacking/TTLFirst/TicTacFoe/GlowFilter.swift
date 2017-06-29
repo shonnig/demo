@@ -12,7 +12,7 @@ import CoreImage
 class GlowFilter : CIFilter
 {
     var glowColor : UIColor!
-    var glowSize : CGFloat = 1.2
+    var glowSize : CGFloat = 1.07
     var inputImage : CIImage?
     var inputRadius : NSNumber?
     var inputCenter : CIVector?

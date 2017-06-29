@@ -11,6 +11,8 @@
 		050A1E511EFF64B200FD1C97 /* cardfront.png in Resources */ = {isa = PBXBuildFile; fileRef = 050A1E501EFF64B200FD1C97 /* cardfront.png */; };
 		050A1E531EFF6ACB00FD1C97 /* discard.png in Resources */ = {isa = PBXBuildFile; fileRef = 050A1E521EFF6ACB00FD1C97 /* discard.png */; };
 		050A1E551F00ABD300FD1C97 /* GlowFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050A1E541F00ABD300FD1C97 /* GlowFilter.swift */; };
+		050A1E571F047D0400FD1C97 /* TTLPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050A1E561F047D0400FD1C97 /* TTLPhase.swift */; };
+		050A1E591F047D2500FD1C97 /* GamePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050A1E581F047D2500FD1C97 /* GamePhase.swift */; };
 		05276DAC1E80C79500870383 /* alchemist.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DA81E80C79500870383 /* alchemist.png */; };
 		05276DAD1E80C79500870383 /* bard.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DA91E80C79500870383 /* bard.png */; };
 		05276DAE1E80C79500870383 /* necromancer.png in Resources */ = {isa = PBXBuildFile; fileRef = 05276DAA1E80C79500870383 /* necromancer.png */; };
@@ -97,6 +99,8 @@
 		050A1E501EFF64B200FD1C97 /* cardfront.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardfront.png; sourceTree = "<group>"; };
 		050A1E521EFF6ACB00FD1C97 /* discard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discard.png; sourceTree = "<group>"; };
 		050A1E541F00ABD300FD1C97 /* GlowFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowFilter.swift; sourceTree = "<group>"; };
+		050A1E561F047D0400FD1C97 /* TTLPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLPhase.swift; sourceTree = "<group>"; };
+		050A1E581F047D2500FD1C97 /* GamePhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePhase.swift; sourceTree = "<group>"; };
 		05276DA81E80C79500870383 /* alchemist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alchemist.png; sourceTree = "<group>"; };
 		05276DA91E80C79500870383 /* bard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bard.png; sourceTree = "<group>"; };
 		05276DAA1E80C79500870383 /* necromancer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = necromancer.png; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 			children = (
 				052D9AE41EFE2BA200883F82 /* Boilerplate */,
 				052D9AC91EFE1B7F00883F82 /* TTLGameScene.swift */,
+				050A1E561F047D0400FD1C97 /* TTLPhase.swift */,
 				052D9ACC1EFE1E8000883F82 /* TTLPlayer.swift */,
 				052D9AD01EFE1ECF00883F82 /* TTLLocation.swift */,
 				052D9AD81EFE200E00883F82 /* TTLLocationHand.swift */,
@@ -212,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				5189A2E21BA8BB01004A19F3 /* GameScene.swift */,
+				050A1E581F047D2500FD1C97 /* GamePhase.swift */,
 				052D9ACE1EFE1EC100883F82 /* GamePlayer.swift */,
 				052D9ADE1EFE2A1900883F82 /* GameLocationHand.swift */,
 				052D9AE01EFE2A3500883F82 /* GameLocationDiscard.swift */,
@@ -473,6 +479,8 @@
 				0D7E18AA1CB379FB00FE94E2 /* Deck.swift in Sources */,
 				052D9AD91EFE200E00883F82 /* TTLLocationHand.swift in Sources */,
 				0D51BED61CE273F800E4E02C /* CardInfo.swift in Sources */,
+				050A1E591F047D2500FD1C97 /* GamePhase.swift in Sources */,
+				050A1E571F047D0400FD1C97 /* TTLPhase.swift in Sources */,
 				0DB571561CB1E0A30000A898 /* Hand.swift in Sources */,
 				052D9AD51EFE1EDF00883F82 /* TTLCard.swift in Sources */,
 				052D9ADF1EFE2A1900883F82 /* GameLocationHand.swift in Sources */,

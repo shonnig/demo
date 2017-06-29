@@ -73,9 +73,23 @@ class GameScene: TTLGameScene {
     static var sCurrentScene: GameScene?
     static var sCurrentView: SKView?
     
+    var mCurrentPhase = GamePhase()
+    
     let mPlayer = GamePlayer()
     
+    
+    static func getPlayer() -> GamePlayer {
+        return GameScene.sCurrentScene!.mPlayer
+    }
+    
+    static func setPhase(_ new: GamePhase) {
+        GameScene.sCurrentScene?.mCurrentPhase = new
+        new.enter()
+    }
+    
     override func update(_ currentTime: TimeInterval) {
+        
+        mCurrentPhase.update()
         
         /*
         if let p1 = player, let p2 = opponent {
@@ -168,6 +182,8 @@ class GameScene: TTLGameScene {
             card.setZ(1000) // TODO
             mPlayer.mHand.addCard(card)
         }
+        
+        mCurrentPhase = GamePhaseInit()
         
         /*
          // For finding out available fonts

@@ -10,4 +10,14 @@ import Foundation
 
 class GameLocationHand: TTLLocationHand {
     
+    
+    func updateValidChoices(_ mana: Int) {
+        
+        for card in mCards{
+            let gc = card as! GameCard
+            let valid = (gc.mCost <= mana)
+            gc.setHighlight(valid)
+            gc.setValidPlay(valid)
+        }
+    }
 }

@@ -16,7 +16,7 @@ class GameLocationDiscard: TTLLocationDiscard {
         super.init(texture: SKTexture(imageNamed: "discard.png"), color: UIColor.white, size: CGSize(width: GameCard.sWidth, height: GameCard.sHeight))
         // TODO: investigate this?
         colorBlendFactor = 0.2
-        zPosition = 1000
+        zPosition = 500
     }
     
     required init?(coder aDecoder: NSCoder) {
