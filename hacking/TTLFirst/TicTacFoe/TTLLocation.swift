@@ -11,4 +11,21 @@ import SpriteKit
 
 class TTLLocation: SKSpriteNode {
     
+    func revert() {
+        
+    }
+    
+    func addCard(_ card: TTLCard) {
+    }
+    
+    func removeCard(_ card: TTLCard) {
+    }
+    
+    func isValidPlay(_ card: TTLCard) -> UIColor? {
+        return nil
+    }
+    
+    func play(_ card: TTLCard) {
+        
+    }
 }

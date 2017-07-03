@@ -51,8 +51,8 @@ class GameScene: TTLGameScene {
     var opponent: Player?
     var tiles = [Tile]()
     static let side: CGFloat = 140.0
-    var promptLabel: SKLabelNode?
-    var doneButton: FTButtonNode?
+
+
     var skipRally = false
  
     
@@ -72,6 +72,8 @@ class GameScene: TTLGameScene {
     
     static var sCurrentScene: GameScene?
     static var sCurrentView: SKView?
+    
+    var doneButton: FTButtonNode?
     
     var mCurrentPhase = GamePhase()
     
@@ -173,6 +175,16 @@ class GameScene: TTLGameScene {
         background.zPosition = ZPosition.background.rawValue
         addChild(background)
         
+        let buttonImg = SKTexture(imageNamed: "done.png")
+        //doneButton = FTButtonNode(normalTexture: buttonImg, selectedTexture: buttonImg, disabledTexture: buttonImg)
+        doneButton = FTButtonNode(defaultTexture: buttonImg)
+        doneButton!.position = CGPoint(x: 980, y: 300)
+        doneButton!.zPosition = ZPosition.buttonUI.rawValue
+        doneButton!.isUserInteractionEnabled = true
+        doneButton!.isHidden = false
+        doneButton!.setScale(0.15)
+        addChild(doneButton!)
+        
         mPlayer.setup()
         
         // TODO: temp
@@ -198,16 +210,6 @@ class GameScene: TTLGameScene {
          // Init card info
          CardInfo.initInfo()
          HeroInfo.initInfo()
-         
-        let buttonImg = SKTexture(imageNamed: "done.png")
-        //doneButton = FTButtonNode(normalTexture: buttonImg, selectedTexture: buttonImg, disabledTexture: buttonImg)
-        doneButton = FTButtonNode(defaultTexture: buttonImg)
-        doneButton!.position = CGPoint(x: 980, y: 740)
-        doneButton!.zPosition = ZPosition.buttonUI.rawValue
-        doneButton!.isUserInteractionEnabled = false
-        doneButton!.isHidden = true
-        doneButton!.setScale(0.15)
-        addChild(doneButton!)
         
         player = Player(scene: self, _isPlayer: true)
         opponent = Player(scene: self, _isPlayer: false)
@@ -215,14 +217,7 @@ class GameScene: TTLGameScene {
         player!.otherPlayer = opponent
         opponent!.otherPlayer = player
         
-        // Add label prompting action from player
-        promptLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
-        promptLabel!.text = "Rally Two Actions"
-        promptLabel!.fontSize = 30
-        promptLabel!.fontColor = UIColor.yellow
-        promptLabel!.zPosition = ZPosition.hudUI.rawValue
-        promptLabel!.position = CGPoint(x: 500,y: 740)
-        addChild(promptLabel!)
+
          */
     }
     

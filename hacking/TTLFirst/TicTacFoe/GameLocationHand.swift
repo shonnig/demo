@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class GameLocationHand: TTLLocationHand {
     
@@ -16,7 +17,11 @@ class GameLocationHand: TTLLocationHand {
         for card in mCards{
             let gc = card as! GameCard
             let valid = (gc.mCost <= mana)
-            gc.setHighlight(valid)
+            if valid {
+                gc.setHighlight(UIColor.green)
+            } else {
+                gc.setHighlight(nil)
+            }
             gc.setValidPlay(valid)
         }
     }

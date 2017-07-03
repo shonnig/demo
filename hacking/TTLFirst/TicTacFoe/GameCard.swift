@@ -60,11 +60,6 @@ class GameCard: TTLCard {
             cost.position = CGPoint(x: -55, y: 80)
             addChild(cost)
         }
-        
-        // TODO: temp
-        //if mCost < 2 {
-        //    setHighlight(true)
-        //}
     }
     
 

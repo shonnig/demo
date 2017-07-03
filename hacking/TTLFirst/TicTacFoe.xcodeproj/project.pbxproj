@@ -209,6 +209,7 @@
 				052D9AD41EFE1EDF00883F82 /* TTLCard.swift */,
 				05279C101E668E3600E93B7C /* MKOutlinedLabelNode.swift */,
 				050A1E541F00ABD300FD1C97 /* GlowFilter.swift */,
+				0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */,
 			);
 			name = TTL;
 			sourceTree = "<group>";
@@ -244,7 +245,6 @@
 		058704951E29EE2600DAE208 /* Old */ = {
 			isa = PBXGroup;
 			children = (
-				0D76DDDE1CD5CA50003687B9 /* FTButtonNode.swift */,
 				5189A32D1BA8C3F4004A19F3 /* Helper.swift */,
 				0D31CC601CBD6E06005B6B72 /* Player.swift */,
 				0DDBFB321CAEEF7D0015AE00 /* Tile.swift */,

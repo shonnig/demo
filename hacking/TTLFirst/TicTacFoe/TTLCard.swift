@@ -24,7 +24,7 @@ class TTLCard: SKSpriteNode {
     
     var mIsDragged = false
     
-    var mHand: TTLLocationHand?
+    var mLocation: TTLLocation?
     
     static var sInteractionLockCount = 0
     
@@ -35,7 +35,7 @@ class TTLCard: SKSpriteNode {
     init() {
         super.init(texture: SKTexture(imageNamed: GameCard.sFrameImage), color: UIColor.white, size: CGSize(width: GameCard.sWidth, height: GameCard.sHeight))
         // TODO: investigate this?
-        colorBlendFactor = 0.2
+        //colorBlendFactor = 0.2
         
         // Highlight effect. Card node is actually a child of this effect.
         mHighlight = SKEffectNode()
@@ -54,6 +54,10 @@ class TTLCard: SKSpriteNode {
         
         // allow the Card to intercept touches instead of passing them through the scene
         isUserInteractionEnabled = true
+    }
+    
+    func setLocation(_ location: TTLLocation?) {
+        mLocation = location
     }
     
     func canInteract() -> Bool {
@@ -80,9 +84,9 @@ class TTLCard: SKSpriteNode {
         mValidPlay = valid
     }
     
-    func setHighlight(_ enabled: Bool) {
-        if enabled {
-            mGlowFilter?.glowColor = GameCard.sHighlightColor.withAlphaComponent(0.9)
+    func setHighlight(_ color: UIColor?) {
+        if let c = color {
+            mGlowFilter?.glowColor = c.withAlphaComponent(0.9)
         } else {
             mGlowFilter?.glowColor = GameCard.sHighlightColor.withAlphaComponent(0.0)
         }
@@ -124,17 +128,27 @@ class TTLCard: SKSpriteNode {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if canInteract() {
             if let newTouch = touches.first?.location(in: scene!), let origTouch = mOriginalTouch {
-                // End zoom if moved about X pixels from first touch
-                let tolerance = CGFloat(10)
-                if abs(newTouch.x - origTouch.x) > tolerance || abs(newTouch.y - origTouch.y) > tolerance {
-                    setZoom(false)
-                    
-                    if mValidPlay {
-                        position = newTouch
-                        if !mIsDragged {
-                            mIsDragged = true
-                            setHighlight(false)
-                            modZ(5000)
+                
+                if !mIsDragged {
+                    // End zoom if moved about X pixels from first touch
+                    let tolerance = CGFloat(10)
+                    if abs(newTouch.x - origTouch.x) > tolerance || abs(newTouch.y - origTouch.y) > tolerance {
+                        setZoom(false)
+                        mIsDragged = true
+                        modZ(5000)
+                    }
+                }
+
+                if mIsDragged {
+                    setHighlight(nil)
+                    position = newTouch
+                    let nodes = scene?.nodes(at: newTouch)
+                    for node in nodes! {
+                        if node is TTLLocation {
+                            let location = node as! TTLLocation
+                            let highlight = location.isValidPlay(self)
+                            setHighlight(highlight)
+                            break
                         }
                     }
                 }
@@ -148,8 +162,22 @@ class TTLCard: SKSpriteNode {
         // TODO
         if mIsDragged {
             mIsDragged = false
-            mHand?.repositionCards()
-            // TODO: hack
+            
+            if let newTouch = touches.first?.location(in: scene!) {
+                position = newTouch
+                let nodes = scene?.nodes(at: newTouch)
+                for node in nodes! {
+                    if node is TTLLocation {
+                        let location = node as! TTLLocation
+                        location.play(self)
+                        break
+                    }
+                }
+            }
+            
+            mLocation?.revert()
+
+            // TODO: hacky here, don't allow game specific here
             GameScene.getPlayer().updateValidChoices()
         }
     }

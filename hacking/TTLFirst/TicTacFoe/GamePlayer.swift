@@ -11,7 +11,13 @@ import SpriteKit
 
 class GamePlayer: TTLPlayer {
     
-    var mMana = 3 // TODO
+    var mMana = 0 {
+        didSet {
+            manaLabel?.text = "\(mMana)"
+        }
+    }
+    
+    var manaLabel: SKLabelNode?
     
     let mHand = GameLocationHand()
     
@@ -20,6 +26,14 @@ class GamePlayer: TTLPlayer {
     let mDeck = GameLocationDeck()
     
     func setup() {
+        
+        manaLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        manaLabel!.text = "\(mMana)"
+        manaLabel!.fontSize = 30
+        manaLabel!.fontColor = UIColor.yellow
+        manaLabel!.zPosition = ZPosition.hudUI.rawValue
+        manaLabel!.position = CGPoint(x: 50,y: 300)
+        GameScene.sCurrentScene?.addChild(manaLabel!)
         
         mDeck.position = CGPoint(x: 900, y: 100)
         mDiscard.position = CGPoint(x: 100, y: 100)

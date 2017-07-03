@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class TTLLocationHand {
+class TTLLocationHand: TTLLocation {
     
     // Adjust as needed?
     let mMaxHandSize = 7
@@ -20,11 +20,23 @@ class TTLLocationHand {
     
     var mInProgress = false
     
-    func addCard(_ card: TTLCard) {
+    override func addCard(_ card: TTLCard) {
         // TODO: check max hand size
         
         mCards.append(card)
-        card.mHand = self
+        card.setLocation(self)
+        repositionCards()      // TODO: do this here?
+    }
+    
+    override func removeCard(_ card: TTLCard) {
+        if let index = mCards.index(of: card) {
+            mCards.remove(at: index)
+            card.setLocation(nil)
+            repositionCards() // TODO: do this here?
+        }
+    }
+    
+    override func revert() {
         repositionCards()
     }
     
