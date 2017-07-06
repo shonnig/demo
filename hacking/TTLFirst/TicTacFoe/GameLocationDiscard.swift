@@ -11,11 +11,20 @@ import SpriteKit
 
 class GameLocationDiscard: TTLLocationDiscard {
     
+    var countLabel: SKLabelNode?
+    
     init() {
         super.init(texture: SKTexture(imageNamed: "discard.png"), color: UIColor.white, size: CGSize(width: GameCard.sWidth, height: GameCard.sHeight))
-        // TODO: investigate this?
-        //colorBlendFactor = 0.2
+
         zPosition = 500
+        
+        countLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        countLabel!.text = "\(getSize())"
+        countLabel!.fontSize = 30
+        countLabel!.fontColor = UIColor.yellow
+        countLabel!.zPosition = ZPosition.hudUI.rawValue
+        countLabel!.position = CGPoint(x: 50, y: -80)
+        addChild(countLabel!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +39,11 @@ class GameLocationDiscard: TTLLocationDiscard {
         // player is discarding the card
         card.mLocation?.removeCard(card)
         addCard(card)
-        card.isHidden = true   // TODO: animate card into discard pile... maybe fade over time?
+        // TODO: animate effect to demonstrate mana gain
         GameScene.getPlayer().mMana += 1
+    }
+    
+    override func sizeUpdated() {
+        countLabel!.text = "\(getSize())"
     }
 }

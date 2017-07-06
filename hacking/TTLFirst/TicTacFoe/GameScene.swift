@@ -187,12 +187,13 @@ class GameScene: TTLGameScene {
         
         mPlayer.setup()
         
-        // TODO: temp
-        for i in 0...6 {
+        // TODO: temp initial deck
+        for _ in 0...9 {
             let card = GameCard()
-            card.position = CGPoint(x: 300 + i * 100, y: 300 + i * 100)
-            card.setZ(1000) // TODO
-            mPlayer.mHand.addCard(card)
+            card.position = mPlayer.mDeck.position
+            //card.setZ(1000) // TODO
+            mPlayer.mDeck.addCard(card)
+            
         }
         
         mCurrentPhase = GamePhaseInit()

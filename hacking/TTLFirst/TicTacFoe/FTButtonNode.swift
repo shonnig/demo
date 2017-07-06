@@ -105,7 +105,8 @@ class FTButtonNode: SKSpriteNode {
         if (frame.contains(touchLocation) ) {
             // notify scene button was pushed
             let gameScene = scene as! GameScene
-            gameScene.skipRally = true
+            // TODO: get game specific stuff out of button code
+            gameScene.mCurrentPhase.endButton()
         }
         
     }

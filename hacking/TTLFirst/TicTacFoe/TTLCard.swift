@@ -34,8 +34,6 @@ class TTLCard: SKSpriteNode {
     
     init() {
         super.init(texture: SKTexture(imageNamed: GameCard.sFrameImage), color: UIColor.white, size: CGSize(width: GameCard.sWidth, height: GameCard.sHeight))
-        // TODO: investigate this?
-        //colorBlendFactor = 0.2
         
         // Highlight effect. Card node is actually a child of this effect.
         mHighlight = SKEffectNode()
@@ -159,7 +157,6 @@ class TTLCard: SKSpriteNode {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         setZoom(false)
         
-        // TODO
         if mIsDragged {
             mIsDragged = false
             

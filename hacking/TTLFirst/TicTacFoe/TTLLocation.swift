@@ -11,8 +11,19 @@ import SpriteKit
 
 class TTLLocation: SKSpriteNode {
     
+    // Animation/action in progress
+    var mInProgress = false
+    
+    var mCards: [TTLCard] = []
+    
+    func getSize() -> Int {
+        return mCards.count
+    }
+    
+    func sizeUpdated() {
+    }
+    
     func revert() {
-        
     }
     
     func addCard(_ card: TTLCard) {
@@ -28,4 +39,5 @@ class TTLLocation: SKSpriteNode {
     func play(_ card: TTLCard) {
         
     }
+    
 }

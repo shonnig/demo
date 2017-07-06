@@ -19,6 +19,7 @@ class GamePlayer: TTLPlayer {
     
     var manaLabel: SKLabelNode?
     
+    // TODO: Move some of these to TTLPlayer?
     let mHand = GameLocationHand()
     
     let mDiscard = GameLocationDiscard()
@@ -47,4 +48,24 @@ class GamePlayer: TTLPlayer {
         mHand.updateValidChoices(mMana)
     }
     
+    func drawUpTo(_ num: Int) {
+        
+        while mHand.getSize() < num {
+            if let topDeck = mDeck.draw() {
+                mHand.addCard(topDeck)
+            } else {
+                if mDiscard.getSize() < 1 {
+                    // No cards left in deck or discard, out of luck!
+                    break
+                } else {
+                    // Shuffle discard into deck
+                    let cards = mDiscard.removeAll()
+                    mDeck.addCards(cards)
+                    mDeck.shuffle()
+                }
+            }
+        }
+        
+        mHand.repositionCards()
+    }
 }

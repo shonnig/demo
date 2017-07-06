@@ -10,26 +10,34 @@ import Foundation
 import SpriteKit
 
 class TTLLocationDiscard: TTLLocation {
-    
-    var mCards: [TTLCard] = []
-    
-    var mInProgress = false
+
     
     override func addCard(_ card: TTLCard) {
         mCards.append(card)
         card.setLocation(self)
         throwIn(card)
+        sizeUpdated()
     }
     
     override func removeCard(_ card: TTLCard) {
         if let index = mCards.index(of: card) {
             mCards.remove(at: index)
             card.setLocation(nil)
+            sizeUpdated()
         }
     }
     
+    func removeAll() -> [TTLCard] {
+        let cards = [TTLCard](mCards)
+        mCards = []
+        sizeUpdated()
+        return cards
+    }
+    
+    // TODO: for animating card going into discard. Rename?
     func throwIn(_ card: TTLCard) {
-        
+        card.isHidden = true
+        card.position = position
     }
     
 }

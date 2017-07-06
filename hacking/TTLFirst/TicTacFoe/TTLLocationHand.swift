@@ -16,16 +16,14 @@ class TTLLocationHand: TTLLocation {
     let mMaximumWidth = 384
     let mMaximumSeparation = 150
     
-    var mCards: [TTLCard] = []
-    
-    var mInProgress = false
-    
     override func addCard(_ card: TTLCard) {
         // TODO: check max hand size
         
         mCards.append(card)
         card.setLocation(self)
+        card.isHidden = false
         repositionCards()      // TODO: do this here?
+        sizeUpdated()
     }
     
     override func removeCard(_ card: TTLCard) {
@@ -33,6 +31,7 @@ class TTLLocationHand: TTLLocation {
             mCards.remove(at: index)
             card.setLocation(nil)
             repositionCards() // TODO: do this here?
+            sizeUpdated()
         }
     }
     
