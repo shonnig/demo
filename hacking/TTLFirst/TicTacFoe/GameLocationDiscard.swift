@@ -20,10 +20,10 @@ class GameLocationDiscard: TTLLocationDiscard {
         
         countLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
         countLabel!.text = "\(getSize())"
-        countLabel!.fontSize = 30
+        countLabel!.fontSize = 20
         countLabel!.fontColor = UIColor.yellow
         countLabel!.zPosition = ZPosition.hudUI.rawValue
-        countLabel!.position = CGPoint(x: 50, y: -80)
+        countLabel!.position = CGPoint(x: 40, y: -60)
         addChild(countLabel!)
     }
     
@@ -31,7 +31,7 @@ class GameLocationDiscard: TTLLocationDiscard {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func isValidPlay(_ card: TTLCard) -> UIColor {
+    override func isValidPlay(_ card: TTLCard) -> UIColor? {
         return UIColor.red
     }
     

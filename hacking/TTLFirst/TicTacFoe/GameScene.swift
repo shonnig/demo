@@ -73,7 +73,9 @@ class GameScene: TTLGameScene {
     static var sCurrentScene: GameScene?
     static var sCurrentView: SKView?
     
-    var doneButton: FTButtonNode?
+    var mDoneButton: FTButtonNode?
+    
+    var mBoard: GameLocationBoard?
     
     var mCurrentPhase = GamePhase()
     
@@ -82,6 +84,10 @@ class GameScene: TTLGameScene {
     
     static func getPlayer() -> GamePlayer {
         return GameScene.sCurrentScene!.mPlayer
+    }
+    
+    static func getBoard() -> GameLocationBoard {
+        return GameScene.sCurrentScene!.mBoard!
     }
     
     static func setPhase(_ new: GamePhase) {
@@ -175,15 +181,21 @@ class GameScene: TTLGameScene {
         background.zPosition = ZPosition.background.rawValue
         addChild(background)
         
+        mBoard = GameLocationBoard()
+        mBoard?.position = CGPoint(x: 512, y: 384)
+        mBoard?.zPosition = 500
+        mBoard?.isUserInteractionEnabled = true
+        mBoard?.isHidden = false
+        addChild(mBoard!)
+        
         let buttonImg = SKTexture(imageNamed: "done.png")
-        //doneButton = FTButtonNode(normalTexture: buttonImg, selectedTexture: buttonImg, disabledTexture: buttonImg)
-        doneButton = FTButtonNode(defaultTexture: buttonImg)
-        doneButton!.position = CGPoint(x: 980, y: 300)
-        doneButton!.zPosition = ZPosition.buttonUI.rawValue
-        doneButton!.isUserInteractionEnabled = true
-        doneButton!.isHidden = false
-        doneButton!.setScale(0.15)
-        addChild(doneButton!)
+        mDoneButton = FTButtonNode(defaultTexture: buttonImg)
+        mDoneButton!.position = CGPoint(x: 980, y: 170)
+        mDoneButton!.zPosition = ZPosition.buttonUI.rawValue
+        mDoneButton!.isUserInteractionEnabled = true
+        mDoneButton!.isHidden = false
+        mDoneButton!.setScale(0.15)
+        addChild(mDoneButton!)
         
         mPlayer.setup()
         

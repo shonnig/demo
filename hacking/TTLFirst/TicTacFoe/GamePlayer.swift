@@ -33,11 +33,11 @@ class GamePlayer: TTLPlayer {
         manaLabel!.fontSize = 30
         manaLabel!.fontColor = UIColor.yellow
         manaLabel!.zPosition = ZPosition.hudUI.rawValue
-        manaLabel!.position = CGPoint(x: 50,y: 300)
+        manaLabel!.position = CGPoint(x: 50,y: 160)
         GameScene.sCurrentScene?.addChild(manaLabel!)
         
-        mDeck.position = CGPoint(x: 900, y: 100)
-        mDiscard.position = CGPoint(x: 100, y: 100)
+        mDeck.position = CGPoint(x: 900, y: 70)
+        mDiscard.position = CGPoint(x: 100, y: 70)
         if let scene = GameScene.sCurrentScene {
             scene.addChild(mDeck)
             scene.addChild(mDiscard)

@@ -37,6 +37,7 @@ class GamePhaseNewTurn: GamePhase {
         
         GameScene.getPlayer().drawUpTo(5)
         GameScene.getPlayer().updateValidChoices()
+        GameScene.getBoard().updateValidChoices(0)
         
         GameScene.setPhase(GamePhaseCardPlay())
     }
@@ -46,6 +47,7 @@ class GamePhaseCardPlay: GamePhase {
     
     override func enter() {
         GameScene.getPlayer().updateValidChoices()
+        GameScene.getBoard().updateValidChoices(0)
     }
     
     override func update() {
@@ -64,6 +66,7 @@ class GamePhaseEndTurn: GamePhase {
         // Remove remaining mana
         GameScene.getPlayer().mMana = 0
         GameScene.getPlayer().updateValidChoices()
+        GameScene.getBoard().updateValidChoices(0)
         
         // TODO: Just start a new turn, for now
         GameScene.setPhase(GamePhaseNewTurn())

@@ -14,8 +14,8 @@ class GameCard: TTLCard {
     
     static let sFont = "ArialRoundedMTBold"
     static let sFrameImage = "cardfront.png"
-    static let sWidth = 140
-    static let sHeight = 200
+    static let sWidth = 100
+    static let sHeight = 140
     static let sHighlightColor = UIColor.green
     
     var mCost = 0
@@ -37,7 +37,7 @@ class GameCard: TTLCard {
         super.init()
         
         // Add the title label
-        mTitleLabel = MKOutlinedLabelNode(fontNamed: GameCard.sFont, fontSize: 16)
+        mTitleLabel = MKOutlinedLabelNode(fontNamed: GameCard.sFont, fontSize: 14)
         if let title = mTitleLabel {
             title.outlinedText = titleText
             title.fontColor = UIColor.white
@@ -45,19 +45,19 @@ class GameCard: TTLCard {
             title.borderWidth = 0
             //title.zPosition = ZPosition.cardLabel.rawValue - ZPosition.inPlay.rawValue
             title.zPosition = 10 // TODO
-            title.position = CGPoint(x: 0, y: -15)
+            title.position = CGPoint(x: 0, y: -12)
             addChild(title)
         }
         
         // Add the cost label
-        mCostLabel = MKOutlinedLabelNode(fontNamed: GameCard.sFont, fontSize: 20)
+        mCostLabel = MKOutlinedLabelNode(fontNamed: GameCard.sFont, fontSize: 16)
         if let cost = mCostLabel {
             cost.outlinedText = "\(mCost)"
             cost.fontColor = UIColor.white
             cost.borderColor = UIColor.black
             cost.borderWidth = 0
             cost.zPosition = 10
-            cost.position = CGPoint(x: -55, y: 80)
+            cost.position = CGPoint(x: -40, y: 55)
             addChild(cost)
         }
     }

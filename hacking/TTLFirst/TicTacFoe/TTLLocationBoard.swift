@@ -1,20 +1,20 @@
 //
-//  TTLLocationHand.swift
+//  TTLLocationBoard.swift
 //  TicTacFoe
 //
-//  Created by Scott Honnigford on 6/23/17.
+//  Created by Scott Honnigford on 7/5/17.
 //  Copyright © 2017 Paul Hudson. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 
-class TTLLocationHand: TTLLocation {
+class TTLLocationBoard: TTLLocation {
     
     // Adjust as needed?
-    let mMaxHandSize = 7
-    let mMaximumWidth = 384
-    let mMaximumSeparation = 110
+    let mMaxBoardSize = 6
+    let mMaximumWidth = 576
+    let mMaximumSeparation = 160
     
     override func addCard(_ card: TTLCard) {
         // TODO: check max hand size
@@ -61,16 +61,16 @@ class TTLLocationHand: TTLLocation {
             mCards[0].run(sequence, withKey: "reenable")
         }
         
-        let y = GameCard.sHeight / 2
+        let y = 300
         var separation = 0
-
+        
         if mCards.count > 1 {
             separation = mMaximumWidth / (mCards.count - 1)
             if separation > mMaximumSeparation {
                 separation = mMaximumSeparation
             }
         }
-
+        
         var x = 512 - ((separation * (mCards.count - 1)) / 2)
         var z = 1000 // TODO
         

@@ -78,6 +78,7 @@ class TTLCard: SKSpriteNode {
         mHighlight?.zPosition += CGFloat(z)
     }
     
+    // TODO: not using this yet... do we want to use this?
     func setValidPlay(_ valid: Bool) {
         mValidPlay = valid
     }
@@ -93,17 +94,17 @@ class TTLCard: SKSpriteNode {
     func moveTo(_ x: Int, _ y: Int) {
         // TODO: stop animation in progress? Only for movement?
         
-        let moveTo = SKAction.move(to: CGPoint(x: x, y: y), duration: 0.3)
+        let moveTo = SKAction.move(to: CGPoint(x: x, y: y), duration: 0.4)
         moveTo.timingMode = SKActionTimingMode.easeInEaseOut;
         run(moveTo, withKey: "move")
     }
     
     func setZoom(_ enabled: Bool) {
         if enabled && !mZoomed{
-            setScale(2) // TODO
+            setScale(2.5) // TODO
             modZ(5000) // TODO
             mOriginalPosition = position
-            position = CGPoint(x: position.x, y: 400) // TODO
+            position = CGPoint(x: position.x, y: 315) // TODO
             mZoomed = true
         } else if !enabled && mZoomed {
             setScale(1) // TODO
@@ -166,6 +167,7 @@ class TTLCard: SKSpriteNode {
                 for node in nodes! {
                     if node is TTLLocation {
                         let location = node as! TTLLocation
+                        // If card can't be played here, just don't do anything and it will go back
                         location.play(self)
                         break
                     }

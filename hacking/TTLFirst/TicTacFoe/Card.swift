@@ -293,8 +293,8 @@ class Card : SKSpriteNode {
                 
                 // Show "done" button so they may skip this if they want
                 let gameScene = scene as! GameScene
-                gameScene.doneButton?.isHidden = false
-                gameScene.doneButton?.isUserInteractionEnabled = true
+                gameScene.mDoneButton?.isHidden = false
+                gameScene.mDoneButton?.isUserInteractionEnabled = true
             }
         }
     }
